@@ -1,4 +1,4 @@
-C51 COMPILER V8.08   MAIN                                                                  07/22/2017 19:31:16 PAGE 1   
+C51 COMPILER V8.08   MAIN                                                                  07/22/2017 20:46:26 PAGE 1   
 
 
 C51 COMPILER V8.08, COMPILATION OF MODULE MAIN
@@ -25,23 +25,23 @@ line level    source
   16          
   17          void main()
   18          {
-  19   1              uchar h1[1]={0};
-  20   1              uchar h0[1]={0};
-  21   1              uchar m1[1]={0};
-  22   1              uchar m0[1]={0};
-  23   1              uchar s1[1]={0};
-  24   1              uchar s0[1]={0};        //存放时分秒
-  25   1              uchar hour1=0, hour0=0, min1=0, min0=0, sec1=0, sec0=0;
+  19   1              uchar h1[]={0,0,0};
+  20   1              uchar h0[]={0,0,0};
+  21   1              uchar m1[]={0,0,0};
+  22   1              uchar m0[]={0,0,0};
+  23   1              uchar s1[]={0,0,0};
+  24   1              uchar s0[]={0,0,0};     //存放时分秒
+  25   1              uchar hour1=2, hour0=0, min1=4, min0=4, sec1=3, sec0=5;
   26   1              uchar Time[]={0, 0, 0, 0, 0, 0};
   27   1              
   28   1              uchar i=0;              //i与Time数组有关
-  29   1              uint x=0, y=0;  //存放x,y坐标
+  29   1              long x=0, y=0;  //存放x,y坐标
   30   1              uchar set=0, back=0;  //设置时间，返回主时钟
   31   1              
   32   1              h1[0]=hour1+'0';
-  33   1              //h0[0]=hour0+'0';
-  34   1              //m1[0]=min1+'0';
-  35   1              //m0[0]=min0+'0';
+  33   1              h0[0]=hour0+'0';
+  34   1              m1[0]=min1+'0';
+  35   1              m0[0]=min0+'0';
   36   1              s1[0]=sec1+'0';
   37   1              s0[0]=sec0+'0';
   38   1      
@@ -53,157 +53,167 @@ line level    source
   44   1      
   45   1              //GUI_WriteASCII2(20, 100, h1, 0xF800, 0x0000);
   46   1      
-  47   1              //GUI_WriteASCII(20, 100, "3", 0xF800, 0x0000);  //h1                           
-  48   1              //GUI_WriteASCII(36, 170, h0, 0xF800, 0x0000);   //h0                                   
-  49   1              //GUI_WriteASCII(46, 170, m1, 0xF800, 0x0000);   //m1                           
-  50   1              //GUI_WriteASCII(62, 170, m0, 0xF800, 0x0000);   //m0                                   
-  51   1              GUI_WriteASCII(72, 170, s1, 0xF800, 0x0000);     //s1                           
-  52   1              //GUI_WriteASCII(88, 170, s0, 0xF800, 0x0000);   //s0                           
-  53   1              GUI_WriteASCII(127, 0, "SET", 0x001F, 0x0000);           //设置按钮
+  47   1              GUI_WriteASCII2(10, 100, h1, 0xF800, 0x0000);    //h1                           
+  48   1              GUI_WriteASCII2(30, 100, h0, 0xF800, 0x0000);    //h0
+  49   1      
+  50   1              GUI_WriteASCII2(50, 94, ":", 0xF800, 0x0000);
+  51   1                                                      
+  52   1              GUI_WriteASCII2(70, 100, m1, 0xF800, 0x0000);    //m1                           
+  53   1              GUI_WriteASCII2(90, 100, m0, 0xF800, 0x0000);    //m0
   54   1      
-  55   1               while(1)
-C51 COMPILER V8.08   MAIN                                                                  07/22/2017 19:31:16 PAGE 2   
+  55   1              GUI_WriteASCII2(110, 94, ":", 0xF800, 0x0000);
+C51 COMPILER V8.08   MAIN                                                                  07/22/2017 20:46:26 PAGE 2   
 
-  56   1               {
-  57   2                      
-  58   2                      /*时钟界面*/
-  59   2                      if(back==1)
-  60   2                      {
-  61   3                              TFT_ClearScreen(0x0000);
-  62   3                              GUI_ShowPicture(0, 0, 150, 150);
-  63   3                              GUI_WriteASCII(20, 94, h1, 0xF800, 0x0000);      //h1                           
-  64   3                              GUI_WriteASCII(36, 94, h0, 0xF800, 0x0000);      //h0
-  65   3                                                              
-  66   3                              GUI_WriteASCII(46, 94, m1, 0xF800, 0x0000);      //m1                           
-  67   3                              GUI_WriteASCII(62, 94, m0, 0xF800, 0x0000);      //m0
-  68   3                                                              
-  69   3                              GUI_WriteASCII(72, 94, s1, 0xF800, 0x0000);      //s1                           
-  70   3                              GUI_WriteASCII(88, 94, s0, 0xF800, 0x0000);      //s0                           
-  71   3                              GUI_WriteASCII(127, 0, "SET", 0x001F, 0x0000);           //设置按
-  72   3                      }
-  73   2      
-  74   2                      /*设置界面*/
-  75   2                      if(set==1)              
-  76   2                      {
-  77   3                              TFT_ClearScreen(0x0000);
-  78   3                              GUI_WriteASCII(47, 24, "CLOCK", 0xFFE0, 0x0000);          //x, y        
-  79   3                              //横线
-  80   3                              GUI_Line(20, 50, 155, 50, 0xF800);  //x, y, x, y
-  81   3                              GUI_Line(20, 90, 155, 90, 0xF800);  //x, y, x, y
-  82   3                              GUI_Line(20, 130, 155, 130, 0xF800);  //x, y, x, y
-  83   3                              GUI_Line(20, 170, 155, 170, 0xF800);  //x, y, x, y
-  84   3                              GUI_Line(20, 210, 155, 210, 0xF800);  //x, y, x, y      
-  85   3                              //竖线
-  86   3                              GUI_Line(65, 90, 65, 210, 0xF800);  //x, y, x, y
-  87   3                              GUI_Line(110, 50, 110, 210, 0xF800);  //x, y, x, y      
-  88   3                              //数字  x, y            
-  89   3                              GUI_WriteASCII(31, 94, "1", 0xF800, 0x0000);     //1
-  90   3                              GUI_WriteASCII(81, 94, "2", 0xF800, 0x0000);     //2
-  91   3                              GUI_WriteASCII(127, 94, "3", 0xF800, 0x0000);    //3
-  92   3                              GUI_WriteASCII(31, 134, "4", 0xF800, 0x0000);    //4
-  93   3                              GUI_WriteASCII(81, 134, "5", 0xF800, 0x0000);    //5
-  94   3                              GUI_WriteASCII(127, 134, "6", 0xF800, 0x0000);   //6
-  95   3                              GUI_WriteASCII(31, 174, "7", 0xF800, 0x0000);    //7
-  96   3                              GUI_WriteASCII(81, 174, "8", 0xF800, 0x0000);    //8
-  97   3                              GUI_WriteASCII(127, 174, "9", 0xF800, 0x0000);   //9
-  98   3                          GUI_WriteASCII(127, 58, "0", 0xF800, 0x0000);        //0    
-  99   3                              GUI_WriteASCII(111, 0, "BACK", 0x001F, 0x0000);  
- 100   3                              set = 0;
- 101   3                      }
- 102   2      
- 103   2                      if(TOUCH_XPT_ReadXY()==1)
- 104   2                      {
- 105   3                              /*转化*/
- 106   3                              x=xpt_xy.x;
- 107   3                              x=(x-304)*175/3422;
- 108   3                              y=xpt_xy.y;
- 109   3                              y=(y-256)*219/3440;
- 110   3                              
- 111   3                              if(x>174)
- 112   3                              {
- 113   4                                      x=174;
- 114   4                              }
- 115   3                              if(y>218)
- 116   3                              {
- 117   4                                      y=218;
-C51 COMPILER V8.08   MAIN                                                                  07/22/2017 19:31:16 PAGE 3   
+  56   1                                                      
+  57   1              GUI_WriteASCII2(130, 100, s1, 0xF800, 0x0000);   //s1                           
+  58   1              GUI_WriteASCII2(150, 100, s0, 0xF800, 0x0000);   //s0
+  59   1                                              
+  60   1              GUI_WriteASCII(127, 0, "SET", 0x001F, 0x0000);           //设置按钮
+  61   1      
+  62   1               while(1)
+  63   1               {
+  64   2                      
+  65   2                      /*返回时钟界面*/
+  66   2                      if(back==1)
+  67   2                      {
+  68   3                              TFT_ClearScreen(0x0000);
+  69   3                              //GUI_ShowPicture(0, 0, 150, 150);
+  70   3                              GUI_WriteASCII(20, 94, h1, 0xF800, 0x0000);      //h1                           
+  71   3                              GUI_WriteASCII(36, 94, h0, 0xF800, 0x0000);      //h0
+  72   3                                                              
+  73   3                              GUI_WriteASCII(46, 94, m1, 0xF800, 0x0000);      //m1                           
+  74   3                              GUI_WriteASCII(62, 94, m0, 0xF800, 0x0000);      //m0
+  75   3                                                              
+  76   3                              GUI_WriteASCII(72, 94, s1, 0xF800, 0x0000);      //s1                           
+  77   3                              GUI_WriteASCII(88, 94, s0, 0xF800, 0x0000);      //s0                           
+  78   3                              GUI_WriteASCII(127, 0, "SET", 0x001F, 0x0000);   //设置按扭
+  79   3                      }
+  80   2      
+  81   2                      /*进入设置界面*/
+  82   2                      if(set==1)              
+  83   2                      {
+  84   3                              
+  85   3                              TFT_ClearScreen(0x0000);
+  86   3                              GUI_WriteASCII(47, 24, "CLOCK", 0xFFE0, 0x0000);          //x, y        
+  87   3                              //横线
+  88   3                              GUI_Line(20, 50, 155, 50, 0xF800);  //x, y, x, y
+  89   3                              GUI_Line(20, 90, 155, 90, 0xF800);  //x, y, x, y
+  90   3                              GUI_Line(20, 130, 155, 130, 0xF800);  //x, y, x, y
+  91   3                              GUI_Line(20, 170, 155, 170, 0xF800);  //x, y, x, y
+  92   3                              GUI_Line(20, 210, 155, 210, 0xF800);  //x, y, x, y      
+  93   3                              //竖线
+  94   3                              GUI_Line(65, 90, 65, 210, 0xF800);  //x, y, x, y
+  95   3                              GUI_Line(110, 50, 110, 210, 0xF800);  //x, y, x, y      
+  96   3                              //数字  x, y            
+  97   3                              GUI_WriteASCII(31, 94, "1", 0xF800, 0x0000);     //1
+  98   3                              GUI_WriteASCII(81, 94, "2", 0xF800, 0x0000);     //2
+  99   3                              GUI_WriteASCII(127, 94, "3", 0xF800, 0x0000);    //3
+ 100   3                              GUI_WriteASCII(31, 134, "4", 0xF800, 0x0000);    //4
+ 101   3                              GUI_WriteASCII(81, 134, "5", 0xF800, 0x0000);    //5
+ 102   3                              GUI_WriteASCII(127, 134, "6", 0xF800, 0x0000);   //6
+ 103   3                              GUI_WriteASCII(31, 174, "7", 0xF800, 0x0000);    //7
+ 104   3                              GUI_WriteASCII(81, 174, "8", 0xF800, 0x0000);    //8
+ 105   3                              GUI_WriteASCII(127, 174, "9", 0xF800, 0x0000);   //9
+ 106   3                          GUI_WriteASCII(127, 58, "0", 0xF800, 0x0000);        //0    
+ 107   3                              GUI_WriteASCII(111, 0, "BACK", 0x001F, 0x0000); 
+ 108   3                               
+ 109   3                              set = 0;
+ 110   3                      }
+ 111   2      
+ 112   2                      if(TOUCH_XPT_ReadXY() == 1)
+ 113   2                      {
+ 114   3                              /*转化*/
+ 115   3                              x=xpt_xy.x;
+ 116   3                              x=(x-304)*175/3422;
+ 117   3                              y=xpt_xy.y;
+C51 COMPILER V8.08   MAIN                                                                  07/22/2017 20:46:26 PAGE 3   
 
- 118   4                              }
+ 118   3                              y=(y-256)*219/3440;
  119   3                              
- 120   3                              /*屏上数字*/
- 121   3                              if((x>115)&&(y<24))
- 122   3                              {
- 123   4                                      back=1;
- 124   4                              }
- 125   3                              if((x>115)&&(y<45)&&(y>85))       //0
- 126   3                              {
- 127   4                                      Time[i]=0;
- 128   4                                      i++;
- 129   4                              }
- 130   3                              if((x<60)&&(y<95)&&(y>135))       //1
- 131   3                              {
- 132   4                                      Time[i]=1;
- 133   4                                      i++;
+ 120   3                              if(x>174)
+ 121   3                              {
+ 122   4                                      x=174;
+ 123   4                              }
+ 124   3                              if(y>218)
+ 125   3                              {
+ 126   4                                      y=218;
+ 127   4                              }
+ 128   3                              
+ 129   3      
+ 130   3                              /*屏上数字*/
+ 131   3                              if((x>115)&&(y<24))
+ 132   3                              {
+ 133   4                                      set=1;
  134   4                              }
- 135   3                              if((x>70)&&(x<105)&&(y<95)&&(y>135)) //2
+ 135   3                              if((x>115)&&(y<45)&&(y>85))       //0
  136   3                              {
- 137   4                                      Time[i]=2;
+ 137   4                                      Time[i]=0;
  138   4                                      i++;
  139   4                              }
- 140   3                              if((x>115)&&(y<95)&&(y>135))  //3
+ 140   3                              if((x<60)&&(y<95)&&(y>135))       //1
  141   3                              {
- 142   4                                      Time[i]=3;
+ 142   4                                      Time[i]=1;
  143   4                                      i++;
  144   4                              }
- 145   3                              if((x<60)&&(y<145)&&(y>165))      //4
+ 145   3                              if((x>70)&&(x<105)&&(y<95)&&(y>135)) //2
  146   3                              {
- 147   4                                      Time[i]=4;
+ 147   4                                      Time[i]=2;
  148   4                                      i++;
  149   4                              }
- 150   3                              if((x>70)&&(x<105)&&(y<145)&&(y>165)) //5
+ 150   3                              if((x>115)&&(y<95)&&(y>135))  //3
  151   3                              {
- 152   4                                      Time[i]=5;
+ 152   4                                      Time[i]=3;
  153   4                                      i++;
  154   4                              }
- 155   3                              if((x>115)&&(y<145)&&(y>165)) //6
+ 155   3                              if((x<60)&&(y<145)&&(y>165))      //4
  156   3                              {
- 157   4                                      Time[i]=6;
+ 157   4                                      Time[i]=4;
  158   4                                      i++;
  159   4                              }
- 160   3                              if((x<60)&&(y<175)&(y>205))       //7
+ 160   3                              if((x>70)&&(x<105)&&(y<145)&&(y>165)) //5
  161   3                              {
- 162   4                                      Time[i]=7;
+ 162   4                                      Time[i]=5;
  163   4                                      i++;
  164   4                              }
- 165   3                              if((x>70)&&(x<105)&&(y<175)&&(y>205)) //8
+ 165   3                              if((x>115)&&(y<145)&&(y>165)) //6
  166   3                              {
- 167   4                                      Time[i]=8;
+ 167   4                                      Time[i]=6;
  168   4                                      i++;
  169   4                              }
- 170   3                              if((x>115)&&(y<175)&&(y>205)) //9
+ 170   3                              if((x<60)&&(y<175)&(y>205))       //7
  171   3                              {
- 172   4                                      Time[i]=9;
+ 172   4                                      Time[i]=7;
  173   4                                      i++;
  174   4                              }
- 175   3                              h1[0]=Time[0];
- 176   3                              h0[0]=Time[1];
- 177   3                              m1[0]=Time[2];
- 178   3                              m0[0]=Time[3];
- 179   3                              s1[0]=Time[4];
-C51 COMPILER V8.08   MAIN                                                                  07/22/2017 19:31:16 PAGE 4   
+ 175   3                              if((x>70)&&(x<105)&&(y<175)&&(y>205)) //8
+ 176   3                              {
+ 177   4                                      Time[i]=8;
+ 178   4                                      i++;
+ 179   4                              }
+C51 COMPILER V8.08   MAIN                                                                  07/22/2017 20:46:26 PAGE 4   
 
- 180   3                              s0[0]=Time[5];
- 181   3                      }
- 182   2               }
- 183   1      }
+ 180   3                              if((x>115)&&(y<175)&&(y>205)) //9
+ 181   3                              {
+ 182   4                                      Time[i]=9;
+ 183   4                                      i++;
+ 184   4                              }
+ 185   3                              h1[0]=Time[0];
+ 186   3                              h0[0]=Time[1];
+ 187   3                              m1[0]=Time[2];
+ 188   3                              m0[0]=Time[3];
+ 189   3                              s1[0]=Time[4];
+ 190   3                              s0[0]=Time[5];
+ 191   3                      }
+ 192   2               }
+ 193   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   1279    ----
-   CONSTANT SIZE    =     47    ----
+   CODE SIZE        =   1540    ----
+   CONSTANT SIZE    =     61    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----      25
+   DATA SIZE        =   ----      41
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
