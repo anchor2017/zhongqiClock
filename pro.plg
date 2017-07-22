@@ -1,0 +1,533 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\anchor\Desktop\´¥Ãþ²âÊÔ_×ÀÃæ\pro.uvproj
+Project File Date:  07/22/2017
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling main.c...
+compiling lcd_driver.c...
+compiling gui.c...
+compiling touch.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_GUI_WRITEASCII2?GUI
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1C9BH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1C9EH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CA8H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+    ADDRESS: 2379H
+Program Size: data=89.0 xdata=0 code=10679
+creating hex file from "pro"...
+"pro" - 0 Error(s), 8 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+compiling lcd_driver.c...
+compiling gui.c...
+compiling touch.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_GUI_WRITEASCII2?GUI
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1C9BH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1C9EH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CA8H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+    ADDRESS: 2379H
+Program Size: data=89.0 xdata=0 code=10679
+creating hex file from "pro"...
+"pro" - 0 Error(s), 8 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+compiling lcd_driver.c...
+compiling gui.c...
+compiling touch.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CA8H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CABH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CB5H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+    ADDRESS: 236AH
+Program Size: data=73.0 xdata=0 code=10683
+creating hex file from "pro"...
+"pro" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+compiling lcd_driver.c...
+compiling gui.c...
+compiling touch.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_GUI_WRITEASCII2?GUI
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1C95H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1C98H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CA2H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+    ADDRESS: 236FH
+Program Size: data=89.0 xdata=0 code=10673
+creating hex file from "pro"...
+"pro" - 0 Error(s), 8 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+compiling lcd_driver.c...
+compiling gui.c...
+compiling touch.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CA8H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CABH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CB5H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+    ADDRESS: 236AH
+Program Size: data=73.0 xdata=0 code=10683
+creating hex file from "pro"...
+"pro" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+compiling lcd_driver.c...
+compiling gui.c...
+compiling touch.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CA8H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CABH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CB5H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+    ADDRESS: 236AH
+Program Size: data=73.0 xdata=0 code=10685
+creating hex file from "pro"...
+"pro" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+compiling lcd_driver.c...
+compiling gui.c...
+compiling touch.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CA8H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CABH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CB5H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+    ADDRESS: 236AH
+Program Size: data=73.0 xdata=0 code=10685
+creating hex file from "pro"...
+"pro" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+compiling lcd_driver.c...
+compiling gui.c...
+compiling touch.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CA8H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CABH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CB5H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+    ADDRESS: 236AH
+Program Size: data=73.0 xdata=0 code=10685
+creating hex file from "pro"...
+"pro" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+compiling lcd_driver.c...
+compiling gui.c...
+compiling touch.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CA8H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CABH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CB5H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+    ADDRESS: 236AH
+Program Size: data=73.0 xdata=0 code=10685
+creating hex file from "pro"...
+"pro" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+compiling lcd_driver.c...
+compiling gui.c...
+compiling touch.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CA8H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CABH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CB5H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+    ADDRESS: 236AH
+Program Size: data=73.0 xdata=0 code=10685
+creating hex file from "pro"...
+"pro" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+compiling lcd_driver.c...
+compiling gui.c...
+compiling touch.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CA8H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CABH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CB5H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+    ADDRESS: 236AH
+Program Size: data=73.0 xdata=0 code=10685
+creating hex file from "pro"...
+"pro" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+compiling lcd_driver.c...
+compiling gui.c...
+compiling touch.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_GUI_WRITEASCII2?GUI
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1C9BH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1C9EH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1CA8H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+    ADDRESS: 2379H
+Program Size: data=89.0 xdata=0 code=10681
+creating hex file from "pro"...
+"pro" - 0 Error(s), 8 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+compiling lcd_driver.c...
+compiling gui.c...
+compiling touch.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_GUI_WRITEASCII2?GUI
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1C83H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1C86H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1C90H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+    ADDRESS: 2361H
+Program Size: data=89.0 xdata=0 code=10657
+creating hex file from "pro"...
+"pro" - 0 Error(s), 8 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+compiling lcd_driver.c...
+compiling gui.c...
+compiling touch.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_GUI_WRITEASCII2?GUI
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1C89H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1C8CH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1C96H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+    ADDRESS: 2367H
+Program Size: data=89.0 xdata=0 code=10663
+creating hex file from "pro"...
+"pro" - 0 Error(s), 8 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+compiling lcd_driver.c...
+compiling gui.c...
+compiling touch.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_GUI_WRITEASCII2?GUI
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1C89H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_GUI_SHOWPICTURE?BYTE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1C8CH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_SHOWPICTURE
+    MODULE:  main.obj (MAIN)
+    ADDRESS: 1C96H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _GUI_DOT
+    MODULE:  gui.obj (GUI)
+    ADDRESS: 2367H
+Program Size: data=89.0 xdata=0 code=10663
+creating hex file from "pro"...
+"pro" - 0 Error(s), 8 Warning(s).

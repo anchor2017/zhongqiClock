@@ -139,7 +139,7 @@ void GUI_WriteASCII2(uint x, uint y, uchar *p, uint wordColor, uint backColor)
 	uint color;
 	while(*p != '\0')
 	{
-		wordNum = *p;		  //数组加‘0’表示从数字0的首地址开始计数
+		wordNum = *p-48;		  //数组加‘0’表示从数字0的首地址开始计数
 		TFT_SetWindow(x,y,x+23, y+47);	  //字符大小 24*48
 		for (wordByte=0; wordByte<144; wordByte++)	 //一共144个字节
 		{

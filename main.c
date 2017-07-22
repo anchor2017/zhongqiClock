@@ -16,33 +16,40 @@
 
 void main()
 {
-	 uchar h1[]={0}, h0[]={0}, m1[]={0}, m0[]={0}, s1[]={0}, s0[]={0};	//¥Ê∑≈ ±∑÷√Î
-	 uchar hour1=0, hour0=0, min1=0, min0=0, sec1=0, sec0=0;
-	 uchar Time[]={0, 0, 0, 0, 0, 0};
-
-	 uchar i=0;		//i”ÎTime ˝◊È”–πÿ
-	 uint x=0, y=0;	//¥Ê∑≈x,y◊¯±Í
-	 uchar set=0, back=0;  //…Ë÷√ ±º‰£¨∑µªÿ÷˜ ±÷”
-
-	 /* ±÷”‘≠ΩÁ√Ê*/
-	 TFT_Init();
-	 TFT_ClearScreen(0x0000);
-
+	uchar h1[1]={0};
+	uchar h0[1]={0};
+	uchar m1[1]={0};
+	uchar m0[1]={0};
+	uchar s1[1]={0};
+	uchar s0[1]={0};	//¥Ê∑≈ ±∑÷√Î
+	uchar hour1=0, hour0=0, min1=0, min0=0, sec1=0, sec0=0;
+	uchar Time[]={0, 0, 0, 0, 0, 0};
+	
+	uchar i=0;		//i”ÎTime ˝◊È”–πÿ
+	uint x=0, y=0;	//¥Ê∑≈x,y◊¯±Í
+	uchar set=0, back=0;  //…Ë÷√ ±º‰£¨∑µªÿ÷˜ ±÷”
+	
 	h1[0]=hour1+'0';
-	h0[0]=hour0+'0';
-	m1[0]=min1+'0';
-	m0[0]=min0+'0';
+	//h0[0]=hour0+'0';
+	//m1[0]=min1+'0';
+	//m0[0]=min0+'0';
 	s1[0]=sec1+'0';
 	s0[0]=sec0+'0';
 
-	//GUI_WriteASCII(20, 50, h1, 0xF800, 0x0000);
 
-	GUI_WriteASCII(20, 100, h1, 0xF800, 0x0000);	 //h1			 	
-	GUI_WriteASCII(36, 170, h0, 0xF800, 0x0000);	 //h0				 	
-	GUI_WriteASCII(46, 170, m1, 0xF800, 0x0000);	 //m1			 	
-	GUI_WriteASCII(62, 170, m0, 0xF800, 0x0000);	 //m0				 	
+	 /* ±÷”‘≠ΩÁ√Ê*/
+	 TFT_Init();				//≥ı ºªØ
+	 Delay(5);
+	 TFT_ClearScreen(0x0000);	 //«Â∆¡
+
+	//GUI_WriteASCII2(20, 100, h1, 0xF800, 0x0000);
+
+	//GUI_WriteASCII(20, 100, "3", 0xF800, 0x0000);	 //h1			 	
+	//GUI_WriteASCII(36, 170, h0, 0xF800, 0x0000);	 //h0				 	
+	//GUI_WriteASCII(46, 170, m1, 0xF800, 0x0000);	 //m1			 	
+	//GUI_WriteASCII(62, 170, m0, 0xF800, 0x0000);	 //m0				 	
 	GUI_WriteASCII(72, 170, s1, 0xF800, 0x0000);	 //s1			 	
-	GUI_WriteASCII(88, 170, s0, 0xF800, 0x0000);	 //s0			 	
+	//GUI_WriteASCII(88, 170, s0, 0xF800, 0x0000);	 //s0			 	
 	GUI_WriteASCII(127, 0, "SET", 0x001F, 0x0000);		 //…Ë÷√∞¥≈•
 
 	 while(1)
@@ -51,6 +58,7 @@ void main()
 		/* ±÷”ΩÁ√Ê*/
 		if(back==1)
 		{
+			TFT_ClearScreen(0x0000);
 			GUI_ShowPicture(0, 0, 150, 150);
 			GUI_WriteASCII(20, 94, h1, 0xF800, 0x0000);	 //h1			 	
 			GUI_WriteASCII(36, 94, h0, 0xF800, 0x0000);	 //h0
@@ -60,7 +68,7 @@ void main()
 						 	
 			GUI_WriteASCII(72, 94, s1, 0xF800, 0x0000);	 //s1			 	
 			GUI_WriteASCII(88, 94, s0, 0xF800, 0x0000);	 //s0			 	
-			GUI_WriteASCII(127, 0, "SET", 0x001F, 0x0000);		 //…Ë÷√∞¥•
+			GUI_WriteASCII(127, 0, "SET", 0x001F, 0x0000);		 //…Ë÷√∞¥
 		}
 
 		/*…Ë÷√ΩÁ√Ê*/
