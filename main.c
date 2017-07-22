@@ -17,21 +17,30 @@
 void main()
 {
 	 uchar h1[]={0}, h0[]={0}, m1[]={0}, m0[]={0}, s1[]={0}, s0[]={0};	//存放时分秒
-	 uchar i=0;		//i与Time数组有关
-	 uint x, y;	//存放x,y坐标
-	 //h1=0,h0=0,m1=0,m0=0,s1=0,s0=0;
-	 uchar set=0, back=0;  //设置时间，返回主时钟
+	 uchar hour1=0, hour0=0, min1=0, min0=0, sec1=0, sec0=0;
 	 uchar Time[]={0, 0, 0, 0, 0, 0};
+
+	 uchar i=0;		//i与Time数组有关
+	 uint x=0, y=0;	//存放x,y坐标
+	 uchar set=0, back=0;  //设置时间，返回主时钟
+
+	 /*时钟原界面*/
 	 TFT_Init();
 	 TFT_ClearScreen(0x0000);
-	 /*时钟原界面*/
-	//GUI_ShowPicture(0, 26, 150, 150);	 //图片
-	GUI_WriteASCII(20, 200, &Time[0], 0xF800, 0x0000);	 //h1			 	
-	GUI_WriteASCII(36, 200, h0, 0xF800, 0x0000);	 //h0
-				 	
+
+	h1[0]=hour1+'0';
+	h0[0]=hour0+'0';
+	m1[0]=min1+'0';
+	m0[0]=min0+'0';
+	s1[0]=sec1+'0';
+	s0[0]=sec0+'0';
+
+	//GUI_WriteASCII(20, 50, h1, 0xF800, 0x0000);
+
+	GUI_WriteASCII(20, 100, h1, 0xF800, 0x0000);	 //h1			 	
+	GUI_WriteASCII(36, 170, h0, 0xF800, 0x0000);	 //h0				 	
 	GUI_WriteASCII(46, 170, m1, 0xF800, 0x0000);	 //m1			 	
-	GUI_WriteASCII(62, 170, m0, 0xF800, 0x0000);	 //m0
-				 	
+	GUI_WriteASCII(62, 170, m0, 0xF800, 0x0000);	 //m0				 	
 	GUI_WriteASCII(72, 170, s1, 0xF800, 0x0000);	 //s1			 	
 	GUI_WriteASCII(88, 170, s0, 0xF800, 0x0000);	 //s0			 	
 	GUI_WriteASCII(127, 0, "SET", 0x001F, 0x0000);		 //设置按钮

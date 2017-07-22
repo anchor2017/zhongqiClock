@@ -133,6 +133,35 @@ void GUI_WriteASCII(uint x, uint y, uchar *p, uint wordColor, uint backColor)
 }
 #endif
 
+void GUI_WriteASCII2(uint x, uint y, uchar *p, uint wordColor, uint backColor)
+{
+	uchar j, wordByte,wordNum;
+	uint color;
+	while(*p != '\0')
+	{
+		wordNum = *p;		  //数组加‘0’表示从数字0的首地址开始计数
+		TFT_SetWindow(x,y,x+23, y+47);	  //字符大小 24*48
+		for (wordByte=0; wordByte<144; wordByte++)	 //一共144个字节
+		{
+			color = ASCII24x48[wordNum][wordByte];	  
+			for (j=0; j<8; j++) 
+			{
+				if ((color&0x80) == 0x80)	   //每个字节一共8位
+				{
+					TFT_WriteColor(wordColor);	  //如果为1则是字体颜色
+				} 						
+				else
+				{
+					TFT_WriteColor(backColor);	  //如果为0则为背景的颜色
+				} 	
+				color <<= 1;					//次高位为最高位
+			}
+		}
+		p++;
+		x +=24;
+	}
+}
+
 /****************************************************************************
 *函数名：GUI_ShowPicture 
 *输  入：x：图片显示起始X坐标
@@ -161,7 +190,5 @@ void GUI_ShowPicture(uint x, uint y, uchar wide, uint high)
 	}
 	while(tmp < num);	
 }
-
-#endif
 
 #endif
