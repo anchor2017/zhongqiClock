@@ -1,12 +1,12 @@
 /***************************************************************************************
- *	FileName					:	clock.c
+ *	FileName					:	main.c
  *	CopyRight					:
  *	ModuleName				:
  *
  *	CPU							:
  *	RTOS						:
  *
- *	Create Data					:	2017.7.22
+ *	Create Data					:	2017.47.10
  *	Author/Corportation			:	yezhihuo
  *
  *	Abstract Description		:	
@@ -21,95 +21,89 @@
 /**************************************************************
 *	Debug switch Section 
 **************************************************************/
-
+#ifndef  _CLOCK_H
+#define _CLOCK_H
 
 /**************************************************************
 *	Include File Section
 **************************************************************/
-#include"clock.h"
+#include<reg52.h>
+#include<intrins.h>
 /**************************************************************
 *	Macro Define Section  
 **************************************************************/
+#define uint unsigned int
+#define uchar unsigned char 
+extern uchar  write;
+
 
 
 /**************************************************************
 *	Struct Define Section
 **************************************************************/
+typedef struct clock
+{
+	uchar hour;
+	uchar minute;
+	uchar second;
+}clock;
 
 
 /**************************************************************
-*	Prototype Declare Section  
+*	Prototype Declare Section  ????
 **************************************************************/
 
 
 /**************************************************************
-*	Global Variable Declare Section
+*	Global Variable Declare Section????
 **************************************************************/
-uchar sb;                     //每增加20次记录1s
+extern uchar sb, ld;
+extern clock time;
+extern uchar code table[16];
 
-clockTime time;
-/**************************************************************
-*	Function Define Section
-**************************************************************/
 
 /**
-*  @name: void timeFun() 
-*	@description: 中断服务特殊功能寄存器配置（定时器0初始化）
- *	@param		:none
- *	@return		: none
- *  @notice : 12MHZ
+ *  @name        :void delay()
+ *	@description : 微秒延时函数
+ *	@param		 : none
+ *	@return		 : none
+ *  @notice      : None
  */
-void initTimer()
-{
-	TMOD=0x01;		  //模式1
-	TH0 = (65536 - 45872) / 256;
-	TL0 = (65536 - 45872) % 256;   //0.05s
-	ET0=1;		 //开定时器
-	TR0=1;		 //开定时器中断
-	EA=1;		 //开总中断
-}
+void delay();
 
-/**
-*  @name: void timeFun() 
-*	@description: 时钟计时
- *	@param		:none
- *	@return		: none
- *  @notice : 使用定时器0，程序运行期间始终运行
+/*  @name        : void init()
+ *	@description : 总线初始化
+ *	@param		 : none
+ *	@return		 : none
+ *  @notice      : None
  */
-void timeFun() interrupt 1
-{
-	TH0 = (65536 - 45872) / 256;
-	TL0 = (65536 - 45872) % 256;   //0.05s
-	if(sb >= 20 )             //20次为1s
-	{
-		sb = 0;
-		if( time.second < 59 )				 //60秒
-		{
-			time.second++;
-		}
-		else
-		{
-			time.second = 0;                    
-			if( time.minute <59 )			//60分钟
-			{
-				time.minute++;
-			}
-			else
-			{
-				time.minute = 0;
-				if( time.hour <23 )           ///1小时
-				{
-					time.hour++;
-				}
-				else
-				{
-					time.hour = 0;
-				}
-			}
-		}			 
-	}
-	else
-	{
-	 sb++;
-	}
-}
+void initI2C();
+
+/*  @name        : uchar readAdd()
+ *	@description :
+ *	@param		 : none
+ *	@return		 : none
+ *  @notice      : None
+ */
+uchar readAdd(uchar address);
+
+/*  @name        : void writeAdd(uchar adress, uchar date)
+ *	@description : 向从机发送数据
+ *	@param		 : address 从机
+ *	@return		 : none
+ *  @notice      : None
+ */
+void writeAdd(uchar address, uchar date);
+
+ /*  @name        :void delayms()
+ *	@description : ms延时函数
+ *	@param		 : uint i 延时ims
+ *	@return		 : none
+ *  @notice      : None
+ */
+void delayms(uint i);
+
+
+
+
+#endif

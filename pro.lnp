@@ -4,6 +4,10 @@
 "touch.obj",
 "calTimeDisplay.obj",
 "paintTFT.obj",
-"clock.obj" 
+"clock.obj",
+"i2c.obj",
+"gy521.obj",
+"pwm.obj",
+"DS18S120.obj" 
 TO "pro" 
 RAMSIZE(256) 
