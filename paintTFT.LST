@@ -1,4 +1,4 @@
-C51 COMPILER V8.08   PAINTTFT                                                              07/24/2017 11:01:10 PAGE 1   
+C51 COMPILER V8.08   PAINTTFT                                                              07/24/2017 11:47:36 PAGE 1   
 
 
 C51 COMPILER V8.08, COMPILATION OF MODULE PAINTTFT
@@ -62,7 +62,7 @@ line level    source
   53          *       File Static Variable Define Section
   54          **************************************************************/
   55          
-C51 COMPILER V8.08   PAINTTFT                                                              07/24/2017 11:01:10 PAGE 2   
+C51 COMPILER V8.08   PAINTTFT                                                              07/24/2017 11:47:36 PAGE 2   
 
   56          /**************************************************************
   57          *       Function Define Section
@@ -105,7 +105,7 @@ line level    source
   94   1      }
   95          
   96          /**
-  97          *  @name:void TFT_paintTimeSet(uchar H1, uchar H0, uchar M1, uchar M0, uchar S1, uchar S0);
+  97          *  @name:void TFT_paintTimeSet();
   98          *       @description: 主界面的时间显示
   99           *      @param          : 时分秒
  100           *      @return         : none
@@ -126,7 +126,7 @@ line level    source
  115   1              s1[0]=time.second/10+'0';
  116   1              s0[0]=time.second%10+'0';
  117   1      
-C51 COMPILER V8.08   PAINTTFT                                                              07/24/2017 11:01:10 PAGE 3   
+C51 COMPILER V8.08   PAINTTFT                                                              07/24/2017 11:47:36 PAGE 3   
 
  118   1              /*将时间显示在触摸屏上*/
  119   1              GUI_WriteASCII2(10, 100, h1, 0xF800, 0x0000);    //h1                           
@@ -141,7 +141,7 @@ line level    source
  128   1      }
  129          
  130          /**
- 131          *  @name:void TFT_paintTimeSet(uchar H1, uchar H0, uchar M1, uchar M0, uchar S1, uchar S0);
+ 131          *  @name:void TFT_paintTimeSet();
  132          *       @description: 重新设置时间的显示
  133           *      @param          : 时分秒
  134           *      @return         : none

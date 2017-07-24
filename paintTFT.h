@@ -73,7 +73,7 @@
 void TFT_paintSetSur();		//设置界面的显示
 
 /**
-*  @name:void TFT_paintTimeSet(uchar H1, uchar H0, uchar M1, uchar M0, uchar S1, uchar S0);
+*  @name:void TFT_paintTimeSet();
 *	@description: 重新设置时间的显示
  *	@param		:none
  *	@return		: none
@@ -82,7 +82,7 @@ void TFT_paintSetSur();		//设置界面的显示
 void TFT_paintTimeSet();
 
 /**
-*  @name:void TFT_paintTimeSet(uchar H1, uchar H0, uchar M1, uchar M0, uchar S1, uchar S0);
+*  @name:void TFT_paintTimeSet();
 *	@description: 主界面的时间显示
  *	@param		: 时分秒
  *	@return		: none

@@ -54,7 +54,6 @@
 *	Global Variable Declare Section
 **************************************************************/
 extern uchar anotherSur;
-//extern uchar set, back;	   //main.c/calTimeDisplay.c中有调用
 
 //以下main.c中赋值/calTimeDisplay.c中调用
 extern uchar TimeArray[];	//中间转化值

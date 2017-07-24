@@ -1,4 +1,4 @@
-C51 COMPILER V8.08   CLOCK                                                                 07/24/2017 11:01:10 PAGE 1   
+C51 COMPILER V8.08   CLOCK                                                                 07/24/2017 11:47:37 PAGE 1   
 
 
 C51 COMPILER V8.08, COMPILATION OF MODULE CLOCK
@@ -62,7 +62,7 @@ line level    source
   53          **************************************************************/
   54          
   55          /**
-C51 COMPILER V8.08   CLOCK                                                                 07/24/2017 11:01:10 PAGE 2   
+C51 COMPILER V8.08   CLOCK                                                                 07/24/2017 11:47:37 PAGE 2   
 
   56          *  @name: void timeFun() 
   57          *       @description: 中断服务特殊功能寄存器配置（定时器0初始化）
@@ -126,7 +126,7 @@ line level    source
  115   1      }
 
 
-C51 COMPILER V8.08   CLOCK                                                                 07/24/2017 11:01:10 PAGE 3   
+C51 COMPILER V8.08   CLOCK                                                                 07/24/2017 11:47:37 PAGE 3   
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
    CODE SIZE        =     86    ----

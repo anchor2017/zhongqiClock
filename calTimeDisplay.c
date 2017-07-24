@@ -76,15 +76,12 @@ void CalTimeDisplay()
 		{
 			TFT_ClearScreen(0x0000);		//清屏
 			anotherSur=0;		//如果不是设置界面返回则不需要清屏
-		}
-		
+		}		
 		/*触摸屏上主时钟界面的显示*/
-		//
 		while(TOUCH_XPT_ReadXY() != 1)
 		{
 			TFT_paintMainClock();
 		}
-
 		back=0;		   //不再进入时钟界面但是屏幕并不清除
 		clockFlag=1;	//如果在时钟界面则时钟界面的触屏有效
 		setFlag=0;	   //如果在时钟界面则设置界面的触屏无效
@@ -103,6 +100,7 @@ void CalTimeDisplay()
 		setFlag=1;	   //如果在设置界面则设置界面的触屏有效
 		anotherSur=1;	//从设置界面返回主时钟界面需要清屏
 	}
+
 	/*触摸检测*/
 	if(TOUCH_XPT_ReadXY() == 1)		
 	{
@@ -119,7 +117,6 @@ void CalTimeDisplay()
 		{
 			y=218;
 		}			
-
 		/*屏上功能部分检测反应（时钟页面）*/	 //不需要清屏
 		if(clockFlag==1)
 		{
@@ -128,7 +125,6 @@ void CalTimeDisplay()
 				set=1;		  //右上角
 			}
 		}
-
 		/*屏上功能部分检测反应（设置页面）一旦进入设置页面就停止走时，进入主时钟界面开始走时*/	 //不需要清屏
 		if(setFlag==1)
 		{
@@ -171,8 +167,8 @@ void CalTimeDisplay()
 			{
 				oriTime=TimeArray[i];
 				TimeArray[i]=3;
-				i++;				
-
+				i++;
+								
 				if(i==1)		 //时间校准限制
 				{
 					i--;
