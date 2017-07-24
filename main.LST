@@ -1,0 +1,59 @@
+C51 COMPILER V8.08   MAIN                                                                  07/24/2017 11:47:36 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c OPTIMIZE(9,SIZE) BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include "gui.h"
+   3          #include "touch.h"
+   4          #include "calTimeDisplay.h"
+   5          #include "clock.h"
+   6          
+   7          #ifndef uchar
+              #define uchar unsigned char
+              #endif
+  10          
+  11          #ifndef uint
+              #define uint unsigned int
+              #endif
+  14          
+  15          uchar TimeArray[]={0, 0, 0, 0, 0, 0};
+  16          uchar i=0;
+  17          
+  18          uchar anotherSur=1;             //可以先设置为1，第一次需要清屏(之后只是时间计数就不需要再次清屏)，在calTimeDisplay.h
+             -中声明为全局变量      
+  19          long x=0, y=0;  
+  20          uchar set=0, back=1;  //设置标志位，返回标志位（先置1才能运行），全局变量在calTimeDisplay.h中声明
+  21          uchar setFlag=0, clockFlag=0;   //防止出现在一个界面按键却触发另外一个界面内容的错误
+  22          uchar oriTime=0;                         //修改时间错误时原来的时间
+  23          
+  24          void main()
+  25          {
+  26   1              initTimer();             //初始化定时器0（时钟）
+  27   1              TFT_Init();                             //初始化触摸屏显示
+  28   1      
+  29   1              while(1)
+  30   1              {
+  31   2                      CalTimeDisplay();               //主界面的显示及设置界面的显示
+  32   2              }
+  33   1      }
+  34          
+  35                          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     11    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     21    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

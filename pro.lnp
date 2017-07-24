@@ -1,0 +1,9 @@
+"main.obj",
+"lcd_driver.obj",
+"gui.obj",
+"touch.obj",
+"calTimeDisplay.obj",
+"paintTFT.obj",
+"clock.obj" 
+TO "pro" 
+RAMSIZE(256) 

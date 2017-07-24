@@ -10,6 +10,26 @@
 
 #endif
 
+/****************************************************************************
+*函数名：GUI_Dot
+*输  入：x：点的X坐标
+*      * y：点的Y坐标
+*      * color：点的颜色
+*输  出：
+*功  能：给一块3*3像素涂上颜色。
+****************************************************************************/	  
+
+void GUI_Dot(uint x, uint y, uint color)
+{  
+	uchar i;
+
+	TFT_SetWindow(x - 1, y - 1, x + 2, y + 2);  //单个像素
+
+	for(i=0; i<16; i++)
+	{
+		TFT_WriteColor(color);
+	}
+}
 
 /****************************************************************************
 *函数名：GUI_Line 
@@ -110,7 +130,7 @@ void GUI_WriteASCII(uint x, uint y, uchar *p, uint wordColor, uint backColor)
 	while(*p != '\0')
 	{
 		wordNum = *p - 32;
-		TFT_SetWindow(x,y,x+15, y+23);
+		TFT_SetWindow(x,y,x+15, y+23);	   //15，23
 		for (wordByte=0; wordByte<48; wordByte++)
 		{
 			color = ASCII16x24[wordNum][wordByte];
@@ -139,7 +159,7 @@ void GUI_WriteASCII2(uint x, uint y, uchar *p, uint wordColor, uint backColor)
 	uint color;
 	while(*p != '\0')
 	{
-		wordNum = *p;		  //数组加‘0’表示从数字0的首地址开始计数
+		wordNum = *p-48;		  //数组加‘0’表示从数字0的首地址开始计数
 		TFT_SetWindow(x,y,x+23, y+47);	  //字符大小 24*48
 		for (wordByte=0; wordByte<144; wordByte++)	 //一共144个字节
 		{

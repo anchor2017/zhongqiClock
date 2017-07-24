@@ -1,29 +1,23 @@
 /***************************************************************************************
- *	File Name				:		clock.h
- *	CopyRight				:
- *	ModuleName				:	
+ *	FileName					:	calTimeDisplay.h
+ *	CopyRight					: 
+ *	ModuleName					:	 
  *
- *	CPU						:
- *	RTOS					:
+ *	CPU							:
+ *	RTOS						:
  *
- *	Create Data				:	
- *	Author/Corportation		:	
+ *	Create Data					:	
+ *	Author/Corportation			:	 caiyinmao
  *
- *	Abstract Description	:	this will be used for  lcd1602
+ *	Abstract Description		:
  *
  *--------------------------------Revision History--------------------------------------
  *	No	version		Data			Revised By			Item			Description
  *	
  *
  ***************************************************************************************/
-
-
-/**************************************************************
-*	Multi-Include-Prevent Section
-**************************************************************/
-#ifndef __CLOCK_H
-#define __CLOCK_H
-
+#ifndef __CALTIMEDISPLAY_H
+#define __CALTIMEDISPLAY_H
 
 /**************************************************************
 *	Debug switch Section
@@ -33,43 +27,58 @@
 /**************************************************************
 *	Include File Section
 **************************************************************/
-#include<reg52.h>
+#include <reg52.h>
 
 /**************************************************************
 *	Macro Define Section
 **************************************************************/
+#ifndef uchar
+#define uchar unsigned char
+#endif
+
 #ifndef uint
 #define uint unsigned int
 #endif
 
-#ifndef uchar
-#define uchar unsigned char 
-#endif
-
-
 /**************************************************************
 *	Struct Define Section
 **************************************************************/
-typedef struct clockTime
-{
-	uchar hour;
-	uchar minute;
-	uchar second;
-}clockTime;              //记录时间
 
 
-/**************************************************************
-*	Global Variable Declare Section????
-**************************************************************/
-#ifndef GLOBAL_TIME_             //避免重复定义
-#define GLOBAL_TIME_
-clockTime time;          //记录时间
-#endif
 /**************************************************************
 *	Prototype Declare Section
 **************************************************************/
 
+
 /**************************************************************
-*	End-Multi-Include-Prevent Section
+*	Global Variable Declare Section
 **************************************************************/
+extern uchar anotherSur;
+
+//以下main.c中赋值/calTimeDisplay.c中调用
+extern uchar TimeArray[];	//中间转化值
+extern uchar i;	
+extern long x, y;	
+extern uchar set, back;  //设置标志位，返回标志位（先置1才能运行），全局变量在calTimeDisplay.h中声明
+extern uchar setFlag, clockFlag;	//防止出现在一个界面按键却触发另外一个界面内容的错误
+extern uchar oriTime;			 //修改时间错误时原来的时间
+
+/**************************************************************
+*	File Static Variable Define Section
+**************************************************************/
+
+/**************************************************************
+*	Function Define Section
+**************************************************************/
+
+/**
+*  @name:void calTimeDisplay();
+*	@description: 主时钟显示及时钟调整设置
+ *	@param		:none
+ *	@return		: none
+ *  @notice : none
+ */
+void CalTimeDisplay();	  //传入时间
+
+
 #endif

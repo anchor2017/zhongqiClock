@@ -1,100 +1,91 @@
 /***************************************************************************************
- *	FileName					:	clock.c
- *	CopyRight					:
- *	ModuleName				:
+ *	File Name				:		clock.h
+ *	CopyRight				:
+ *	ModuleName				:	
  *
- *	CPU							:
- *	RTOS						:
+ *	CPU						:
+ *	RTOS					:
  *
- *	Create Data					:	2017.7.22
- *	Author/Corportation			:	yezhihuo
+ *	Create Data				:	
+ *	Author/Corportation		:	
  *
- *	Abstract Description		:	
+ *	Abstract Description	:	this will be used for  lcd1602
  *
  *--------------------------------Revision History--------------------------------------
  *	No	version		Data			Revised By			Item			Description
- *
+ *	
  *
  ***************************************************************************************/
 
 
 /**************************************************************
-*	Debug switch Section 
+*	Multi-Include-Prevent Section
+**************************************************************/ 
+
+#ifndef __CLOCK_H
+#define __CLOCK_H
+
+
+/**************************************************************
+*	Debug switch Section
 **************************************************************/
 
 
 /**************************************************************
 *	Include File Section
 **************************************************************/
-#include"clock.h"
+#include<reg52.h>
+
 /**************************************************************
-*	Macro Define Section  
+*	Macro Define Section
 **************************************************************/
+#ifndef uint
+#define uint unsigned int
+#endif
+
+#ifndef uchar
+#define uchar unsigned char 
+#endif
 
 
 /**************************************************************
 *	Struct Define Section
 **************************************************************/
+typedef struct clockTime
+{
+	uchar hour;
+	uchar minute;
+	uchar second;
+}clockTime;              //记录时间
 
 
 /**************************************************************
-*	Prototype Declare Section  ????
+*	Global Variable Declare Section
+**************************************************************/
+#ifndef GLOBAL_TIME_             //避免重复定义
+#define GLOBAL_TIME_
+extern clockTime time;          //记录时间
+#endif
+/**************************************************************
+*	Prototype Declare Section
 **************************************************************/
 
-
 /**************************************************************
-*	Global Variable Declare Section????
+*	End-Multi-Include-Prevent Section
 **************************************************************/
 
 /**************************************************************
-*	Function Define Section??????
+*	Function Define Section
 **************************************************************/
 
 /**
 *  @name: void timeFun() 
-*	@description: 时钟计时
+*	@description: 中断服务特殊功能寄存器配置（定时器0初始化）
  *	@param		:none
  *	@return		: none
- *  @notice : 使用定时器0，程序运行期间始终运行
+ *  @notice : 12MHZ
  */
- void timeFun() interrupt 1
- {
-	 TH0 = (65536 - 50000) / 256;
-	 TL0 = (65536 - 50000) % 256;
-	 if(sb >= 20 )             //20次为1s
-	 {
-		 sb = 0;
-		 write = 1;
-			 if( time.second < 59 )
-				{
-					time.second++;
-				}
-			 else
-			 {
-					time.second = 0;                    //时间加1分钟
-					if( time.minute <59 )
-					{
-						time.minute++;
-					}
-					else
-					{
-						time.minute = 0;
-						dep = 1;
-						if( time.hour <23 )                            ///一小时
-						{
-							time.hour++;
-						}
-						else
-						{
-							time.hour = 0;
-						}
-					}
-				}		 
-	 }
-	 else
-	 {
-		 sb++;
-	 }
- }
+void initTimer();
 
 
+#endif

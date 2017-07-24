@@ -1,5 +1,5 @@
 /***************************************************************************************
- *	FileName					:	pwm.c
+ *	FileName					:	paintTFT.h
  *	CopyRight					: 
  *	ModuleName					:	 
  *
@@ -7,16 +7,17 @@
  *	RTOS						:
  *
  *	Create Data					:	
- *	Author/Corportation			:	 yezhihuo
+ *	Author/Corportation			:	 caiyinmao
  *
- *	Abstract Description		:	1602???
+ *	Abstract Description		:
  *
  *--------------------------------Revision History--------------------------------------
  *	No	version		Data			Revised By			Item			Description
  *	
  *
  ***************************************************************************************/
-
+#ifndef __PAINTTFT_H
+#define __PAINTTFT_H
 
 /**************************************************************
 *	Debug switch Section
@@ -26,16 +27,19 @@
 /**************************************************************
 *	Include File Section
 **************************************************************/
-#include"pwm.h"
+#include <reg52.h>
 
 /**************************************************************
 *	Macro Define Section
 **************************************************************/
-sbit PWM = P2^1;
-#define PWM_MODE  10       //设置占空比模式
+#ifndef uchar
+#define uchar unsigned char
+#endif
 
-uchar pwmCount, pwmPeriod;          //占空比计数器，占空比标数
-uint num;
+#ifndef uint
+#define uint unsigned int
+#endif
+
 /**************************************************************
 *	Struct Define Section
 **************************************************************/
@@ -58,75 +62,34 @@ uint num;
 /**************************************************************
 *	Function Define Section
 **************************************************************/
-/**
-*  @name:void pwmInit();
-*	@description: 初始化pwm，开启震动
- *	@param		:none
- *	@return		: none
- *  @notice : 使用定时器1
- */
-void pwmInit()
-{
-	EA = 1;
-	TMOD = 0x20; // 开定时器1模式2
-	TL1 = 0x6c; // 
-	TH1 = 0x6c;
-	ET1 = 1;
-	TR1 = 1;
-	pwmCount = 0;
-	pwmPeriod = PWM_MODE;
-	if( num % 100 == 0 )
-	{
-		pwmPeriod++;
-		if( pwmPeriod == 100 )
-		{
-			pwmPeriod = 0;
-		}
-	}
-}
 
 /**
-*  @name:void pwmInit();
-*	@description: 初始化pwm，开启震动
+*  @name:void paintTFT();
+*	@description: 在触摸屏上画图
  *	@param		:none
  *	@return		: none
- *  @notice : 使用定时器1
+ *  @notice : none
  */
-void pwm() interrupt 3
-{
-	pwmCount++;
-	num++;
-	if( num > 60000 )
-	{
-		num = 0;
-	}
-	if( pwmCount == 100 )         //从新计数
-	{
-		pwmCount = 0;
-	}
-	if( pwmCount < pwmPeriod )    //控制输出
-	{
-		PWM = 1;
-	}
-	else
-	{
-		PWM = 0;
-	}
-}
+void TFT_paintSetSur();		//设置界面的显示
 
-void main()
-{
-		pwmInit();	
-	while(1)
-	{
-    	if( num % 1000 == 0 )
-	{
-		pwmPeriod += 5;
-		if( pwmPeriod > 100 )
-		{
-			pwmPeriod = 10;
-		}
-	}      
-	}		
-	;
-}
+/**
+*  @name:void TFT_paintTimeSet();
+*	@description: 重新设置时间的显示
+ *	@param		:none
+ *	@return		: none
+ *  @notice : none
+ */
+void TFT_paintTimeSet();
+
+/**
+*  @name:void TFT_paintTimeSet();
+*	@description: 主界面的时间显示
+ *	@param		: 时分秒
+ *	@return		: none
+ *  @notice : none
+ *  @use : 得到时分秒六位，并显示在触摸屏的中间
+ */
+void TFT_paintMainClock();
+
+
+#endif
