@@ -371,6 +371,36 @@
               <FileType>5</FileType>
               <FilePath>.\charcode.h</FilePath>
             </File>
+            <File>
+              <FileName>calTimeDisplay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\calTimeDisplay.c</FilePath>
+            </File>
+            <File>
+              <FileName>calTimeDisplay.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\calTimeDisplay.h</FilePath>
+            </File>
+            <File>
+              <FileName>paintTFT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\paintTFT.c</FilePath>
+            </File>
+            <File>
+              <FileName>paintTFT.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\paintTFT.h</FilePath>
+            </File>
+            <File>
+              <FileName>clock.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\clock.c</FilePath>
+            </File>
+            <File>
+              <FileName>clock.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\clock.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

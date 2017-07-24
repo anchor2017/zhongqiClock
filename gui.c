@@ -130,7 +130,7 @@ void GUI_WriteASCII(uint x, uint y, uchar *p, uint wordColor, uint backColor)
 	while(*p != '\0')
 	{
 		wordNum = *p - 32;
-		TFT_SetWindow(x,y,x+15, y+23);
+		TFT_SetWindow(x,y,x+15, y+23);	   //15£¬23
 		for (wordByte=0; wordByte<48; wordByte++)
 		{
 			color = ASCII16x24[wordNum][wordByte];

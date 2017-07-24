@@ -2,7 +2,7 @@
 #define _GUI_H_
 
 //---包含头文件---//
-#include <reg52.H>
+//#include <reg52.H>
 #include "lcd_driver.h"
 
 //---重定义关键词---//
