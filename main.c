@@ -3,6 +3,8 @@
 #include "touch.h"
 #include "calTimeDisplay.h"
 #include "clock.h"
+#include "calTimeDisplay.h"
+#include "paintTFT.h"
 
 #ifndef uchar
 #define uchar unsigned char
@@ -24,22 +26,34 @@ uchar oriTime=0;			 //ÐÞ¸ÄÊ±¼ä´íÎóÊ±Ô­À´µÄÊ±¼ä
 void main()
 {
 	//uchar h1, h0, m1, m0, s1, s0;	 //±äÁ¿¶¨Òå
-
-	initTimer();		 //³õÊ¼»¯¶¨Ê±Æ÷0£¨Ê±ÖÓ£©
+ P2 = 0x00;
 	TFT_Init();				//³õÊ¼»¯´¥ÃþÆÁÏÔÊ¾
-
+  TFT_ClearScreen(0x0000);		//ÇåÆÁ£¬Ïû³ýÆÁÄ»Ö®Ç°ÏÔÊ¾ÄÚÈÝµÄÓ°Ïì
+	initTimer();		 //³õÊ¼»¯¶¨Ê±Æ÷0£¨Ê±ÖÓ£	
 	while(1)
 	{
-
-	/*
-		h1=time.hour/10;	//µÃµ½¶¨Ê±Æ÷µÄÊ±¼ä
-		h0=time.hour%10;
-		m1=time.minute/10;
-		m0=time.minute%10;
-		s1=time.second/10;
-		s0=time.second%10;
-	*/
-		CalTimeDisplay();		//Ö÷½çÃæµÄÏÔÊ¾¼°ÉèÖÃ½çÃæµÄÏÔÊ¾
+ 
+      TFT_paintMainClock();
+	    if(TOUCH_XPT_ReadXY() == 1)	
+			{
+				x=xpt_xy.x;
+				x=(x-304)*175/3422;
+				y=xpt_xy.y;
+				y=(y-256)*219/3440;			
+				if(x>174)
+				{
+					x=174;
+				}
+				if(y>218)
+				{
+					y=218;
+				}		
+				if( (x>115)&&(y<24) )	
+				{					
+    				 displayPageSetting();    //½øÈëÉèÖÃ½çÃæ
+					   TFT_ClearScreen(0x0000);		//ÇåÆÁ	
+				}
+			}
 	}
 
 }

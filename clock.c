@@ -1,4 +1,4 @@
-/***************************************************************************************
+      /***************************************************************************************
  *	FileName					:	clock.c
  *	CopyRight					:
  *	ModuleName				:
@@ -45,9 +45,9 @@
 /**************************************************************
 *	Global Variable Declare Section
 **************************************************************/
-uchar sb;                     //每增加20次记录1s
-
-clockTime time;
+uchar clockTag, sb;                     //每增加20次记录1s
+sbit led = P2^0;
+clockTime time, timeclock;
 /**************************************************************
 *	Function Define Section
 **************************************************************/
@@ -78,8 +78,8 @@ void initTimer()
  */
 void timeFun() interrupt 1
 {
-	TH0 = (65536 - 45872) / 256;
-	TL0 = (65536 - 45872) % 256;   //0.05s
+	TH0 = (65536 - 45870) / 256;
+	TL0 = (65536 - 45870) % 256;   //0.05s
 	if(sb >= 20 )             //20次为1s
 	{
 		sb = 0;
@@ -99,13 +99,20 @@ void timeFun() interrupt 1
 				time.minute = 0;
 				if( time.hour <23 )           ///1小时
 				{
-					time.hour++;
+		    	                                                                                                                                                                                                                                                                                                                                                                                                                                                        		time.hour++;
 				}
 				else
 				{
 					time.hour = 0;
 				}
 			}
+			if( clockTag == 1 )
+			{
+				 if(time.hour == timeclock.hour && time.minute == timeclock.minute)
+				 {
+					 led = 1;
+				 }
+			 }
 		}			 
 	}
 	else

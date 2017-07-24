@@ -65,10 +65,10 @@
  *  @notice : none
  *  @use : 在触摸屏显示调整时间的基本框架（设置界面）
  */
-void TFT_paintSetSur()		//设置界面的显示
+void TFT_paintSetSur(uchar *s)		//设置界面的显示
 {
 	TFT_ClearScreen(0x0000);
-	GUI_WriteASCII(47, 24, "CLOCK", 0xFFE0, 0x0000);	  //x, y	
+	GUI_WriteASCII(47, 24, s, 0xFFE0, 0x0000);	  //x, y	
   	//横线
 	GUI_Line(20, 50, 155, 50, 0xF800);  //x, y, x, y
 	GUI_Line(20, 90, 155, 90, 0xF800);  //x, y, x, y
@@ -128,26 +128,26 @@ void TFT_paintMainClock()
 }
 
 /**
-*  @name:void TFT_paintTimeSet();
+*  @name:void TFT_paintTimeSet(clockTime setime)
 *	@description: 重新设置时间的显示
  *	@param		: 时分秒
  *	@return		: none
  *  @notice : none
  *  @use : 得到时分秒六位，并显示在触摸屏的左上角
  */
-void TFT_paintTimeSet()
+void TFT_paintTimeSet(clockTime setime)
 {
 	uchar h1[]={0,0,0}, h0[]={0,0,0};
 	uchar m1[]={0,0,0}, m0[]={0,0,0};
 	uchar s1[]={0,0,0}, s0[]={0,0,0};	//存放时分秒
 
 	/*得到设置界面的显示时间*/
-	h1[0]=time.hour/10+'0';
-	h0[0]=time.hour%10+'0';
-	m1[0]=time.minute/10+'0';
-	m0[0]=time.minute%10+'0';
-	s1[0]=time.second/10+'0';
-	s0[0]=time.second%10+'0';
+	h1[0]=setime.hour/10+'0';
+	h0[0]=setime.hour%10+'0';
+	m1[0]=setime.minute/10+'0';
+	m0[0]=setime.minute%10+'0';
+	s1[0]=setime.second/10+'0';
+	s0[0]=setime.second%10+'0';
 	/*将时间写在设置界面左偏上*/
 	GUI_WriteASCII(39, 56, ":", 0xF800, 0x0000);
 	GUI_WriteASCII(71, 56, ":", 0xF800, 0x0000);

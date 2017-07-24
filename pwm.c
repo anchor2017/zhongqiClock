@@ -75,14 +75,6 @@ void pwmInit()
 	TR1 = 1;
 	pwmCount = 0;
 	pwmPeriod = PWM_MODE;
-	if( num % 100 == 0 )
-	{
-		pwmPeriod++;
-		if( pwmPeriod == 100 )
-		{
-			pwmPeriod = 0;
-		}
-	}
 }
 
 /**

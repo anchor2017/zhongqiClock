@@ -73,13 +73,15 @@ extern uchar oriTime;			 //修改时间错误时原来的时间
 **************************************************************/
 
 /**
-*  @name:void calTimeDisplay();
-*	@description: 主时钟显示及时钟调整设置
+*  @name: displayPageSetting
+*	@description: 显示设置界面
  *	@param		:none
  *	@return		: none
  *  @notice : none
  */
-void CalTimeDisplay();	  //传入时间
+void displayPageSetting();
+
+
 
 
 #endif

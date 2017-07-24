@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   MAIN                                                              07/24/2017 15:54:46 PAGE 1   
+C51 COMPILER V9.56.0.0   MAIN                                                              07/24/2017 20:10:07 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE MAIN
@@ -12,58 +12,72 @@ line level    source
    3          #include "touch.h"
    4          #include "calTimeDisplay.h"
    5          #include "clock.h"
-   6          
-   7          #ifndef uchar
+   6          #include "calTimeDisplay.h"
+   7          #include "paintTFT.h"
+   8          
+   9          #ifndef uchar
               #define uchar unsigned char
               #endif
-  10          
-  11          #ifndef uint
+  12          
+  13          #ifndef uint
               #define uint unsigned int
               #endif
-  14          
-  15          uchar TimeArray[]={0, 0, 0, 0, 0, 0};
-  16          uchar i=0;
-  17          
-  18          uchar anotherSur=1;   //¿ÉÒÔÏÈÉèÖÃÎª1£¬µÚÒ»´ÎÐèÒªÇåÆÁ(Ö®ºóÖ»ÊÇÊ±¼ä¼ÆÊý¾Í²»ÐèÒªÔÙ´ÎÇåÆÁ)£¬ÔÚcalTimeDisplay.h
+  16          
+  17          uchar TimeArray[]={0, 0, 0, 0, 0, 0};
+  18          uchar i=0;
+  19          
+  20          uchar anotherSur=1;   //¿ÉÒÔÏÈÉèÖÃÎª1£¬µÚÒ»´ÎÐèÒªÇåÆÁ(Ö®ºóÖ»ÊÇÊ±¼ä¼ÆÊý¾Í²»ÐèÒªÔÙ´ÎÇåÆÁ)£¬ÔÚcalTimeDisplay.h
              -ÖÐÉùÃ÷ÎªÈ«¾Ö±äÁ¿  
-  19          long x=0, y=0;  
-  20          uchar set=0, back=1;  //ÉèÖÃ±êÖ¾Î»£¬·µ»Ø±êÖ¾Î»£¨ÏÈÖÃ1²ÅÄÜÔËÐÐ£©£¬È«¾Ö±äÁ¿ÔÚcalTimeDisplay.hÖÐÉùÃ÷
-  21          uchar setFlag=0, clockFlag=0; //·ÀÖ¹³öÏÖÔÚÒ»¸ö½çÃæ°´¼üÈ´´¥·¢ÁíÍâÒ»¸ö½çÃæÄÚÈÝµÄ´íÎó
-  22          uchar oriTime=0;       //ÐÞ¸ÄÊ±¼ä´íÎóÊ±Ô­À´µÄÊ±¼ä
-  23          
-  24          void main()
-  25          {
-  26   1        //uchar h1, h0, m1, m0, s1, s0;  //±äÁ¿¶¨Òå
-  27   1      
-  28   1        initTimer();     //³õÊ¼»¯¶¨Ê±Æ÷0£¨Ê±ÖÓ£©
-  29   1        TFT_Init();       //³õÊ¼»¯´¥ÃþÆÁÏÔÊ¾
-  30   1      
-  31   1        while(1)
-  32   1        {
-  33   2      
-  34   2        /*
-  35   2          h1=time.hour/10;  //µÃµ½¶¨Ê±Æ÷µÄÊ±¼ä
-  36   2          h0=time.hour%10;
-  37   2          m1=time.minute/10;
-  38   2          m0=time.minute%10;
-  39   2          s1=time.second/10;
-  40   2          s0=time.second%10;
-  41   2        */
-  42   2          CalTimeDisplay();   //Ö÷½çÃæµÄÏÔÊ¾¼°ÉèÖÃ½çÃæµÄÏÔÊ¾
-  43   2        }
-  44   1      
-  45   1      }
-  46          
-  47              
+  21          long x=0, y=0;  
+  22          uchar set=0, back=1;  //ÉèÖÃ±êÖ¾Î»£¬·µ»Ø±êÖ¾Î»£¨ÏÈÖÃ1²ÅÄÜÔËÐÐ£©£¬È«¾Ö±äÁ¿ÔÚcalTimeDisplay.hÖÐÉùÃ÷
+  23          uchar setFlag=0, clockFlag=0; //·ÀÖ¹³öÏÖÔÚÒ»¸ö½çÃæ°´¼üÈ´´¥·¢ÁíÍâÒ»¸ö½çÃæÄÚÈÝµÄ´íÎó
+  24          uchar oriTime=0;       //ÐÞ¸ÄÊ±¼ä´íÎóÊ±Ô­À´µÄÊ±¼ä
+  25          
+  26          void main()
+  27          {
+  28   1        //uchar h1, h0, m1, m0, s1, s0;  //±äÁ¿¶¨Òå
+  29   1       P2 = 0x00;
+  30   1        TFT_Init();       //³õÊ¼»¯´¥ÃþÆÁÏÔÊ¾
+  31   1        TFT_ClearScreen(0x0000);    //ÇåÆÁ£¬Ïû³ýÆÁÄ»Ö®Ç°ÏÔÊ¾ÄÚÈÝµÄÓ°Ïì
+  32   1        initTimer();     //³õÊ¼»¯¶¨Ê±Æ÷0£¨Ê±ÖÓ£ 
+  33   1        while(1)
+  34   1        {
+  35   2       
+  36   2            TFT_paintMainClock();
+  37   2            if(TOUCH_XPT_ReadXY() == 1) 
+  38   2            {
+  39   3              x=xpt_xy.x;
+  40   3              x=(x-304)*175/3422;
+  41   3              y=xpt_xy.y;
+  42   3              y=(y-256)*219/3440;     
+  43   3              if(x>174)
+  44   3              {
+  45   4                x=174;
+  46   4              }
+  47   3              if(y>218)
+  48   3              {
+  49   4                y=218;
+  50   4              }   
+  51   3              if( (x>115)&&(y<24) ) 
+  52   3              {         
+  53   4                   displayPageSetting();    //½øÈëÉèÖÃ½çÃæ
+  54   4                   TFT_ClearScreen(0x0000);   //ÇåÆÁ  
+C51 COMPILER V9.56.0.0   MAIN                                                              07/24/2017 20:10:07 PAGE 2   
+
+  55   4              }
+  56   3            }
+  57   2        }
+  58   1      
+  59   1      }
+  60          
+  61              
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     11    ----
+   CODE SIZE        =    237    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-C51 COMPILER V9.56.0.0   MAIN                                                              07/24/2017 15:54:46 PAGE 2   
-
    DATA SIZE        =     21    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----

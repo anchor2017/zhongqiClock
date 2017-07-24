@@ -64,7 +64,8 @@ typedef struct clockTime
 **************************************************************/
 #ifndef GLOBAL_TIME_             //避免重复定义
 #define GLOBAL_TIME_
-extern clockTime time;          //记录时间
+extern clockTime time, timeclock;          //记录时间
+extern uchar clockTag;
 #endif
 /**************************************************************
 *	Prototype Declare Section
@@ -87,5 +88,20 @@ extern clockTime time;          //记录时间
  */
 void initTimer();
 
-
+/**
+*  @name: void setTime
+*	@description:  调整时间
+*	@param		:none
+ *	@return		: none
+ *  @notice : none
+ */
+void setTime();
+/**
+*  @name: void setClockTime
+*	@description:  调整闹钟时间
+*	@param		:none
+ *	@return		: none
+ *  @notice : none
+ */
+void setClockTime();
 #endif

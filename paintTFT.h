@@ -28,7 +28,7 @@
 *	Include File Section
 **************************************************************/
 #include <reg52.h>
-
+#include"clock.h"
 /**************************************************************
 *	Macro Define Section
 **************************************************************/
@@ -70,7 +70,7 @@
  *	@return		: none
  *  @notice : none
  */
-void TFT_paintSetSur();		//设置界面的显示
+void TFT_paintSetSur(uchar *s);		//设置界面的显示
 
 /**
 *  @name:void TFT_paintTimeSet();
@@ -79,7 +79,7 @@ void TFT_paintSetSur();		//设置界面的显示
  *	@return		: none
  *  @notice : none
  */
-void TFT_paintTimeSet();
+void TFT_paintTimeSet(clockTime settime);
 
 /**
 *  @name:void TFT_paintTimeSet();
