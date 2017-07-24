@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   DS18S120                                                          07/24/2017 14:13:02 PAGE 1   
+C51 COMPILER V9.56.0.0   DS18S120                                                          07/24/2017 15:54:47 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE DS18S120
@@ -62,7 +62,7 @@ line level    source
   53          sbit ds = P3^7;
   54          
   55          /**************************************************************
-C51 COMPILER V9.56.0.0   DS18S120                                                          07/24/2017 14:13:02 PAGE 2   
+C51 COMPILER V9.56.0.0   DS18S120                                                          07/24/2017 15:54:47 PAGE 2   
 
   56          * Function Define Section
   57          **************************************************************/
@@ -126,7 +126,7 @@ line level    source
  115   1        i++;
  116   1        ds = 1;
  117   1        i++; i++;
-C51 COMPILER V9.56.0.0   DS18S120                                                          07/24/2017 14:13:02 PAGE 3   
+C51 COMPILER V9.56.0.0   DS18S120                                                          07/24/2017 15:54:47 PAGE 3   
 
  118   1        dat = ds;
  119   1        i = 8;
@@ -190,7 +190,7 @@ line level    source
  177   2          {
  178   3            ds = 0;
  179   3            i = 8;
-C51 COMPILER V9.56.0.0   DS18S120                                                          07/24/2017 14:13:02 PAGE 4   
+C51 COMPILER V9.56.0.0   DS18S120                                                          07/24/2017 15:54:47 PAGE 4   
 
  180   3            while( i > 0 )
  181   3            {
@@ -255,7 +255,7 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    BIT SIZE         =   ----       2
 END OF MODULE INFORMATION.
 
-C51 COMPILER V9.56.0.0   DS18S120                                                          07/24/2017 14:13:02 PAGE 5   
+C51 COMPILER V9.56.0.0   DS18S120                                                          07/24/2017 15:54:47 PAGE 5   
 
 
 C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   PAINTTFT                                                          07/24/2017 14:13:01 PAGE 1   
+C51 COMPILER V9.56.0.0   PAINTTFT                                                          07/24/2017 15:54:47 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE PAINTTFT
@@ -62,7 +62,7 @@ line level    source
   53          * File Static Variable Define Section
   54          **************************************************************/
   55          
-C51 COMPILER V9.56.0.0   PAINTTFT                                                          07/24/2017 14:13:01 PAGE 2   
+C51 COMPILER V9.56.0.0   PAINTTFT                                                          07/24/2017 15:54:47 PAGE 2   
 
   56          /**************************************************************
   57          * Function Define Section
@@ -126,7 +126,7 @@ line level    source
  115   1        s1[0]=time.second/10+'0';
  116   1        s0[0]=time.second%10+'0';
  117   1      
-C51 COMPILER V9.56.0.0   PAINTTFT                                                          07/24/2017 14:13:01 PAGE 3   
+C51 COMPILER V9.56.0.0   PAINTTFT                                                          07/24/2017 15:54:47 PAGE 3   
 
  118   1        /*将时间显示在触摸屏上*/
  119   1        GUI_WriteASCII2(10, 100, h1, 0xF800, 0x0000);  //h1       
@@ -170,13 +170,11 @@ line level    source
  157   1        GUI_WriteASCII(61, 58, m0, 0xF800, 0x0000);
  158   1        GUI_WriteASCII(81, 58, s1, 0xF800, 0x0000);
  159   1        GUI_WriteASCII(93, 58, s0, 0xF800, 0x0000);
- 160   1      
- 161   1        Delay(1000);
- 162   1      }
+ 160   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    970    ----
+   CODE SIZE        =    963    ----
    CONSTANT SIZE    =     73    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

@@ -157,6 +157,4 @@ void TFT_paintTimeSet()
 	GUI_WriteASCII(61, 58, m0, 0xF800, 0x0000);
 	GUI_WriteASCII(81, 58, s1, 0xF800, 0x0000);
 	GUI_WriteASCII(93, 58, s0, 0xF800, 0x0000);
-
-	Delay(1000);
 }

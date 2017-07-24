@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   LCD_DRIVER                                                        07/24/2017 14:13:01 PAGE 1   
+C51 COMPILER V9.56.0.0   LCD_DRIVER                                                        07/24/2017 15:54:46 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE LCD_DRIVER
@@ -62,7 +62,7 @@ line level    source
   53   1        TFT_WriteData(0x05);
   54   1      
   55   1        
-C51 COMPILER V9.56.0.0   LCD_DRIVER                                                        07/24/2017 14:13:01 PAGE 2   
+C51 COMPILER V9.56.0.0   LCD_DRIVER                                                        07/24/2017 15:54:46 PAGE 2   
 
   56   1        
   57   1      
@@ -126,7 +126,7 @@ line level    source
  115   1      
  116   1        TFT_WriteCmd(0x2b);   
  117   1        TFT_WriteData(yStart>>8);
-C51 COMPILER V9.56.0.0   LCD_DRIVER                                                        07/24/2017 14:13:01 PAGE 3   
+C51 COMPILER V9.56.0.0   LCD_DRIVER                                                        07/24/2017 15:54:46 PAGE 3   
 
  118   1        TFT_WriteData(yStart&0xff);
  119   1        TFT_WriteData(yEnd>>8);
@@ -190,7 +190,7 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----      10
    IDATA SIZE       =   ----    ----
-C51 COMPILER V9.56.0.0   LCD_DRIVER                                                        07/24/2017 14:13:01 PAGE 4   
+C51 COMPILER V9.56.0.0   LCD_DRIVER                                                        07/24/2017 15:54:46 PAGE 4   
 
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

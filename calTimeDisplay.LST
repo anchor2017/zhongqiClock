@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/24/2017 14:13:01 PAGE 1   
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/24/2017 15:54:47 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE CALTIMEDISPLAY
@@ -41,351 +41,296 @@ line level    source
   32          #include "paintTFT.h"
   33          #include "lcd_driver.h"
   34          #include "clock.h"    //引用全局变量time
-  35          
-  36          /**************************************************************
-  37          * Macro Define Section
-  38          **************************************************************/
-  39          
-  40          /**************************************************************
-  41          * Struct Define Section
-  42          **************************************************************/
+  35          /**************************************************************
+  36          * Macro Define Section
+  37          **************************************************************/
+  38          
+  39          /**************************************************************
+  40          * Struct Define Section
+  41          **************************************************************/
+  42          
   43          
-  44          
-  45          /**************************************************************
-  46          * Prototype Declare Section
-  47          **************************************************************/
+  44          /**************************************************************
+  45          * Prototype Declare Section
+  46          **************************************************************/
+  47          
   48          
-  49          
-  50          /**************************************************************
-  51          * Global Variable Declare Section
-  52          **************************************************************/
+  49          /**************************************************************
+  50          * Global Variable Declare Section
+  51          **************************************************************/
+  52          
   53          
-  54          
-  55          /**************************************************************
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/24/2017 14:13:01 PAGE 2   
+  54          /**************************************************************
+  55          * File Static Variable Define Section
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/24/2017 15:54:47 PAGE 2   
 
-  56          * File Static Variable Define Section
-  57          **************************************************************/
-  58          
-  59          /**************************************************************
-  60          * Function Define Section
-  61          **************************************************************/
-  62          
-  63          /**
-  64          *  @name:vvoid  displayPageTime()
-  65          * @description: 显示主界面
-  66           *  @param    :none
-  67           *  @return   : none
-  68           *  @notice : none
-  69           */
-  70          void  displayPageTime()
-  71          {
-  72   1          if(anotherSur==1)   //判断是否要清屏
-  73   1          {
-  74   2            TFT_ClearScreen(0x0000);    //清屏
-  75   2            anotherSur=0;   //如果不是设置界面返回则不需要清屏
-  76   2          }
-  77   1          
-  78   1          /*触摸屏上主时钟界面的显示*/
-  79   1          //
-  80   1          while(TOUCH_XPT_ReadXY() != 1)
-  81   1          {
-  82   2            TFT_paintMainClock();
-  83   2          }
-  84   1      
-  85   1          back=0;      //不再进入时钟界面但是屏幕并不清除
-  86   1          clockFlag=1;  //如果在时钟界面则时钟界面的触屏有效
-  87   1          setFlag=0;     //如果在时钟界面则设置界面的触屏无效
-  88   1          i=0;    //每次重新进入设置页面都从小时开始调整  
-  89   1      }
+  56          **************************************************************/
+  57          
+  58          /**************************************************************
+  59          * Function Define Section
+  60          **************************************************************/
+  61          
+  62          /**
+  63          *  @name:vvoid  displayPageTime()
+  64          * @description: 显示主界面
+  65           *  @param    :none
+  66           *  @return   : none
+  67           *  @notice : none
+  68           */
+  69          void  displayPageTime()
+  70          {
+  71   1          if(anotherSur==1)   //判断是否要清屏
+  72   1          {
+  73   2            TFT_ClearScreen(0x0000);    //清屏
+  74   2            anotherSur=0;   //如果不是设置界面返回则不需要清屏
+  75   2          }
+  76   1          
+  77   1          /*触摸屏上主时钟界面的显示*/
+  78   1          //
+  79   1          while(TOUCH_XPT_ReadXY() != 1)
+  80   1          {
+  81   2            TFT_paintMainClock();
+  82   2          }
+  83   1      
+  84   1          back=0;      //不再进入时钟界面但是屏幕并不清除
+  85   1          clockFlag=1;  //如果在时钟界面则时钟界面的触屏有效
+  86   1          setFlag=0;     //如果在时钟界面则设置界面的触屏无效
+  87   1          i=0;    //每次重新进入设置页面都从小时开始调整  
+  88   1      }
+  89          
   90          
-  91          
-  92          /**
-  93          *  @name:void displayPageSet()
-  94          * @description: 显示设置界面
-  95           *  @param    :none
-  96           *  @return   : none
-  97           *  @notice : none
-  98           */
-  99          void displayPageSet()
- 100          {
- 101   1          /*线条及数字的基本框图*/    
- 102   1          TFT_paintSetSur();
- 103   1          /*将时间写在设置界面左偏上*/   
- 104   1          TFT_paintTimeSet();
- 105   1                 
- 106   1          set = 0;
- 107   1          clockFlag=0;     //如果在设置界面则时钟界面的触屏无效
- 108   1          setFlag=1;     //如果在设置界面则设置界面的触屏有效
- 109   1          anotherSur=1; //从设置界面返回主时钟界面需要清屏  
- 110   1      }
+  91          /**
+  92          *  @name:void displayPageSet()
+  93          * @description: 显示设置界面
+  94           *  @param    :none
+  95           *  @return   : none
+  96           *  @notice : none
+  97           */
+  98          void displayPageSet()
+  99          {
+ 100   1          /*线条及数字的基本框图*/    
+ 101   1          TFT_paintSetSur();
+ 102   1          /*将时间写在设置界面左偏上*/   
+ 103   1          TFT_paintTimeSet();
+ 104   1                 
+ 105   1          set = 0;
+ 106   1          clockFlag=0;     //如果在设置界面则时钟界面的触屏无效
+ 107   1          setFlag=1;     //如果在设置界面则设置界面的触屏有效
+ 108   1          anotherSur=1; //从设置界面返回主时钟界面需要清屏  
+ 109   1      }
+ 110          
  111          
  112          /**
- 113          *  @name:void calTimeDisplay();
- 114          * @description: 主时钟显示及时钟调整设置
- 115           *  @param    :none
+ 113          *  @name: void setTime
+ 114          * @description:  调整时间
+ 115          * @param    :none
  116           *  @return   : none
  117           *  @notice : none
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/24/2017 14:13:01 PAGE 3   
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/24/2017 15:54:47 PAGE 3   
 
  118           */
- 119          void CalTimeDisplay()  
- 120          {   
- 121   1        /*进入主时钟界面*/
- 122   1        if(back==1)
- 123   1        {
- 124   2            displayPageTime();     //显示主界面
- 125   2        }
- 126   1        /*进入设置界面*/
- 127   1        if(set==1)    
- 128   1        { 
- 129   2           displayPageSet();  //显示设置界面
- 130   2        }
- 131   1        /*触摸检测*/
- 132   1        if(TOUCH_XPT_ReadXY() == 1)   
- 133   1        {
- 134   2          /*转化*/
- 135   2          x=xpt_xy.x;
- 136   2          x=(x-304)*175/3422;
- 137   2          y=xpt_xy.y;
- 138   2          y=(y-256)*219/3440;     
- 139   2          if(x>174)
- 140   2          {
- 141   3            x=174;
- 142   3          }
- 143   2          if(y>218)
- 144   2          {
- 145   3            y=218;
- 146   3          }     
- 147   2      
- 148   2          /*屏上功能部分检测反应（时钟页面）*/   //不需要清屏
- 149   2          if(clockFlag==1)
- 150   2          {
- 151   3            if((x>115)&&(y<24))
- 152   3            {
- 153   4              set=1;      //右上角
- 154   4            }
- 155   3          }
- 156   2      
- 157   2          /*屏上功能部分检测反应（设置页面）一旦进入设置页面就停止走时，进入主时钟界面开始走时*/   //不需要清屏
- 158   2          if(setFlag==1)
- 159   2          {
- 160   3            ET0=0;    //关闭定时器，停止走时
- 161   3            /*屏上数字部分检测（设置页面）*/   //不需要清屏           
- 162   3            if((x>115)&&(y>45)&&(y<85))   //0
- 163   3            {
- 164   4              TimeArray[i]=0;
- 165   4              i++;
- 166   4      
- 167   4              /*重新设定的时间显示*/
- 168   4              time.hour=TimeArray[0]*10+TimeArray[1]; 
- 169   4              time.minute=TimeArray[2]*10+TimeArray[3];
- 170   4              time.second=TimeArray[4]*10+TimeArray[5];
- 171   4              TFT_paintTimeSet();
+ 119          void setTime()
+ 120          {
+ 121   1        uchar num, tag = 0;
+ 122   1        ET0=0;    //关闭定时器，停止走时
+ 123   1            /*屏上数字部分检测（设置页面）*/   //不需要清屏         
+ 124   1        i = 0;
+ 125   1        while(1) 
+ 126   1         {
+ 127   2          if(TOUCH_XPT_ReadXY() == 1)   
+ 128   2          {
+ 129   3            /*转化*/
+ 130   3            x=xpt_xy.x;
+ 131   3            x=(x-304)*175/3422;
+ 132   3            y=xpt_xy.y;
+ 133   3            y=(y-256)*219/3440;     
+ 134   3            if(x>174)
+ 135   3            {
+ 136   4              x=174;
+ 137   4            }
+ 138   3            if(y>218)
+ 139   3            {
+ 140   4                y=218;
+ 141   4            }
+ 142   3            //设置时间 
+ 143   3            if((x>115)&&(y>45)&&(y<85))   //0
+ 144   3            {
+ 145   4              num = 0;
+ 146   4              tag = 1;
+ 147   4            }
+ 148   3            else if((x<60)&&(y>95)&&(y<135))    //1
+ 149   3            {
+ 150   4              num = 1;
+ 151   4              tag = 1;
+ 152   4            }
+ 153   3            else if((x>70)&&(x<105)&&(y>95)&&(y<135)) //2
+ 154   3            {
+ 155   4              num = 2;
+ 156   4              tag = 1;
+ 157   4            }
+ 158   3            else if((x>115)&&(y>95)&&(y<135))  //3
+ 159   3            {
+ 160   4              num = 3;
+ 161   4              tag = 1;
+ 162   4            }
+ 163   3            else if((x<60)&&(y>145)&&(y<165))   //4
+ 164   3            {
+ 165   4              num = 4;
+ 166   4              tag = 1;
+ 167   4            }
+ 168   3            else if((x>70)&&(x<105)&&(y>145)&&(y<165)) //5
+ 169   3            {
+ 170   4              num = 5;
+ 171   4              tag = 1;
  172   4            }
- 173   3            if((x<60)&&(y>95)&&(y<135))   //1
+ 173   3            else if((x>115)&&(y>145)&&(y<165)) //6
  174   3            {
- 175   4              TimeArray[i]=1;
- 176   4              i++;
- 177   4      
- 178   4              /*重新设定的时间显示*/
- 179   4              time.hour=TimeArray[0]*10+TimeArray[1]; 
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/24/2017 14:13:01 PAGE 4   
+ 175   4              num = 6;
+ 176   4              tag = 1;
+ 177   4            }
+ 178   3            else if((x<60)&&(y>175)&(y<205))    //7
+ 179   3            {
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/24/2017 15:54:47 PAGE 4   
 
- 180   4              time.minute=TimeArray[2]*10+TimeArray[3];
- 181   4              time.second=TimeArray[4]*10+TimeArray[5]; 
- 182   4              TFT_paintTimeSet();
- 183   4            }
- 184   3            if((x>70)&&(x<105)&&(y>95)&&(y<135)) //2
- 185   3            {
- 186   4              TimeArray[i]=2;
- 187   4              i++;
- 188   4      
- 189   4              /*重新设定的时间显示*/
- 190   4              time.hour=TimeArray[0]*10+TimeArray[1]; 
- 191   4              time.minute=TimeArray[2]*10+TimeArray[3];
- 192   4              time.second=TimeArray[4]*10+TimeArray[5];
- 193   4              TFT_paintTimeSet();
- 194   4            }
- 195   3            if((x>115)&&(y>95)&&(y<135))  //3
- 196   3            {
- 197   4              oriTime=TimeArray[i];
- 198   4              TimeArray[i]=3;
- 199   4              i++;        
- 200   4      
- 201   4              if(i==1)     //时间校准限制
- 202   4              {
- 203   5                i--;
- 204   5                TimeArray[i]=oriTime; 
- 205   5              }
- 206   4      
- 207   4              /*重新设定的时间显示*/
- 208   4              time.hour=TimeArray[0]*10+TimeArray[1]; 
- 209   4              time.minute=TimeArray[2]*10+TimeArray[3];
- 210   4              time.second=TimeArray[4]*10+TimeArray[5];
- 211   4              TFT_paintTimeSet();
- 212   4            }
- 213   3            if((x<60)&&(y>145)&&(y<165))    //4
- 214   3            {
- 215   4              oriTime=TimeArray[i];
- 216   4              TimeArray[i]=4;
- 217   4              i++;        
- 218   4      
- 219   4              if(i==1)     //时间校准限制
- 220   4              {
- 221   5                i--;
- 222   5                TimeArray[i]=oriTime;  
- 223   5              }
- 224   4      
- 225   4              /*重新设定的时间显示*/
- 226   4              time.hour=TimeArray[0]*10+TimeArray[1]; 
- 227   4              time.minute=TimeArray[2]*10+TimeArray[3];
- 228   4              time.second=TimeArray[4]*10+TimeArray[5];  
- 229   4              TFT_paintTimeSet();
- 230   4            }
- 231   3            if((x>70)&&(x<105)&&(y>145)&&(y<165)) //5
- 232   3            {
- 233   4              oriTime=TimeArray[i];
- 234   4              TimeArray[i]=5;
- 235   4              i++;        
- 236   4      
- 237   4              if(i==1)       //时间校准限制
- 238   4              {
- 239   5                i--;
- 240   5                TimeArray[i]=oriTime;
+ 180   4              num  = 7;
+ 181   4              tag = 1;
+ 182   4            }
+ 183   3            else if((x>70)&&(x<105)&&(y>175)&&(y<205)) //8
+ 184   3            {
+ 185   4              num = 8;
+ 186   4              tag = 1;
+ 187   4            }
+ 188   3            else if((x>115)&&(y>175)&&(y<205)) //9
+ 189   3            {
+ 190   4              num = 9;
+ 191   4              tag = 1;
+ 192   4            }                                                             
+ 193   3            else if((x<55)&&(y<24))  //左上角
+ 194   3            {
+ 195   4              back=1;
+ 196   4              set = 0;
+ 197   4              ET0=1;
+ 198   4              break;   //退出循环       
+ 199   4            }
+ 200   3            if( tag == 1 )       //判断按键是否有效
+ 201   3            {
+ 202   4              tag = 0;
+ 203   4             switch(i)
+ 204   4              {
+ 205   5                case 0:
+ 206   5                   if( num < 3 )
+ 207   5                   {
+ 208   6                      time.hour = time.hour % 10 + num * 10;
+ 209   6                     i++;
+ 210   6                   }               
+ 211   5                    break;
+ 212   5                case 1: 
+ 213   5                   if( num < 4 || time.hour < 20) 
+ 214   5                   {
+ 215   6                      time.hour =time.hour - time.hour % 10 + num;
+ 216   6                     i++; 
+ 217   6                   }              
+ 218   5                    break;
+ 219   5              case 2: 
+ 220   5                   if( num < 6 )
+ 221   5                   {
+ 222   6                      time.minute = time.minute % 10 + num * 10;
+ 223   6                     i++;
+ 224   6                   }  
+ 225   5                    break;
+ 226   5              case 3:
+ 227   5                   time.minute =time.minute - time.minute % 10 + num;
+ 228   5                  i++;
+ 229   5                    break;
+ 230   5              case 4: 
+ 231   5                   if( num < 6 )
+ 232   5                   {
+ 233   6                      time.second = time.second % 10 + num * 10;
+ 234   6                     i++;
+ 235   6                   }           
+ 236   5                    break;
+ 237   5                case 5: 
+ 238   5                    time.second =time.second - time.second % 10 + num;
+ 239   5                    i++;
+ 240   5                    break;
  241   5              }
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/24/2017 14:13:01 PAGE 5   
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/24/2017 15:54:47 PAGE 5   
 
- 242   4              if((TimeArray[0]==2) && (i==2))
- 243   4              {
- 244   5                i--;
- 245   5                TimeArray[i]=oriTime;  
- 246   5              }
- 247   4      
- 248   4              /*重新设定的时间显示*/
- 249   4              time.hour=TimeArray[0]*10+TimeArray[1]; 
- 250   4              time.minute=TimeArray[2]*10+TimeArray[3];
- 251   4              time.second=TimeArray[4]*10+TimeArray[5];  
- 252   4              TFT_paintTimeSet();
- 253   4            }
- 254   3            if((x>115)&&(y>145)&&(y<165)) //6
- 255   3            {
- 256   4              oriTime=TimeArray[i];
- 257   4              TimeArray[i]=6;
- 258   4              i++;        
- 259   4      
- 260   4              if((i==1) || (i==3) || (i==5))    //时间校准限制
- 261   4              {
- 262   5                i--;
- 263   5                TimeArray[i]=oriTime;
- 264   5              }
- 265   4              if((TimeArray[0]==2) && (i==2))
- 266   4              {
- 267   5                i--;
- 268   5                TimeArray[i]=oriTime;
- 269   5              }
- 270   4      
- 271   4              /*重新设定的时间显示*/
- 272   4              time.hour=TimeArray[0]*10+TimeArray[1]; 
- 273   4              time.minute=TimeArray[2]*10+TimeArray[3];
- 274   4              time.second=TimeArray[4]*10+TimeArray[5];
- 275   4              TFT_paintTimeSet();
- 276   4            }
- 277   3            if((x<60)&&(y>175)&(y<205))   //7
- 278   3            {
- 279   4              oriTime=TimeArray[i];
- 280   4              TimeArray[i]=7;
- 281   4              i++;
- 282   4      
- 283   4              if((i==1) || (i==3) || (i==5))    //时间校准限制
- 284   4              {
- 285   5                i--;
- 286   5                TimeArray[i]=oriTime;
- 287   5              }
- 288   4              if((TimeArray[0]==2) && (i==2))
- 289   4              {
- 290   5                i--;
- 291   5                TimeArray[i]=oriTime;
- 292   5              }
- 293   4      
- 294   4              /*重新设定的时间显示*/
- 295   4              time.hour=TimeArray[0]*10+TimeArray[1]; 
- 296   4              time.minute=TimeArray[2]*10+TimeArray[3];
- 297   4              time.second=TimeArray[4]*10+TimeArray[5];  
- 298   4              TFT_paintTimeSet();
- 299   4            }
- 300   3            if((x>70)&&(x<105)&&(y>175)&&(y<205)) //8
- 301   3            {
- 302   4              oriTime=TimeArray[i];
- 303   4              TimeArray[i]=8;
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/24/2017 14:13:01 PAGE 6   
+ 242   4             TFT_paintTimeSet();           //显示设置的值
+ 243   4            if(i==6)  //如果时分秒都赋值完毕则可以重新赋值
+ 244   4            {
+ 245   5              i=0;
+ 246   5            }       
+ 247   4            }     
+ 248   3          } 
+ 249   2        }
+ 250   1      }
+ 251            
+ 252          
+ 253          
+ 254          /**
+ 255          *  @name:void calTimeDisplay();
+ 256          * @description: 主时钟显示及时钟调整设置
+ 257           *  @param    :none
+ 258           *  @return   : none
+ 259           *  @notice : none
+ 260           */
+ 261          void CalTimeDisplay()  
+ 262          {   
+ 263   1        /*进入主时钟界面*/
+ 264   1        if(back==1)
+ 265   1        {
+ 266   2            displayPageTime();     //显示主界面
+ 267   2        }
+ 268   1        /*进入设置界面*/
+ 269   1        if(set==1)    
+ 270   1        { 
+ 271   2           displayPageSet();  //显示设置界面
+ 272   2        }
+ 273   1        /*触摸检测*/
+ 274   1        if(TOUCH_XPT_ReadXY() == 1)   
+ 275   1        {
+ 276   2          /*转化*/
+ 277   2          x=xpt_xy.x;
+ 278   2          x=(x-304)*175/3422;
+ 279   2          y=xpt_xy.y;
+ 280   2          y=(y-256)*219/3440;     
+ 281   2          if(x>174)
+ 282   2          {
+ 283   3            x=174;
+ 284   3          }
+ 285   2          if(y>218)
+ 286   2          {
+ 287   3            y=218;
+ 288   3          }     
+ 289   2      
+ 290   2          /*屏上功能部分检测反应（时钟页面）*/   //不需要清屏
+ 291   2          if(clockFlag==1)
+ 292   2          {
+ 293   3            if((x>115)&&(y<24))
+ 294   3            {
+ 295   4              set=1;      //右上角
+ 296   4              back = 0;
+ 297   4            }
+ 298   3          }
+ 299   2      
+ 300   2          /*屏上功能部分检测反应（设置页面）一旦进入设置页面就停止走时，进入主时钟界面开始走时*/   //不需要清屏
+ 301   2          if(setFlag==1)
+ 302   2          {
+ 303   3            setTime();      //设置时间
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/24/2017 15:54:47 PAGE 6   
 
- 304   4              i++;
- 305   4      
- 306   4              if((i==1) || (i==3) || (i==5))     //时间校准限制
- 307   4              {
- 308   5                i--;
- 309   5                TimeArray[i]=oriTime;
- 310   5              }
- 311   4              if((TimeArray[0]==2) && (i==2))
- 312   4              {
- 313   5                i--;
- 314   5                TimeArray[i]=oriTime;
- 315   5              }
- 316   4      
- 317   4              /*重新设定的时间显示*/
- 318   4              time.hour=TimeArray[0]*10+TimeArray[1]; 
- 319   4              time.minute=TimeArray[2]*10+TimeArray[3];
- 320   4              time.second=TimeArray[4]*10+TimeArray[5]; 
- 321   4              TFT_paintTimeSet();
- 322   4            }
- 323   3            if((x>115)&&(y>175)&&(y<205)) //9
- 324   3            {
- 325   4              oriTime=TimeArray[i];
- 326   4              TimeArray[i]=9;
- 327   4              i++;
- 328   4      
- 329   4              if((i==1) || (i==3) || (i==5))     //时间校准限制
- 330   4              {
- 331   5                i--;
- 332   5                TimeArray[i]=oriTime;
- 333   5              }
- 334   4              if((TimeArray[0]==2) && (i==2))
- 335   4              {
- 336   5                i--;
- 337   5                TimeArray[i]=oriTime;
- 338   5              }
- 339   4      
- 340   4              /*重新设定的时间显示*/
- 341   4              time.hour=TimeArray[0]*10+TimeArray[1]; 
- 342   4              time.minute=TimeArray[2]*10+TimeArray[3];
- 343   4              time.second=TimeArray[4]*10+TimeArray[5]; 
- 344   4              TFT_paintTimeSet();
- 345   4            }
- 346   3                  
- 347   3            if(i==6)  //如果时分秒都赋值完毕则可以重新赋值
- 348   3            {
- 349   4              i=0;
- 350   4            }
- 351   3      
- 352   3            if((x<55)&&(y<24))   //左上角
- 353   3            {
- 354   4              back=1;
- 355   4              ET0=1;       
- 356   4            }
- 357   3          }       
- 358   2        } //触摸检测
- 359   1      }
+ 304   3          }       
+ 305   2        } //触摸检测
+ 306   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   1112    ----
+   CODE SIZE        =    941    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/24/2017 14:13:01 PAGE 7   
-
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----    ----
+   DATA SIZE        =   ----       2
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
