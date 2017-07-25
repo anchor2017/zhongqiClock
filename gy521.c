@@ -101,7 +101,7 @@ int GetData(uchar REG_Address)
 uchar  judge()
 {
 	int acc[2][3],gyr[2][3];
-	uchar i, j;
+	uchar i, j, num = 0;
   if( GetData(ACC_Y_H) == 0 && GetData(ACC_Z_H) && 	GetData(GYRO_X_H) )
 	{
        if( 	GetData(GYRO_Y_H) && 	GetData(GYRO_Z_H) ) 
@@ -133,11 +133,12 @@ uchar  judge()
 			{
 				if( acc[0][i] - acc[1][i] > 100 || acc[1][i] - acc[0][i] > 100 )         //比较前后两次角度
 				{
+					num++;
 					break;
 				}
 			}
-		  }
-			if( i == 3 )
+  }
+			if( num < 3 )
 			{
 				return 0;                  //判定为不是移动
 			}	

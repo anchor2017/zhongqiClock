@@ -47,7 +47,7 @@
 #define uchar unsigned char 
 #endif
 
-
+#define PWM_MODE  70      //设置占空比模式
 /**************************************************************
 *	Struct Define Section
 **************************************************************/
@@ -62,11 +62,8 @@ typedef struct clockTime
 /**************************************************************
 *	Global Variable Declare Section
 **************************************************************/
-#ifndef GLOBAL_TIME_             //避免重复定义
-#define GLOBAL_TIME_
 extern clockTime time, timeclock;          //记录时间
 extern uchar clockTag;
-#endif
 /**************************************************************
 *	Prototype Declare Section
 **************************************************************/

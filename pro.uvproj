@@ -429,11 +429,6 @@
               <FilePath>.\gy521.c</FilePath>
             </File>
             <File>
-              <FileName>pwm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\pwm.c</FilePath>
-            </File>
-            <File>
               <FileName>DS18S120.C</FileName>
               <FileType>1</FileType>
               <FilePath>.\DS18S120.C</FilePath>

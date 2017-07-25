@@ -34,6 +34,7 @@
 #include "lcd_driver.h"
 #include "clock.h"		//引用全局变量time
 #include"AD.H"
+#include"gy521.h"
 /**************************************************************
 *	Macro Define Section
 **************************************************************/
@@ -46,7 +47,7 @@
 /**************************************************************
 *	Prototype Declare Section
 **************************************************************/
-
+sbit PWM = P3^5; 
 
 /**************************************************************
 *	Global Variable Declare Section
@@ -75,9 +76,6 @@ void displayPageSetTime()
 		TFT_paintSetSur("TIME");
 		/*将时间写在设置界面左偏上*/	 
 		TFT_paintTimeSet(time);					 
-		clockFlag=0;	   //如果在设置界面则时钟界面的触屏无效
-		setFlag=1;	   //如果在设置界面则设置界面的触屏有效
-		anotherSur=1;	//从设置界面返回主时钟界面需要清屏	
     setTime();        //设置时间
 }
 
@@ -92,11 +90,9 @@ void displayPageSetClock()
 {
 		/*线条及数字的基本框图*/		
 		TFT_paintSetSur("CLOCK");
+	GUI_WriteASCII(99,0, "YES", 0x07E0, 0x0000);	
 		/*将时间写在设置界面左偏上*/	 
-		TFT_paintTimeSet(timeclock);					 
-		clockFlag=0;	   //如果在设置界面则时钟界面的触屏无效
-		setFlag=1;	   //如果在设置界面则设置界面的触屏有效
-		anotherSur=1;	//从设置界面返回主时钟界面需要清屏	
+		TFT_paintTimeSet(timeclock);					 	
 	  setClockTime();
 }
 
@@ -112,7 +108,7 @@ void displayPageSetClock()
 void displayPageSetting()
 {
 	TFT_ClearScreen(0x0000);		//清屏	
-	GUI_WriteASCII(0,0, "BACK", 0x001F, 0x0000);
+	GUI_WriteASCII(0,0, "BACK", 0x001F, 0x0000);	
 	GUI_WriteASCII(50,24, "SET", 0xFFE0, 0x0000);
 	GUI_WriteASCII(50, 94, "TIME", 0x7ff, 0x0000);	
 	GUI_WriteASCII(50, 134, "CLOCK", 0x7fff, 0x0000);	
@@ -139,15 +135,17 @@ void displayPageSetting()
 			if( y < 135 && y > 95)       //选择设置时间
 			{
 				displayPageSetTime();
+				TFT_ClearScreen(0x0000);		//清屏
+        break;   //退出循环	
 			}
 			else if( y > 135 && y < 165)   // 选择设置闹钟
 			{
 				displayPageSetClock();
+			TFT_ClearScreen(0x0000);		//清屏
+        break;   //退出循环	
 			}
 			else if((x<55)&&(y<24))	 //左上角
 			{
-				back=1;
-				set = 0;
 			TFT_ClearScreen(0x0000);		//清屏
         break;   //退出循环				
 			}
@@ -168,7 +166,7 @@ void displayTemp(int temp)
 0x38,0x00,0x6C,0x00,0xC6,0x00,0x82,0x00,0xC6,0x00,0x6C,0x00,0x38,0xFE,0x01,0xFE,
 0x07,0x00,0x0E,0x00,0x0E,0x00,0x0E,0x00,0x0C,0x00,0x0C,0x00,0x0C,0x00,0x0C,0x00,
 0x0E,0x00,0x0E,0x00,0x06,0x00,0x03,0xFE,0x00,0xFE,0x00,0x00,0x00,0x00,0x00,0x00,
-	 };        //摄氏度		 
+	 };       //摄氏度		 
 	 uchar color,k,j,stemp[][2]= { 0, '\0', 0, '\0', '.', '\0', 0,  '\0'};
 	 stemp[0][0] = temp / 100 + '0';     
 	 stemp[1][0] = (temp % 100) / 10 + '0';
@@ -178,8 +176,8 @@ void displayTemp(int temp)
    GUI_WriteASCII(80, 170, stemp[2], 0x7fff, 0x0000);
    GUI_WriteASCII(90, 170, stemp[3], 0x7fff, 0x0000);	
 	 //摄氏度符号
-		TFT_SetWindow(105,170,120, 170+23);	   //15，23
-		for (k=0; k<48; k++)
+	 TFT_SetWindow(105,170,120, 193);
+	  for (k=0; k<48; k++)
 		{
 			color = table[k];
 			for (j=0; j<8; j++) 
@@ -196,3 +194,66 @@ void displayTemp(int temp)
 			}
 		}	 
  } 
+
+ 
+/**
+*  @name: displayPageSetting
+*	@description: 显示闹钟响起时的界面
+ *	@param		:none
+ *	@return		: none
+ *  @notice : none
+ */
+void displayPageClock()
+{
+					 //开启闹钟
+						TMOD = 0x10 | 0x01; // 开定时器1模式1
+	          TL1 = 0xcc; // 
+	          TH1 = 0xcc;
+	          ET1 = 1;
+          	TR1 = 1;
+           	pwmCount = 0;
+	          pwmPeriod = PWM_MODE;  
+				TFT_ClearScreen(0x0000);		//清屏	
+			GUI_WriteASCII(65, 100, "STOP", 0xffe0, 0x0000);	 //显示关闭按钮	
+  	while( 1 )
+		{
+			TFT_paintTimeSet(time);          //右上角显示时间按
+
+ 		  if(TOUCH_XPT_ReadXY() == 1 )		
+	   	{
+			/*转化*/
+				x=xpt_xy.x;
+				x=(x-304)*175/3422;
+				y=xpt_xy.y;
+				y=(y-256)*219/3440;			
+				if(x>174)
+				{
+					x=174;
+				}
+				if(y>218)
+				{
+						y=218;
+				} 
+     	if((x>65)&&(x<130)&&(y>97)&&(y<125))	  //点击关闭
+			{
+				clockTag = 0;
+				TR1 = 0;
+				ET1 = 0;
+				PWM = 0;
+				TFT_ClearScreen(0x0000);		//清屏
+				break;
+			}
+		}
+		  else if( judge() == 1)            //晃动关闭
+			{
+				clockTag = 0;
+				TR1 = 0;
+				ET1 = 0;
+				PWM = 0;
+				TFT_ClearScreen(0x0000);		//清屏
+				break;
+			}			
+	}
+}
+
+ 

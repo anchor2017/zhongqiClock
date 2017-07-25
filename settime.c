@@ -26,13 +26,14 @@
 /**************************************************************
 *	Include File Section
 **************************************************************/
-
+#include<reg52.h>
+#include "clock.h"		//引用全局变量time
 #include "calTimeDisplay.h"
 #include "touch.h"
 #include "paintTFT.h"
 #include "GUI.h"
 #include "lcd_driver.h"
-#include "clock.h"		//引用全局变量time
+
 /**************************************************************
 *	Macro Define Section
 **************************************************************/
@@ -211,7 +212,6 @@ void setClockTime()
 	uchar num, tag = 0;
 			/*屏上数字部分检测（设置页面）*/	 //不需要清屏					
   i = 0;
-	clockTag = 1;               //闹钟开关
 	while(1) 
    {
 		if(TOUCH_XPT_ReadXY() == 1)		
@@ -282,7 +282,12 @@ void setClockTime()
 			}																															
 			else if((x<55)&&(y<24))	 //左上角
 			{
-				ET0=1;
+				clockTag = 0;             //关闭闹钟
+        break;   //退出循环				
+			}
+			else if((x>100)&&(y<24))	 //左上角
+			{
+				clockTag = 1;         //开启闹钟
         break;   //退出循环				
 			}
 			if( tag == 1 )       //判断按键是否有效
@@ -298,7 +303,7 @@ void setClockTime()
 						 }							 
 					    break;
 					case 1: 
-             if( num < 4 || time.hour < 20) 
+             if( num < 4 || timeclock.hour < 20) 
 						 {
                 timeclock.hour =timeclock.hour - timeclock.hour % 10 + num;
 							 i++; 
@@ -327,7 +332,7 @@ void setClockTime()
 			      	i++;
 					    break;
 				}
-			 TFT_paintTimeSet(timeclock);           //显示设置的值
+				TFT_paintTimeSet(timeclock);           //显示设置的值
 			if(i==6)	//如果时分秒都赋值完毕则可以重新赋值
 			{
 				i=0;

@@ -1,0 +1,188 @@
+C51 COMPILER V9.56.0.0   PAINTTFT                                                          07/25/2017 16:46:25 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE PAINTTFT
+OBJECT MODULE PLACED IN .\Objects\paintTFT.obj
+COMPILER INVOKED BY: F:\keil51\C51\BIN\C51.EXE paintTFT.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\p
+                    -aintTFT.lst) TABS(2) OBJECT(.\Objects\paintTFT.obj)
+
+line level    source
+
+   1           /***************************************************************************************
+   2           *  FileName          : paintTFT.c
+   3           *  CopyRight         : 
+   4           *  ModuleName          :  
+   5           *
+   6           *  CPU             :
+   7           *  RTOS            :
+   8           *
+   9           *  Create Data         : 
+  10           *  Author/Corportation     :  caiyinmao
+  11           *
+  12           *  Abstract Description    :
+  13           *
+  14           *--------------------------------Revision History--------------------------------------
+  15           *  No  version   Data      Revised By      Item      Description
+  16           *  
+  17           *
+  18           ***************************************************************************************/
+  19          
+  20          /**************************************************************
+  21          * Debug switch Section
+  22          **************************************************************/
+  23          
+  24          
+  25          /**************************************************************
+  26          * Include File Section
+  27          **************************************************************/
+  28          #include <reg52.h>
+  29          #include "paintTFT.h"
+  30          #include "GUI.h"
+  31          #include "clock.h"
+  32          
+  33          /**************************************************************
+  34          * Macro Define Section
+  35          **************************************************************/
+  36          
+  37          /**************************************************************
+  38          * Struct Define Section
+  39          **************************************************************/
+  40          
+  41          
+  42          /**************************************************************
+  43          * Prototype Declare Section
+  44          **************************************************************/
+  45          
+  46          
+  47          /**************************************************************
+  48          * Global Variable Declare Section
+  49          **************************************************************/
+  50          
+  51          
+  52          /**************************************************************
+  53          * File Static Variable Define Section
+  54          **************************************************************/
+C51 COMPILER V9.56.0.0   PAINTTFT                                                          07/25/2017 16:46:25 PAGE 2   
+
+  55          
+  56          /**************************************************************
+  57          * Function Define Section
+  58          **************************************************************/
+  59          
+  60          /**
+  61          *  @name:void paintTFT();
+  62          * @description: 在触摸屏上画图
+  63           *  @param    :none
+  64           *  @return   : none
+  65           *  @notice : none
+  66           *  @use : 在触摸屏显示调整时间的基本框架（设置界面）
+  67           */
+  68          void TFT_paintSetSur(uchar *s)    //设置界面的显示
+  69          {
+  70   1        TFT_ClearScreen(0x0000);
+  71   1        GUI_WriteASCII(47, 24, s, 0xFFE0, 0x0000);    //x, y  
+  72   1          //横线
+  73   1        GUI_Line(20, 50, 155, 50, 0xF800);  //x, y, x, y
+  74   1        GUI_Line(20, 90, 155, 90, 0xF800);  //x, y, x, y
+  75   1        GUI_Line(20, 130, 155, 130, 0xF800);  //x, y, x, y
+  76   1        GUI_Line(20, 170, 155, 170, 0xF800);  //x, y, x, y
+  77   1        GUI_Line(20, 210, 155, 210, 0xF800);  //x, y, x, y  
+  78   1        //竖线
+  79   1          GUI_Line(65, 90, 65, 210, 0xF800);  //x, y, x, y
+  80   1        GUI_Line(110, 50, 110, 210, 0xF800);  //x, y, x, y  
+  81   1        //数字  x, y    
+  82   1          GUI_WriteASCII(31, 94, "1", 0xF800, 0x0000);   //1
+  83   1        GUI_WriteASCII(81, 94, "2", 0xF800, 0x0000);   //2
+  84   1        GUI_WriteASCII(127, 94, "3", 0xF800, 0x0000);  //3
+  85   1        GUI_WriteASCII(31, 134, "4", 0xF800, 0x0000);  //4
+  86   1        GUI_WriteASCII(81, 134, "5", 0xF800, 0x0000);  //5
+  87   1        GUI_WriteASCII(127, 134, "6", 0xF800, 0x0000);   //6
+  88   1        GUI_WriteASCII(31, 174, "7", 0xF800, 0x0000);  //7
+  89   1        GUI_WriteASCII(81, 174, "8", 0xF800, 0x0000);  //8
+  90   1        GUI_WriteASCII(127, 174, "9", 0xF800, 0x0000);   //9
+  91   1          GUI_WriteASCII(127, 58, "0", 0xF800, 0x0000);  //0  
+  92   1        GUI_WriteASCII(0, 0, "BACK", 0x001F, 0x0000);   //返回   左上角
+  93   1      
+  94   1      }
+  95          
+  96          /**
+  97          *  @name:void TFT_paintTimeSet();
+  98          * @description: 主界面的时间显示
+  99           *  @param    : 时分秒
+ 100           *  @return   : none
+ 101           *  @notice : none
+ 102           *  @use : 得到时分秒六位，并显示在触摸屏的中间
+ 103           */
+ 104          void TFT_paintMainClock()
+ 105          {
+ 106   1        uchar h1[]={0,'\0'}, h0[]={0,'\0'};
+ 107   1        uchar m1[]={0,'\0'}, m0[]={0,'\0'};
+ 108   1        uchar s1[]={0,'\0'}, s0[]={0,'\0'}; //存放时分秒
+ 109   1        
+ 110   1        /*设置界面的显示时间*/
+ 111   1        h1[0]=time.hour/10+'0';
+ 112   1        h0[0]=time.hour%10+'0';
+ 113   1        m1[0]=time.minute/10+'0';
+ 114   1        m0[0]=time.minute%10+'0';
+ 115   1        s1[0]=time.second/10+'0';
+ 116   1        s0[0]=time.second%10+'0';
+C51 COMPILER V9.56.0.0   PAINTTFT                                                          07/25/2017 16:46:25 PAGE 3   
+
+ 117   1      
+ 118   1        /*将时间显示在触摸屏上*/
+ 119   1        GUI_WriteASCII2(10, 100, h1, 0xF800, 0x0000);  //h1       
+ 120   1        GUI_WriteASCII2(30, 100, h0, 0xF800, 0x0000);  //h0                   
+ 121   1        GUI_WriteASCII2(50, 94, ":", 0xF800, 0x0000);
+ 122   1        GUI_WriteASCII2(70, 100, m1, 0xF800, 0x0000);  //m1       
+ 123   1        GUI_WriteASCII2(90, 100, m0, 0xF800, 0x0000);  //m0
+ 124   1        GUI_WriteASCII2(110, 94, ":", 0xF800, 0x0000);                    
+ 125   1        GUI_WriteASCII2(130, 100, s1, 0xF800, 0x0000);   //s1       
+ 126   1        GUI_WriteASCII2(150, 100, s0, 0xF800, 0x0000);   //s0             
+ 127   1        GUI_WriteASCII(127, 0, "SET", 0x001F, 0x0000);   //设置   右上角
+ 128   1      }
+ 129          
+ 130          /**
+ 131          *  @name:void TFT_paintTimeSet(clockTime setime)
+ 132          * @description: 重新设置时间的显示
+ 133           *  @param    : 时分秒
+ 134           *  @return   : none
+ 135           *  @notice : none
+ 136           *  @use : 得到时分秒六位，并显示在触摸屏的左上角
+ 137           */
+ 138          void TFT_paintTimeSet(clockTime setime)
+ 139          {
+ 140   1        uchar h1[]={0,'\0'}, h0[]={0,'\0'};
+ 141   1        uchar m1[]={0,'\0'}, m0[]={0,'\0'};
+ 142   1        uchar s1[]={0,'\0'}, s0[]={0,'\0'}; //存放时分秒
+ 143   1      
+ 144   1        /*得到设置界面的显示时间*/
+ 145   1        h1[0]=setime.hour/10+'0';
+ 146   1        h0[0]=setime.hour%10+'0';
+ 147   1        m1[0]=setime.minute/10+'0';
+ 148   1        m0[0]=setime.minute%10+'0';
+ 149   1        s1[0]=setime.second/10+'0';
+ 150   1        s0[0]=setime.second%10+'0';
+ 151   1        /*将时间写在设置界面左偏上*/
+ 152   1        GUI_WriteASCII(39, 56, ":", 0xF800, 0x0000);
+ 153   1        GUI_WriteASCII(71, 56, ":", 0xF800, 0x0000);
+ 154   1        GUI_WriteASCII(17, 58, h1, 0xF800, 0x0000);    //宽度12
+ 155   1        GUI_WriteASCII(29, 58, h0, 0xF800, 0x0000);
+ 156   1        GUI_WriteASCII(49, 58, m1, 0xF800, 0x0000);
+ 157   1        GUI_WriteASCII(61, 58, m0, 0xF800, 0x0000);
+ 158   1        GUI_WriteASCII(81, 58, s1, 0xF800, 0x0000);
+ 159   1        GUI_WriteASCII(93, 58, s0, 0xF800, 0x0000);
+ 160   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1298    ----
+   CONSTANT SIZE    =     55    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      30
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

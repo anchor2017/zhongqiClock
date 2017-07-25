@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   GUI                                                               07/25/2017 09:21:20 PAGE 1   
+C51 COMPILER V9.56.0.0   GUI                                                               07/25/2017 10:20:07 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE GUI
@@ -62,7 +62,7 @@ line level    source
   53   1        col = xStart;  
   54   1        row = yStart;  
   55   1        if (delta_x > 0)
-C51 COMPILER V9.56.0.0   GUI                                                               07/25/2017 09:21:20 PAGE 2   
+C51 COMPILER V9.56.0.0   GUI                                                               07/25/2017 10:20:07 PAGE 2   
 
   56   1        {
   57   2          incx=1;//设置单步方向
@@ -126,7 +126,7 @@ line level    source
  115          *输  入：x：字母显示的X坐标
  116          *      * y：字母显示的Y坐标
  117          *      * cn：要显示的字母
-C51 COMPILER V9.56.0.0   GUI                                                               07/25/2017 09:21:20 PAGE 3   
+C51 COMPILER V9.56.0.0   GUI                                                               07/25/2017 10:20:07 PAGE 3   
 
  118          *      * wordColor：文字的颜色
  119          *      * backColor：背景颜色
@@ -190,7 +190,7 @@ line level    source
  177   4              color <<= 1;          //次高位为最高位
  178   4            }
  179   3          }
-C51 COMPILER V9.56.0.0   GUI                                                               07/25/2017 09:21:20 PAGE 4   
+C51 COMPILER V9.56.0.0   GUI                                                               07/25/2017 10:20:07 PAGE 4   
 
  180   2          p++;
  181   2          x +=24;

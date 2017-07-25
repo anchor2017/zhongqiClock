@@ -73,7 +73,7 @@
 void TFT_paintSetSur(uchar *s);		//设置界面的显示
 
 /**
-*  @name:void TFT_paintTimeSet();
+*  @name:void TFT_paintTimeSet(clockTime settime);
 *	@description: 重新设置时间的显示
  *	@param		:none
  *	@return		: none

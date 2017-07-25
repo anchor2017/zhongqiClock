@@ -45,9 +45,14 @@
 /**************************************************************
 *	Global Variable Declare Section
 **************************************************************/
-uchar clockTag, sb;                     //每增加20次记录1s
-sbit led = P2^0;
+uchar sb = 0;                     //每增加20次记录1s
+uchar clockTag = 0;                //0为关闭，1为开启，2为正在向
 clockTime time, timeclock;
+
+sbit PWM = P3^5;                           //震动信号输出
+
+uchar pwmCount, pwmPeriod ;          //占空比计数器，占空比标数
+uint num;
 /**************************************************************
 *	Function Define Section
 **************************************************************/
@@ -106,17 +111,56 @@ void timeFun() interrupt 1
 					time.hour = 0;
 				}
 			}
-			if( clockTag == 1 )
+		}			
+			if( clockTag == 1 )           //判断闹钟
 			{
-				 if(time.hour == timeclock.hour && time.minute == timeclock.minute)
-				 {
-					 led = 1;
+				 if(time.hour == timeclock.hour && time.minute == timeclock.minute && time.second == timeclock.second)
+				 {  
+					 clockTag = 2;     
 				 }
-			 }
-		}			 
+			 }		
 	}
 	else
 	{
 	 sb++;
+	}
+}
+
+/**
+*  @name:void pwmInit();
+*	@description: 初始化pwm，开启震动
+ *	@param		:none
+ *	@return		: none
+ *  @notice : 使用定时器1
+ */
+void pwm() interrupt 3
+{
+	TH1 = 0XCC;
+	TL1 = 0XCC;
+	pwmCount++;
+	num++;	
+	if( num > 60000 )
+	{	 
+  num = 0;
+	}
+	if( num % 1000 == 0 )         //从新计数
+	{
+		pwmPeriod += 10;
+	}
+	if( pwmCount == 100 )
+	{
+		pwmCount = 0;
+	}
+	if( pwmPeriod > 100 )
+	{
+		pwmPeriod = PWM_MODE;
+	}
+	if( pwmCount < pwmPeriod )    //控制输出
+	{
+		PWM = 1;
+	}
+	else
+	{
+		PWM = 0;
 	}
 }

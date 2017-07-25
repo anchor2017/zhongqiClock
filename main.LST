@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   MAIN                                                              07/25/2017 09:21:20 PAGE 1   
+C51 COMPILER V9.56.0.0   MAIN                                                              07/25/2017 10:20:07 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE MAIN
@@ -26,70 +26,52 @@ line level    source
   17          uchar TimeArray[]={0, 0, 0, 0, 0, 0};
   18          uchar i=0;
   19          
-  20          uchar anotherSur=1;   //¿ÉÒÔÏÈÉèÖÃÎª1£¬µÚÒ»´ÎÐèÒªÇåÆÁ(Ö®ºóÖ»ÊÇÊ±¼ä¼ÆÊý¾Í²»ÐèÒªÔÙ´ÎÇåÆÁ)£¬ÔÚcalTimeDisplay.h
-             -ÖÐÉùÃ÷ÎªÈ«¾Ö±äÁ¿  
-  21          long x=0, y=0;  
-  22          uchar set=0, back=1;  //ÉèÖÃ±êÖ¾Î»£¬·µ»Ø±êÖ¾Î»£¨ÏÈÖÃ1²ÅÄÜÔËÐÐ£©£¬È«¾Ö±äÁ¿ÔÚcalTimeDisplay.hÖÐÉùÃ÷
-  23          uchar setFlag=0, clockFlag=0; //·ÀÖ¹³öÏÖÔÚÒ»¸ö½çÃæ°´¼üÈ´´¥·¢ÁíÍâÒ»¸ö½çÃæÄÚÈÝµÄ´íÎó
-  24          uchar oriTime=0;       //ÐÞ¸ÄÊ±¼ä´íÎóÊ±Ô­À´µÄÊ±¼ä
-  25          
-  26          void main()
-  27          {
-  28   1        //uchar h1, h0, m1, m0, s1, s0;  //±äÁ¿¶¨Ò
-  29   1        clockTime lasttime;
-  30   1        P2 = 0x00;
-  31   1        TFT_Init();       //³õÊ¼»¯´¥ÃþÆÁÏÔÊ¾
-  32   1        TFT_ClearScreen(0x0000);    //ÇåÆÁ£¬Ïû³ýÆÁÄ»Ö®Ç°ÏÔÊ¾ÄÚÈÝµÄÓ°Ïì
-  33   1        initTimer();     //³õÊ¼»¯¶¨Ê±Æ÷0£¨Ê±ÖÓ£ 
-  34   1        tempchange();   //³õÊ¼»¯ÎÂ¶È
-  35   1        lasttime = time;         
-  36   1        while(1)
-  37   1        {
-  38   2        //  if( lasrtime != time )       //µ±
-  39   2          {
-  40   3            lasttime = time;
-  41   3            TFT_paintMainClock();           // ÏÔÊ¾Ê±¼ä
-  42   3            tempchange();   
-  43   3            displayTemp(getTemp());           // ÏÔÊ¾ÎÂ¶È     
-  44   3          }
-  45   2            if(TOUCH_XPT_ReadXY() == 1) 
-  46   2            {
-  47   3              x=xpt_xy.x;
-  48   3              x=(x-304)*175/3422;
-  49   3              y=xpt_xy.y;
-  50   3              y=(y-256)*219/3440;     
-  51   3              if(x>174)
-  52   3              {
-  53   4                x=174;
-  54   4              }
-C51 COMPILER V9.56.0.0   MAIN                                                              07/25/2017 09:21:20 PAGE 2   
+  20          long x=0, y=0;  
+  21          
+  22          void main()
+  23          {
+  24   1        P2 = 0x00;
+  25   1        TFT_Init();       //³õÊ¼»¯´¥ÃþÆÁÏÔÊ¾
+  26   1        TFT_ClearScreen(0x0000);    //ÇåÆÁ£¬Ïû³ýÆÁÄ»Ö®Ç°ÏÔÊ¾ÄÚÈÝµÄÓ°Ïì
+  27   1        initTimer();     //³õÊ¼»¯¶¨Ê±Æ÷0£¨Ê±ÖÓ£ 
+  28   1        tempchange();   //³õÊ¼»¯ÎÂ¶È
+  29   1        while(1);
+  30   1        while(1)
+  31   1        {
+  32   2        //  if( lasrtime != time )       //µ±
+  33   2          {
+  34   3            lasttime = time;
+*** ERROR C202 IN LINE 34 OF main.c: 'lasttime': undefined identifier
+  35   3            TFT_paintMainClock();           // ÏÔÊ¾Ê±¼ä
+  36   3            tempchange();   
+  37   3            displayTemp(getTemp());           // ÏÔÊ¾ÎÂ¶È     
+  38   3          }
+  39   2            if(TOUCH_XPT_ReadXY() == 1) 
+  40   2            {
+  41   3              x=xpt_xy.x;
+  42   3              x=(x-304)*175/3422;
+  43   3              y=xpt_xy.y;
+  44   3              y=(y-256)*219/3440;     
+  45   3              if(x>174)
+  46   3              {
+  47   4                x=174;
+  48   4              }
+  49   3              if(y>218)
+  50   3              {
+  51   4                y=218;
+  52   4              }   
+  53   3              if( (x>115)&&(y<24) ) 
+  54   3              {         
+C51 COMPILER V9.56.0.0   MAIN                                                              07/25/2017 10:20:07 PAGE 2   
 
-  55   3              if(y>218)
-  56   3              {
-  57   4                y=218;
-  58   4              }   
-  59   3              if( (x>115)&&(y<24) ) 
-  60   3              {         
-  61   4                   displayPageSetting();    //½øÈëÉèÖÃ½çÃæ
-  62   4                   TFT_ClearScreen(0x0000);   //ÇåÆÁ  
-  63   4              }
-  64   3            }
-  65   2        }
-  66   1      
-  67   1      }
-  68          
-  69              
+  55   4                   displayPageSetting();    //½øÈëÉèÖÃ½çÃæ
+  56   4                   TFT_ClearScreen(0x0000);   //ÇåÆÁ  
+  57   4              }
+  58   3            }
+  59   2        }
+  60   1      
+  61   1      }
+  62          
+  63              
 
-
-MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    274    ----
-   CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =   ----    ----
-   PDATA SIZE       =   ----    ----
-   DATA SIZE        =     21       3
-   IDATA SIZE       =   ----    ----
-   BIT SIZE         =   ----    ----
-END OF MODULE INFORMATION.
-
-
-C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
+C51 COMPILATION COMPLETE.  0 WARNING(S),  1 ERROR(S)

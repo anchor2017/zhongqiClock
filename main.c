@@ -5,7 +5,7 @@
 #include "clock.h"
 #include "AD.H"
 #include "paintTFT.h"
-
+#include "gy521.h"
 #ifndef uchar
 #define uchar unsigned char
 #endif
@@ -16,32 +16,28 @@
 
 uchar TimeArray[]={0, 0, 0, 0, 0, 0};
 uchar i=0;
-
-uchar anotherSur=1;		//¿ÉÒÔÏÈÉèÖÃÎª1£¬µÚÒ»´ÎĞèÒªÇåÆÁ(Ö®ºóÖ»ÊÇÊ±¼ä¼ÆÊı¾Í²»ĞèÒªÔÙ´ÎÇåÆÁ)£¬ÔÚcalTimeDisplay.hÖĞÉùÃ÷ÎªÈ«¾Ö±äÁ¿	
 long x=0, y=0;	
-uchar set=0, back=1;  //ÉèÖÃ±êÖ¾Î»£¬·µ»Ø±êÖ¾Î»£¨ÏÈÖÃ1²ÅÄÜÔËĞĞ£©£¬È«¾Ö±äÁ¿ÔÚcalTimeDisplay.hÖĞÉùÃ÷
-uchar setFlag=0, clockFlag=0;	//·ÀÖ¹³öÏÖÔÚÒ»¸ö½çÃæ°´¼üÈ´´¥·¢ÁíÍâÒ»¸ö½çÃæÄÚÈİµÄ´íÎó
-uchar oriTime=0;			 //ĞŞ¸ÄÊ±¼ä´íÎóÊ±Ô­À´µÄÊ±¼ä
+
 
 void main()
 {
 	//uchar h1, h0, m1, m0, s1, s0;	 //±äÁ¿¶¨Ò
-	clockTime lasttime;
-  P2 = 0x00;
+  P3 = 0x00;
+  initMPU();
 	TFT_Init();				//³õÊ¼»¯´¥ÃşÆÁÏÔÊ¾
   TFT_ClearScreen(0x0000);		//ÇåÆÁ£¬Ïû³ıÆÁÄ»Ö®Ç°ÏÔÊ¾ÄÚÈİµÄÓ°Ïì
 	initTimer();		 //³õÊ¼»¯¶¨Ê±Æ÷0£¨Ê±ÖÓ£	
-	tempchange();   //³õÊ¼»¯ÎÂ¶È
-	lasttime = time;         
+	tempchange();   //³õÊ¼»¯ÎÂ¶È   
+	//while(1);
 	while(1)
 	{
-	//	if( lasrtime != time )       //µ±
-		{
-			lasttime = time;
-      TFT_paintMainClock();           // ÏÔÊ¾Ê±¼ä
+	   if( clockTag == 2 )       //ÄÖÖÓÏìÆğ
+		 {
+			 displayPageClock();
+		 }
+     TFT_paintMainClock();           // ÏÔÊ¾Ê±¼ä
 			tempchange();   
 			displayTemp(getTemp());           // ÏÔÊ¾ÎÂ¶È			
-		}
 	    if(TOUCH_XPT_ReadXY() == 1)	
 			{
 				x=xpt_xy.x;

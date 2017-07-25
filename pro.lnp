@@ -7,7 +7,6 @@
 "clock.obj",
 "i2c.obj",
 "gy521.obj",
-"pwm.obj",
 "DS18S120.obj",
 "settime.obj" 
 TO "pro" 

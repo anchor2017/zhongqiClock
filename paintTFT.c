@@ -103,9 +103,9 @@ void TFT_paintSetSur(uchar *s)		//设置界面的显示
  */
 void TFT_paintMainClock()
 {
-	uchar h1[]={0,0,0}, h0[]={0,0,0};
-	uchar m1[]={0,0,0}, m0[]={0,0,0};
-	uchar s1[]={0,0,0}, s0[]={0,0,0};	//存放时分秒
+	uchar h1[]={0,'\0'}, h0[]={0,'\0'};
+	uchar m1[]={0,'\0'}, m0[]={0,'\0'};
+	uchar s1[]={0,'\0'}, s0[]={0,'\0'};	//存放时分秒
 	
 	/*设置界面的显示时间*/
 	h1[0]=time.hour/10+'0';
@@ -137,9 +137,9 @@ void TFT_paintMainClock()
  */
 void TFT_paintTimeSet(clockTime setime)
 {
-	uchar h1[]={0,0,0}, h0[]={0,0,0};
-	uchar m1[]={0,0,0}, m0[]={0,0,0};
-	uchar s1[]={0,0,0}, s0[]={0,0,0};	//存放时分秒
+	uchar h1[]={0,'\0'}, h0[]={0,'\0'};
+	uchar m1[]={0,'\0'}, m0[]={0,'\0'};
+	uchar s1[]={0,'\0'}, s0[]={0,'\0'};	//存放时分秒
 
 	/*得到设置界面的显示时间*/
 	h1[0]=setime.hour/10+'0';
