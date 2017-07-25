@@ -3,7 +3,7 @@
 #include "touch.h"
 #include "calTimeDisplay.h"
 #include "clock.h"
-#include "calTimeDisplay.h"
+#include "AD.H"
 #include "paintTFT.h"
 
 #ifndef uchar
@@ -25,15 +25,23 @@ uchar oriTime=0;			 //ĞŞ¸ÄÊ±¼ä´íÎóÊ±Ô­À´µÄÊ±¼ä
 
 void main()
 {
-	//uchar h1, h0, m1, m0, s1, s0;	 //±äÁ¿¶¨Òå
- P2 = 0x00;
+	//uchar h1, h0, m1, m0, s1, s0;	 //±äÁ¿¶¨Ò
+	clockTime lasttime;
+  P2 = 0x00;
 	TFT_Init();				//³õÊ¼»¯´¥ÃşÆÁÏÔÊ¾
   TFT_ClearScreen(0x0000);		//ÇåÆÁ£¬Ïû³ıÆÁÄ»Ö®Ç°ÏÔÊ¾ÄÚÈİµÄÓ°Ïì
 	initTimer();		 //³õÊ¼»¯¶¨Ê±Æ÷0£¨Ê±ÖÓ£	
+	tempchange();   //³õÊ¼»¯ÎÂ¶È
+	lasttime = time;         
 	while(1)
 	{
- 
-      TFT_paintMainClock();
+	//	if( lasrtime != time )       //µ±
+		{
+			lasttime = time;
+      TFT_paintMainClock();           // ÏÔÊ¾Ê±¼ä
+			tempchange();   
+			displayTemp(getTemp());           // ÏÔÊ¾ÎÂ¶È			
+		}
 	    if(TOUCH_XPT_ReadXY() == 1)	
 			{
 				x=xpt_xy.x;

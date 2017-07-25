@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   MAIN                                                              07/24/2017 20:10:07 PAGE 1   
+C51 COMPILER V9.56.0.0   MAIN                                                              07/25/2017 09:21:20 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE MAIN
@@ -12,7 +12,7 @@ line level    source
    3          #include "touch.h"
    4          #include "calTimeDisplay.h"
    5          #include "clock.h"
-   6          #include "calTimeDisplay.h"
+   6          #include "AD.H"
    7          #include "paintTFT.h"
    8          
    9          #ifndef uchar
@@ -35,50 +35,58 @@ line level    source
   25          
   26          void main()
   27          {
-  28   1        //uchar h1, h0, m1, m0, s1, s0;  //±äÁ¿¶¨Òå
-  29   1       P2 = 0x00;
-  30   1        TFT_Init();       //³õÊ¼»¯´¥ÃþÆÁÏÔÊ¾
-  31   1        TFT_ClearScreen(0x0000);    //ÇåÆÁ£¬Ïû³ýÆÁÄ»Ö®Ç°ÏÔÊ¾ÄÚÈÝµÄÓ°Ïì
-  32   1        initTimer();     //³õÊ¼»¯¶¨Ê±Æ÷0£¨Ê±ÖÓ£ 
-  33   1        while(1)
-  34   1        {
-  35   2       
-  36   2            TFT_paintMainClock();
-  37   2            if(TOUCH_XPT_ReadXY() == 1) 
-  38   2            {
-  39   3              x=xpt_xy.x;
-  40   3              x=(x-304)*175/3422;
-  41   3              y=xpt_xy.y;
-  42   3              y=(y-256)*219/3440;     
-  43   3              if(x>174)
-  44   3              {
-  45   4                x=174;
-  46   4              }
-  47   3              if(y>218)
-  48   3              {
-  49   4                y=218;
-  50   4              }   
-  51   3              if( (x>115)&&(y<24) ) 
-  52   3              {         
-  53   4                   displayPageSetting();    //½øÈëÉèÖÃ½çÃæ
-  54   4                   TFT_ClearScreen(0x0000);   //ÇåÆÁ  
-C51 COMPILER V9.56.0.0   MAIN                                                              07/24/2017 20:10:07 PAGE 2   
+  28   1        //uchar h1, h0, m1, m0, s1, s0;  //±äÁ¿¶¨Ò
+  29   1        clockTime lasttime;
+  30   1        P2 = 0x00;
+  31   1        TFT_Init();       //³õÊ¼»¯´¥ÃþÆÁÏÔÊ¾
+  32   1        TFT_ClearScreen(0x0000);    //ÇåÆÁ£¬Ïû³ýÆÁÄ»Ö®Ç°ÏÔÊ¾ÄÚÈÝµÄÓ°Ïì
+  33   1        initTimer();     //³õÊ¼»¯¶¨Ê±Æ÷0£¨Ê±ÖÓ£ 
+  34   1        tempchange();   //³õÊ¼»¯ÎÂ¶È
+  35   1        lasttime = time;         
+  36   1        while(1)
+  37   1        {
+  38   2        //  if( lasrtime != time )       //µ±
+  39   2          {
+  40   3            lasttime = time;
+  41   3            TFT_paintMainClock();           // ÏÔÊ¾Ê±¼ä
+  42   3            tempchange();   
+  43   3            displayTemp(getTemp());           // ÏÔÊ¾ÎÂ¶È     
+  44   3          }
+  45   2            if(TOUCH_XPT_ReadXY() == 1) 
+  46   2            {
+  47   3              x=xpt_xy.x;
+  48   3              x=(x-304)*175/3422;
+  49   3              y=xpt_xy.y;
+  50   3              y=(y-256)*219/3440;     
+  51   3              if(x>174)
+  52   3              {
+  53   4                x=174;
+  54   4              }
+C51 COMPILER V9.56.0.0   MAIN                                                              07/25/2017 09:21:20 PAGE 2   
 
-  55   4              }
-  56   3            }
-  57   2        }
-  58   1      
-  59   1      }
-  60          
-  61              
+  55   3              if(y>218)
+  56   3              {
+  57   4                y=218;
+  58   4              }   
+  59   3              if( (x>115)&&(y<24) ) 
+  60   3              {         
+  61   4                   displayPageSetting();    //½øÈëÉèÖÃ½çÃæ
+  62   4                   TFT_ClearScreen(0x0000);   //ÇåÆÁ  
+  63   4              }
+  64   3            }
+  65   2        }
+  66   1      
+  67   1      }
+  68          
+  69              
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    237    ----
+   CODE SIZE        =    274    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =     21    ----
+   DATA SIZE        =     21       3
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

@@ -81,7 +81,14 @@ extern uchar oriTime;			 //修改时间错误时原来的时间
  */
 void displayPageSetting();
 
-
+/**
+*  @name:void displayTemp(int temp)	 
+*	@description: 显示温度
+ *	@param		:temp = 温度 x 10
+ *	@return		: none
+ *  @notice : none
+ */
+void displayTemp(int temp);
 
 
 #endif

@@ -33,6 +33,7 @@
 #include "GUI.h"
 #include "lcd_driver.h"
 #include "clock.h"		//引用全局变量time
+#include"AD.H"
 /**************************************************************
 *	Macro Define Section
 **************************************************************/
@@ -154,4 +155,44 @@ void displayPageSetting()
 	}		
 }
 
-	
+/**
+*  @name:void displayTemp(int temp)	 
+*	@description: 显示温度
+ *	@param		:temp = 温度 x 10
+ *	@return		: none
+ *  @notice : none
+ */
+void displayTemp(int temp)	 
+{
+	 uchar code table[] ={
+0x38,0x00,0x6C,0x00,0xC6,0x00,0x82,0x00,0xC6,0x00,0x6C,0x00,0x38,0xFE,0x01,0xFE,
+0x07,0x00,0x0E,0x00,0x0E,0x00,0x0E,0x00,0x0C,0x00,0x0C,0x00,0x0C,0x00,0x0C,0x00,
+0x0E,0x00,0x0E,0x00,0x06,0x00,0x03,0xFE,0x00,0xFE,0x00,0x00,0x00,0x00,0x00,0x00,
+	 };        //摄氏度		 
+	 uchar color,k,j,stemp[][2]= { 0, '\0', 0, '\0', '.', '\0', 0,  '\0'};
+	 stemp[0][0] = temp / 100 + '0';     
+	 stemp[1][0] = (temp % 100) / 10 + '0';
+	 stemp[3][0] = temp % 10 + '0';
+   GUI_WriteASCII(60, 170, stemp[0], 0x7fff, 0x0000);	
+   GUI_WriteASCII(70, 170, stemp[1], 0x7fff, 0x0000);	 
+   GUI_WriteASCII(80, 170, stemp[2], 0x7fff, 0x0000);
+   GUI_WriteASCII(90, 170, stemp[3], 0x7fff, 0x0000);	
+	 //摄氏度符号
+		TFT_SetWindow(105,170,120, 170+23);	   //15，23
+		for (k=0; k<48; k++)
+		{
+			color = table[k];
+			for (j=0; j<8; j++) 
+			{
+				if ((color&0x80) == 0x80)
+				{
+					TFT_WriteColor(0x7fff);
+				} 						
+				else
+				{
+					TFT_WriteColor(0x000);
+				} 	
+				color <<= 1;
+			}
+		}	 
+ } 
