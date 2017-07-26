@@ -1,0 +1,14 @@
+".\Objects\STARTUP.obj",
+".\Objects\calTimeDisplay.obj",
+".\Objects\clock.obj",
+".\Objects\DS18S120.obj",
+".\Objects\gui.obj",
+".\Objects\gy521.obj",
+".\Objects\i2c.obj",
+".\Objects\lcd_driver.obj",
+".\Objects\main.obj",
+".\Objects\paintTFT.obj",
+".\Objects\settime.obj",
+".\Objects\touch.obj" 
+TO ".\Objects\clock" 
+PRINT(".\Listings\clock.m51")

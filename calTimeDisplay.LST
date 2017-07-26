@@ -1,0 +1,227 @@
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/25/2017 10:20:08 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE CALTIMEDISPLAY
+OBJECT MODULE PLACED IN calTimeDisplay.OBJ
+COMPILER INVOKED BY: F:\keil51\C51\BIN\C51.EXE calTimeDisplay.c OPTIMIZE(9,SIZE) BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          /***************************************************************************************
+   2           *  FileName          : calTimeDisplay.c
+   3           *  CopyRight         : 
+   4           *  ModuleName          :  
+   5           *
+   6           *  CPU             :
+   7           *  RTOS            :
+   8           *
+   9           *  Create Data         : 
+  10           *  Author/Corportation     :  caiyinmao
+  11           *
+  12           *  Abstract Description    :  显示界面
+  13           *
+  14           *--------------------------------Revision History--------------------------------------
+  15           *  No  version   Data      Revised By      Item      Description
+  16           *  
+  17           *
+  18           ***************************************************************************************/
+  19          
+  20          
+  21          /**************************************************************
+  22          * Debug switch Section
+  23          **************************************************************/
+  24          
+  25          
+  26          /**************************************************************
+  27          * Include File Section
+  28          **************************************************************/
+  29          
+  30          #include "calTimeDisplay.h"
+  31          #include "touch.h"
+  32          #include "paintTFT.h"
+  33          #include "GUI.h"
+  34          #include "lcd_driver.h"
+  35          #include "clock.h"    //引用全局变量time
+  36          #include"AD.H"
+  37          /**************************************************************
+  38          * Macro Define Section
+  39          **************************************************************/
+  40          
+  41          /**************************************************************
+  42          * Struct Define Section
+  43          **************************************************************/
+  44          
+  45          
+  46          /**************************************************************
+  47          * Prototype Declare Section
+  48          **************************************************************/
+  49          
+  50          
+  51          /**************************************************************
+  52          * Global Variable Declare Section
+  53          **************************************************************/
+  54          
+  55          
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/25/2017 10:20:08 PAGE 2   
+
+  56          /**************************************************************
+  57          * File Static Variable Define Section
+  58          **************************************************************/
+  59          
+  60          /**************************************************************
+  61          * Function Define Section
+  62          **************************************************************/
+  63          
+  64          
+  65          /**
+  66          *  @name:void displayPageSet()
+  67          * @description: 显示设置时间界面
+  68           *  @param    :none
+  69           *  @return   : none
+  70           *  @notice : none
+  71           */
+  72          void displayPageSetTime()
+  73          {
+  74   1          /*线条及数字的基本框图*/    
+  75   1          TFT_paintSetSur("TIME");
+  76   1          /*将时间写在设置界面左偏上*/   
+  77   1          TFT_paintTimeSet(time);          
+  78   1          clockFlag=0;     //如果在设置界面则时钟界面的触屏无效
+  79   1          setFlag=1;     //如果在设置界面则设置界面的触屏有效
+  80   1          anotherSur=1; //从设置界面返回主时钟界面需要清屏  
+  81   1          setTime();        //设置时间
+  82   1      }
+  83          
+  84          /**
+  85          *  @name:void displayPageSetClock()
+  86          * @description: 显示设置闹钟界面
+  87           *  @param    :none
+  88           *  @return   : none
+  89           *  @notice : none
+  90           */
+  91          void displayPageSetClock()
+  92          {
+  93   1          /*线条及数字的基本框图*/    
+  94   1          TFT_paintSetSur("CLOCK");
+  95   1          /*将时间写在设置界面左偏上*/   
+  96   1          TFT_paintTimeSet(timeclock);           
+  97   1          clockFlag=0;     //如果在设置界面则时钟界面的触屏无效
+  98   1          setFlag=1;     //如果在设置界面则设置界面的触屏有效
+  99   1          anotherSur=1; //从设置界面返回主时钟界面需要清屏  
+ 100   1          setClockTime();
+ 101   1      }
+ 102          
+ 103          
+ 104          
+ 105          /**
+ 106          *  @name: displayPageSetting
+ 107          * @description: 显示设置界面
+ 108           *  @param    :none
+ 109           *  @return   : none
+ 110           *  @notice : none
+ 111           */
+ 112          void displayPageSetting()
+ 113          {
+ 114   1        TFT_ClearScreen(0x0000);    //清屏  
+ 115   1        GUI_WriteASCII(0,0, "BACK", 0x001F, 0x0000);
+ 116   1        GUI_WriteASCII(50,24, "SET", 0xFFE0, 0x0000);
+ 117   1        GUI_WriteASCII(50, 94, "TIME", 0x7ff, 0x0000);  
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/25/2017 10:20:08 PAGE 3   
+
+ 118   1        GUI_WriteASCII(50, 134, "CLOCK", 0x7fff, 0x0000); 
+ 119   1        GUI_Line(20, 50, 155, 50, 0xF800);     //画横线
+ 120   1        GUI_Line(20, 130, 155, 130, 0xF800);  //x, y, x, y
+ 121   1        GUI_Line(20, 170, 155, 170, 0xF800);  //x, y, x, y
+ 122   1        while(1) 
+ 123   1         {
+ 124   2          if(TOUCH_XPT_ReadXY() == 1)   
+ 125   2          {
+ 126   3            /*转化*/
+ 127   3            x=xpt_xy.x;
+ 128   3            x=(x-304)*175/3422;
+ 129   3            y=xpt_xy.y;
+ 130   3            y=(y-256)*219/3440;     
+ 131   3            if(x>174)
+ 132   3            {
+ 133   4              x=174;
+ 134   4            }
+ 135   3            if(y>218)
+ 136   3            {
+ 137   4                y=218;
+ 138   4            }
+ 139   3            if( y < 135 && y > 95)       //选择设置时间
+ 140   3            {
+ 141   4              displayPageSetTime();
+ 142   4            }
+ 143   3            else if( y > 135 && y < 165)   // 选择设置闹钟
+ 144   3            {
+ 145   4              displayPageSetClock();
+ 146   4            }
+ 147   3            else if((x<55)&&(y<24))  //左上角
+ 148   3            {
+ 149   4              back=1;
+ 150   4              set = 0;
+ 151   4            TFT_ClearScreen(0x0000);    //清屏
+ 152   4              break;   //退出循环       
+ 153   4            }
+ 154   3          }
+ 155   2        }   
+ 156   1      }
+ 157          
+ 158          /**
+ 159          *  @name:void displayTemp(int temp)  
+ 160          * @description: 显示温度
+ 161           *  @param    :temp = 温度 x 10
+ 162           *  @return   : none
+ 163           *  @notice : none
+ 164           */
+ 165          void displayTemp(int temp)   
+ 166          {
+ 167   1         uchar code table[] ={
+ 168   1      0x38,0x00,0x6C,0x00,0xC6,0x00,0x82,0x00,0xC6,0x00,0x6C,0x00,0x38,0xFE,0x01,0xFE,
+ 169   1      0x07,0x00,0x0E,0x00,0x0E,0x00,0x0E,0x00,0x0C,0x00,0x0C,0x00,0x0C,0x00,0x0C,0x00,
+ 170   1      0x0E,0x00,0x0E,0x00,0x06,0x00,0x03,0xFE,0x00,0xFE,0x00,0x00,0x00,0x00,0x00,0x00,
+ 171   1         };        //摄氏度    
+ 172   1         uchar color,k,j,stemp[][2]= { 0, '\0', 0, '\0', '.', '\0', 0,  '\0'};
+ 173   1         stemp[0][0] = temp / 100 + '0';     
+ 174   1         stemp[1][0] = (temp % 100) / 10 + '0';
+ 175   1         stemp[3][0] = temp % 10 + '0';
+ 176   1         GUI_WriteASCII(60, 170, stemp[0], 0x7fff, 0x0000); 
+ 177   1         GUI_WriteASCII(70, 170, stemp[1], 0x7fff, 0x0000);  
+ 178   1         GUI_WriteASCII(80, 170, stemp[2], 0x7fff, 0x0000);
+ 179   1         GUI_WriteASCII(90, 170, stemp[3], 0x7fff, 0x0000); 
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/25/2017 10:20:08 PAGE 4   
+
+ 180   1         //摄氏度符号
+ 181   1          TFT_SetWindow(105,170,120, 170+23);    //15，23
+ 182   1          for (k=0; k<48; k++)
+ 183   1          {
+ 184   2            color = table[k];
+ 185   2            for (j=0; j<8; j++) 
+ 186   2            {
+ 187   3              if ((color&0x80) == 0x80)
+ 188   3              {
+ 189   4                TFT_WriteColor(0x7fff);
+ 190   4              }             
+ 191   3              else
+ 192   3              {
+ 193   4                TFT_WriteColor(0x000);
+ 194   4              }   
+ 195   3              color <<= 1;
+ 196   3            }
+ 197   2          }  
+ 198   1       } 
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    752    ----
+   CONSTANT SIZE    =     76    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      13
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
