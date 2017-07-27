@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/27/2017 10:57:43 PAGE 1   
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/27/2017 11:19:58 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE CALTIMEDISPLAY
@@ -62,7 +62,7 @@ line level    source
   52          /**************************************************************
   53          * Global Variable Declare Section
   54          **************************************************************/
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/27/2017 10:57:43 PAGE 2   
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/27/2017 11:19:58 PAGE 2   
 
   55          
   56          
@@ -126,7 +126,7 @@ line level    source
  114          *  @name: displayPageSetting
  115          * @description: 显示设置界面
  116           *  @param    :none
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/27/2017 10:57:43 PAGE 3   
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/27/2017 11:19:58 PAGE 3   
 
  117           *  @return   : none
  118           *  @notice : none
@@ -190,7 +190,7 @@ line level    source
  176           */
  177          void displayTemp(int temp ,bit tag)  
  178          {
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/27/2017 10:57:43 PAGE 4   
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/27/2017 11:19:58 PAGE 4   
 
  179   1         static int lastTemp = 0;
  180   1         uchar stemp[][2]= { 0, '\0', 0, '\0',  0,  '\0'};
@@ -254,7 +254,7 @@ line level    source
  238   3              {
  239   4                  y=218;
  240   4              } 
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/27/2017 10:57:43 PAGE 5   
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/27/2017 11:19:58 PAGE 5   
 
  241   3            if((x>65)&&(x<130)&&(y>97)&&(y<125))    //点击关闭
  242   3            {
@@ -268,22 +268,21 @@ line level    source
  250   3          }
  251   2           else if( judge() == 1)            //晃动关闭
  252   2            {
- 253   3              deep = 0;
- 254   3              clockTag = 0;
- 255   3              TR1 = 0;
- 256   3              ET1 = 0;
- 257   3              PWM = 0;
- 258   3              TFT_ClearScreen(0x0000);    //清屏
- 259   3              break;
- 260   3        } 
- 261   2        }
- 262   1      }
- 263          
- 264           
+ 253   3              clockTag = 0;
+ 254   3              TR1 = 0;
+ 255   3              ET1 = 0;
+ 256   3              PWM = 0;
+ 257   3              TFT_ClearScreen(0x0000);    //清屏
+ 258   3              break;
+ 259   3        } 
+ 260   2        }
+ 261   1      }
+ 262          
+ 263           
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   1249    ----
+   CODE SIZE        =   1247    ----
    CONSTANT SIZE    =     33    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

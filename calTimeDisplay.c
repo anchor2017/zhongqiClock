@@ -250,7 +250,6 @@ void displayPageClock()
 		}
 		 else if( judge() == 1)            //»Î¶¯¹Ø±Õ
 			{
-				deep = 0;
 				clockTag = 0;
 				TR1 = 0;
 				ET1 = 0;

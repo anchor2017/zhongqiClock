@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   SETTIME                                                           07/27/2017 10:57:45 PAGE 1   
+C51 COMPILER V9.56.0.0   SETTIME                                                           07/27/2017 11:20:00 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE SETTIME
@@ -62,7 +62,7 @@ line level    source
   52          * Global Variable Declare Section
   53          **************************************************************/
   54          
-C51 COMPILER V9.56.0.0   SETTIME                                                           07/27/2017 10:57:45 PAGE 2   
+C51 COMPILER V9.56.0.0   SETTIME                                                           07/27/2017 11:20:00 PAGE 2   
 
   55          /**************************************************************
   56          * Function Define Section
@@ -126,7 +126,7 @@ line level    source
  114   3            {
  115   4              m = 2;
  116   4              tag = 1;  
-C51 COMPILER V9.56.0.0   SETTIME                                                           07/27/2017 10:57:45 PAGE 3   
+C51 COMPILER V9.56.0.0   SETTIME                                                           07/27/2017 11:20:00 PAGE 3   
 
  117   4            }
  118   3            else if((x>115)&&(y>95)&&(y<135))  //3
@@ -190,7 +190,7 @@ line level    source
  176   5                num = 23;          //小时最大不超过23
  177   5              }
  178   4              else if( num > 59 )
-C51 COMPILER V9.56.0.0   SETTIME                                                           07/27/2017 10:57:45 PAGE 4   
+C51 COMPILER V9.56.0.0   SETTIME                                                           07/27/2017 11:20:00 PAGE 4   
 
  179   4              {
  180   5                num = 59;      // 分钟和秒钟最大不超过53
@@ -254,7 +254,7 @@ line level    source
  238   5                {
  239   6                  timeclock =set;
  240   6                }
-C51 COMPILER V9.56.0.0   SETTIME                                                           07/27/2017 10:57:45 PAGE 5   
+C51 COMPILER V9.56.0.0   SETTIME                                                           07/27/2017 11:20:00 PAGE 5   
 
  241   5                TFT_paintSetTime(tag);          
  242   5              }         
@@ -318,7 +318,7 @@ line level    source
  300   4              {
  301   5                if( set.hour == 23 )
  302   5                {
-C51 COMPILER V9.56.0.0   SETTIME                                                           07/27/2017 10:57:45 PAGE 6   
+C51 COMPILER V9.56.0.0   SETTIME                                                           07/27/2017 11:20:00 PAGE 6   
 
  303   6                  set.hour = 20;
  304   6                }
@@ -382,7 +382,7 @@ line level    source
  362   3            else if( y < 185 && y >   155 )
  363   3            {
  364   4              if( x < 30 )    //小时十位
-C51 COMPILER V9.56.0.0   SETTIME                                                           07/27/2017 10:57:45 PAGE 7   
+C51 COMPILER V9.56.0.0   SETTIME                                                           07/27/2017 11:20:00 PAGE 7   
 
  365   4              {
  366   5                if( set.hour < 4)
@@ -446,7 +446,7 @@ line level    source
  424   5                if( set.second < 10 )
  425   5                {
  426   6                  set.second = set.second % 10 + 5 * 10;
-C51 COMPILER V9.56.0.0   SETTIME                                                           07/27/2017 10:57:45 PAGE 8   
+C51 COMPILER V9.56.0.0   SETTIME                                                           07/27/2017 11:20:00 PAGE 8   
 
  427   6                }
  428   5                else

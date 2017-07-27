@@ -102,9 +102,9 @@ uchar  judge()
 {
 	int acc[2][3],gyr[2][3];
 	uchar i, j, num = 0;
-  if( GetData(ACC_Y_H) == 0 && GetData(ACC_Z_H) && 	GetData(GYRO_X_H) )
+  if( (GetData(ACC_Y_H) == 0 )&& (GetData(ACC_Z_H) == 0) && 	(GetData(GYRO_X_H) == 0) )
 	{
-       if( 	GetData(GYRO_Y_H) && 	GetData(GYRO_Z_H) ) 
+       if( 	(GetData(GYRO_Y_H )== 0) && 	(GetData(GYRO_Z_H) == 0) ) 
 			 {
                			initMPU();	//判断线路出现问题，重新初始化MPU6050
 			 }			
@@ -131,7 +131,7 @@ uchar  judge()
 			gyr[0][2] = GetData(GYRO_Z_H);
 			for( i = 0; i < 3; i++ )
 			{
-				if( acc[0][i] - acc[1][i] > 100 || acc[1][i] - acc[0][i] > 100 )         //比较前后两次角度
+				if( acc[0][i] - acc[1][i] > 200 || acc[1][i] - acc[0][i] > 200 )         //比较前后两次角度
 				{
 					num++;
 					break;
