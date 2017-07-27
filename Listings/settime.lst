@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   SETTIME                                                           07/25/2017 16:46:25 PAGE 1   
+C51 COMPILER V9.56.0.0   SETTIME                                                           07/26/2017 22:31:54 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE SETTIME
@@ -62,315 +62,438 @@ line level    source
   52          * Global Variable Declare Section
   53          **************************************************************/
   54          
-C51 COMPILER V9.56.0.0   SETTIME                                                           07/25/2017 16:46:25 PAGE 2   
+C51 COMPILER V9.56.0.0   SETTIME                                                           07/26/2017 22:31:54 PAGE 2   
 
-  55          
-  56          /**************************************************************
-  57          * File Static Variable Define Section
-  58          **************************************************************/
-  59          
-  60          /**************************************************************
-  61          * Function Define Section
-  62          **************************************************************/
-  63          
-  64          /**
-  65          *  @name: void setTime
-  66          * @description:  µ÷ÕûÊ±¼ä
-  67          * @param    :none
-  68           *  @return   : none
-  69           *  @notice : none
-  70           */
-  71          void setTime()
-  72          {
-  73   1        uchar num, tag = 0;
-  74   1        ET0=0;    //¹Ø±Õ¶¨Ê±Æ÷£¬Í£Ö¹×ßÊ±
-  75   1            /*ÆÁÉÏÊý×Ö²¿·Ö¼ì²â£¨ÉèÖÃÒ³Ãæ£©*/   //²»ÐèÒªÇåÆÁ         
-  76   1        i = 0;
-  77   1        while(1) 
-  78   1         {
-  79   2          if(TOUCH_XPT_ReadXY() == 1)   
-  80   2          {
-  81   3            /*×ª»¯*/
-  82   3            x=xpt_xy.x;
-  83   3            x=(x-304)*175/3422;
-  84   3            y=xpt_xy.y;
-  85   3            y=(y-256)*219/3440;     
-  86   3            if(x>174)
-  87   3            {
-  88   4              x=174;
-  89   4            }
-  90   3            if(y>218)
-  91   3            {
-  92   4                y=218;
-  93   4            }
-  94   3            //ÉèÖÃÊ±¼ä 
-  95   3            if((x>115)&&(y>45)&&(y<85))   //0
-  96   3            {
-  97   4              num = 0;
-  98   4              tag = 1;
-  99   4            }
- 100   3            else if((x<60)&&(y>95)&&(y<135))    //1
- 101   3            {
- 102   4              num = 1;
- 103   4              tag = 1;
- 104   4            }
- 105   3            else if((x>70)&&(x<105)&&(y>95)&&(y<135)) //2
- 106   3            {
- 107   4              num = 2;
- 108   4              tag = 1;
- 109   4            }
- 110   3            else if((x>115)&&(y>95)&&(y<135))  //3
- 111   3            {
- 112   4              num = 3;
- 113   4              tag = 1;
- 114   4            }
- 115   3            else if((x<60)&&(y>145)&&(y<165))   //4
- 116   3            {
-C51 COMPILER V9.56.0.0   SETTIME                                                           07/25/2017 16:46:25 PAGE 3   
+  55          /**************************************************************
+  56          * Function Define Section
+  57          **************************************************************/
+  58          
+  59          /**
+  60          *  @name: void setTimeb
+  61          * @description:  µ÷ÕûÊ±¼ä
+  62          * @param    :n =0Ê±ÐÞ¸ÄÐ¡Ê±£¬=1Ê±ÐÞ¸Ã·ÖÖÓ£¬=2Ê±ÐÞ¸ÄÃëÖÓ£¬numÎªÐÞ¸ÄÇ°µÄÖµ£¬
+  63           *  @return   : ÐÞ¸ÄºóµÄÖµ
+  64           *  @notice : none
+  65           */
+  66          uchar  setTimeB(uchar n, uchar num, uint colo)
+  67          {
+  68   1        char j = 0, m;
+  69   1        bit tag = 0;
+  70   1        TFT_ClearScreen(0x0000);    //ÇåÆÁ£¬Ïû³ýÆÁÄ»Ö®Ç°ÏÔÊ¾ÄÚÈÝµÄÓ°Ïì
+  71   1        if( n == 0 )           //X  ÐÞ¸ÄÐ¡Ê±
+  72   1        {
+  73   2          TFT_paintSetSur("HOUR");     
+  74   2        }
+  75   1        if( n == 1 )           //X  ÐÞ¸Ä·ÖÖÓ
+  76   1        {
+  77   2          TFT_paintSetSur("MINUTE");     
+  78   2        } 
+  79   1        if( n == 2 )           //X  ÐÞ¸ÄÃëÖÓ
+  80   1        {
+  81   2          TFT_paintSetSur("SECOND");     
+  82   2        }   
+  83   1        GUI_WriteASCIICh(49, 58 , num / 10 +'0', colo, 0x0000);   //ÏÔÊ¾ÐèÒªÉèÖÃµÄÖµ1¡¤
+  84   1        GUI_WriteASCIICh(61, 58 , num % 10 +'0', colo, 0x0000); 
+  85   1        while(1) 
+  86   1         {
+  87   2          if(TOUCH_XPT_ReadXY() == 1)   
+  88   2          {
+  89   3            //×ª»¯
+  90   3            x=xpt_xy.x;
+  91   3            x=(x-304)*175/3422;
+  92   3            y=xpt_xy.y;
+  93   3            y=(y-256)*219/3440;     
+  94   3            if(x>174)
+  95   3            {
+  96   4              x=174;
+  97   4            }
+  98   3            if(y>218)
+  99   3            {
+ 100   4                y=218;
+ 101   4            }
+ 102   3            //ÉèÖÃÊ±¼ä 
+ 103   3            if((x>115)&&(y>45)&&(y<85))   //0
+ 104   3            {
+ 105   4              m = 0;
+ 106   4              tag = 1;
+ 107   4            }
+ 108   3            else if((x<60)&&(y>95)&&(y<135))    //1
+ 109   3            {
+ 110   4              m = 1;
+ 111   4              tag = 1;        
+ 112   4            }
+ 113   3            else if((x>70)&&(x<105)&&(y>95)&&(y<135)) //2
+ 114   3            {
+ 115   4              m = 2;
+ 116   4              tag = 1;  
+C51 COMPILER V9.56.0.0   SETTIME                                                           07/26/2017 22:31:54 PAGE 3   
 
- 117   4              num = 4;
- 118   4              tag = 1;
- 119   4            }
- 120   3            else if((x>70)&&(x<105)&&(y>145)&&(y<165)) //5
- 121   3            {
- 122   4              num = 5;
- 123   4              tag = 1;
- 124   4            }
- 125   3            else if((x>115)&&(y>145)&&(y<165)) //6
- 126   3            {
- 127   4              num = 6;
- 128   4              tag = 1;
- 129   4            }
- 130   3            else if((x<60)&&(y>175)&(y<205))    //7
- 131   3            {
- 132   4              num  = 7;
- 133   4              tag = 1;
- 134   4            }
- 135   3            else if((x>70)&&(x<105)&&(y>175)&&(y<205)) //8
- 136   3            {
- 137   4              num = 8;
- 138   4              tag = 1;
- 139   4            }
- 140   3            else if((x>115)&&(y>175)&&(y<205)) //9
- 141   3            {
- 142   4              num = 9;
- 143   4              tag = 1;
- 144   4            }                                                             
- 145   3            else if((x<55)&&(y<24))  //×óÉÏ½Ç
- 146   3            {
- 147   4              ET0=1;
- 148   4              break;   //ÍË³öÑ­»·       
- 149   4            }
- 150   3            if( tag == 1 )       //ÅÐ¶Ï°´¼üÊÇ·ñÓÐÐ§
- 151   3            {
- 152   4              tag = 0;
- 153   4             switch(i)
- 154   4              {
- 155   5                case 0:
- 156   5                   if( num < 3 )
- 157   5                   {
- 158   6                      time.hour = time.hour % 10 + num * 10;
- 159   6                     i++;
- 160   6                   }               
- 161   5                    break;
- 162   5                case 1: 
- 163   5                   if( num < 4 || time.hour < 20) 
- 164   5                   {
- 165   6                      time.hour =time.hour - time.hour % 10 + num;
- 166   6                     i++; 
- 167   6                   }              
- 168   5                    break;
- 169   5              case 2: 
- 170   5                   if( num < 6 )
- 171   5                   {
- 172   6                      time.minute = time.minute % 10 + num * 10;
- 173   6                     i++;
- 174   6                   }  
- 175   5                    break;
- 176   5              case 3:
- 177   5                   time.minute =time.minute - time.minute % 10 + num;
- 178   5                  i++;
-C51 COMPILER V9.56.0.0   SETTIME                                                           07/25/2017 16:46:25 PAGE 4   
+ 117   4            }
+ 118   3            else if((x>115)&&(y>95)&&(y<135))  //3
+ 119   3            {
+ 120   4              m = 3;
+ 121   4              tag = 1;  
+ 122   4            }
+ 123   3            else if((x<60)&&(y>145)&&(y<165))   //4
+ 124   3            {
+ 125   4              m = 4;
+ 126   4              tag = 1;  
+ 127   4            }
+ 128   3            else if((x>70)&&(x<105)&&(y>145)&&(y<165)) //5
+ 129   3            {
+ 130   4              m = 5;
+ 131   4              tag = 1;  
+ 132   4            }
+ 133   3            else if((x>115)&&(y>145)&&(y<165)) //6
+ 134   3            {
+ 135   4              m = 6;
+ 136   4              tag = 1;  
+ 137   4            }
+ 138   3            else if((x<60)&&(y>175)&(y<205))    //7
+ 139   3            {
+ 140   4              m  = 7;
+ 141   4              tag = 1;  
+ 142   4            }
+ 143   3            else if((x>70)&&(x<105)&&(y>175)&&(y<205)) //8
+ 144   3            {
+ 145   4              m = 8;
+ 146   4              tag = 1;  
+ 147   4            }
+ 148   3            else if((x>115)&&(y>175)&&(y<205)) //9
+ 149   3            {
+ 150   4              m = 9;
+ 151   4              tag = 1;  
+ 152   4            }                                                             
+ 153   3            else if((x<55)&&(y<24))  //×óÉÏ½Ç
+ 154   3            {
+ 155   4              break;   //ÍË³öÑ­»·       
+ 156   4            } 
+ 157   3            if( tag == 1 )      //ÅÐ¶ÏÊÇ·ñÐèÒª¸ü¸Ä
+ 158   3            { 
+ 159   4              tag = 0;
+ 160   4              j++;
+ 161   4              if( j == 1 )           //µÚÒ»´ÎÐÞ¸Ä
+ 162   4              {
+ 163   5                num = m;
+ 164   5              }
+ 165   4              if( j== 2)            //µÚ¶þ´ÎÐÞ¸Ä
+ 166   4              {
+ 167   5                num = num * 10 + m;
+ 168   5              }
+ 169   4              if( j == 3)   // ÖØÐÂÐÞ¸Ä
+ 170   4              {
+ 171   5                j =1;
+ 172   5                num = m;
+ 173   5              }
+ 174   4              if( n == 0 && num > 23 )
+ 175   4              {
+ 176   5                num = 23;          //Ð¡Ê±×î´ó²»³¬¹ý23
+ 177   5              }
+ 178   4              else if( num > 59 )
+C51 COMPILER V9.56.0.0   SETTIME                                                           07/26/2017 22:31:54 PAGE 4   
 
- 179   5                    break;
- 180   5              case 4: 
- 181   5                   if( num < 6 )
- 182   5                   {
- 183   6                      time.second = time.second % 10 + num * 10;
- 184   6                     i++;
- 185   6                   }           
- 186   5                    break;
- 187   5                case 5: 
- 188   5                    time.second =time.second - time.second % 10 + num;
- 189   5                    i++;
- 190   5                    break;
- 191   5              }
- 192   4             TFT_paintTimeSet(time);           //ÏÔÊ¾ÉèÖÃµÄÖµ
- 193   4            if(i==6)  //Èç¹ûÊ±·ÖÃë¶¼¸³ÖµÍê±ÏÔò¿ÉÒÔÖØÐÂ¸³Öµ
- 194   4            {
- 195   5              i=0;
- 196   5            }       
- 197   4            }     
- 198   3          } 
- 199   2        }
- 200   1      }
- 201          
- 202          
- 203          /**
- 204          *  @name: void setClockTime
- 205          * @description:  µ÷ÕûÄÖÖÓÊ±¼ä
- 206          * @param    :none
- 207           *  @return   : none
- 208           *  @notice : none
- 209           */
- 210          void setClockTime()
- 211          {
- 212   1        uchar num, tag = 0;
- 213   1            /*ÆÁÉÏÊý×Ö²¿·Ö¼ì²â£¨ÉèÖÃÒ³Ãæ£©*/   //²»ÐèÒªÇåÆÁ         
- 214   1        i = 0;
- 215   1        while(1) 
- 216   1         {
- 217   2          if(TOUCH_XPT_ReadXY() == 1)   
- 218   2          {
- 219   3            /*×ª»¯*/
- 220   3            x=xpt_xy.x;
- 221   3            x=(x-304)*175/3422;
- 222   3            y=xpt_xy.y;
- 223   3            y=(y-256)*219/3440;     
- 224   3            if(x>174)
+ 179   4              {
+ 180   5                num = 59;      // ·ÖÖÓºÍÃëÖÓ×î´ó²»³¬¹ý53
+ 181   5              }
+ 182   4              GUI_WriteASCIICh(49, 58 , num / 10 +'0', colo, 0x0000);   //ÏÔÊ¾ÐèÒªÉèÖÃµÄÖµ1¡¤
+ 183   4              GUI_WriteASCIICh(61, 58 , num % 10 +'0', colo, 0x0000); 
+ 184   4              tag = 0;  
+ 185   4              Delay(40);
+ 186   4            }
+ 187   3          } 
+ 188   2        }
+ 189   1          TFT_ClearScreen(0x0000);    //ÇåÆÁ£ 
+ 190   1         return num;
+ 191   1      }
+ 192          
+ 193          
+ 194          /**
+ 195          *  @name: clockTime setTime(bit tag,clock setTime)
+ 196          * @description:  µ÷ÕûÊ±¼ä
+ 197          * @param    :setime ÐèÒªÉèÖÃµÄÊ±¼ä
+ 198           *  @return   : ÉèÖÃºóµÄÊ±¼ä
+ 199           *  @notice : none
+ 200           */
+ 201          clockTime setTimeA(bit tag,clockTime setTime)
+ 202          {
+ 203   1        uchar num;
+ 204   1        clockTime set;
+ 205   1        set = setTime;
+ 206   1        while(1) 
+ 207   1         {
+ 208   2          if(TOUCH_XPT_ReadXY() == 1)   
+ 209   2          {
+ 210   3            //×ª»¯
+ 211   3            x=xpt_xy.x;
+ 212   3            x=(x-304)*175/3422;
+ 213   3            y=xpt_xy.y;
+ 214   3            y=(y-256)*219/3440;     
+ 215   3            if(x>174)
+ 216   3            {
+ 217   4              x=174;
+ 218   4            }
+ 219   3            if(y>218)
+ 220   3            {
+ 221   4                y=218;
+ 222   4            }
+ 223   3            //Ñ¡ÔñÉèÖÃÊ±¼ä 
+ 224   3            if( (y > 100)&&( y < 140 ) )
  225   3            {
- 226   4              x=174;
- 227   4            }
- 228   3            if(y>218)
- 229   3            {
- 230   4                y=218;
- 231   4            }
- 232   3            //ÉèÖÃÊ±¼ä 
- 233   3            if((x>115)&&(y>45)&&(y<85))   //0
- 234   3            {
- 235   4              num = 0;
- 236   4              tag = 1;
- 237   4            }
- 238   3            else if((x<60)&&(y>95)&&(y<135))    //1
- 239   3            {
- 240   4              num = 1;
-C51 COMPILER V9.56.0.0   SETTIME                                                           07/25/2017 16:46:25 PAGE 5   
+ 226   4              if( x<60 )    //Ð¡Ê±
+ 227   4              {
+ 228   5                num = setTimeB(0, set.hour, 0xf800);
+ 229   5                if( num < 24 )         //ÅÐ¶Ï´Ë´ÎÐÞ¸ÄÊÇ·ñÓÐÐ§
+ 230   5                {
+ 231   6                  set.hour = num;
+ 232   6                }
+ 233   5                if( tag == 1 )
+ 234   5                {
+ 235   6                  time = set;
+ 236   6                }
+ 237   5                else
+ 238   5                {
+ 239   6                  timeclock =set;
+ 240   6                }
+C51 COMPILER V9.56.0.0   SETTIME                                                           07/26/2017 22:31:54 PAGE 5   
 
- 241   4              tag = 1;
- 242   4            }
- 243   3            else if((x>70)&&(x<105)&&(y>95)&&(y<135)) //2
- 244   3            {
- 245   4              num = 2;
- 246   4              tag = 1;
- 247   4            }
- 248   3            else if((x>115)&&(y>95)&&(y<135))  //3
- 249   3            {
- 250   4              num = 3;
- 251   4              tag = 1;
- 252   4            }
- 253   3            else if((x<60)&&(y>145)&&(y<165))   //4
- 254   3            {
- 255   4              num = 4;
- 256   4              tag = 1;
- 257   4            }
- 258   3            else if((x>70)&&(x<105)&&(y>145)&&(y<165)) //5
- 259   3            {
- 260   4              num = 5;
- 261   4              tag = 1;
- 262   4            }
- 263   3            else if((x>115)&&(y>145)&&(y<165)) //6
- 264   3            {
- 265   4              num = 6;
- 266   4              tag = 1;
- 267   4            }
- 268   3            else if((x<60)&&(y>175)&(y<205))    //7
- 269   3            {
- 270   4              num  = 7;
- 271   4              tag = 1;
- 272   4            }
- 273   3            else if((x>70)&&(x<105)&&(y>175)&&(y<205)) //8
- 274   3            {
- 275   4              num = 8;
- 276   4              tag = 1;
+ 241   5                TFT_paintSetTime(tag);          
+ 242   5              }         
+ 243   4              else if( x<115 )    //·ÖÖÓ
+ 244   4              {
+ 245   5                num = setTimeB(1,set.minute, 0x7e0);      
+ 246   5                if( num < 60 )         //ÅÐ¶Ï´Ë´ÎÐÞ¸ÄÊÇ·ñÓÐÐ§
+ 247   5                {
+ 248   6                  set.minute = num;
+ 249   6                }
+ 250   5                if( tag == 1 )
+ 251   5                {
+ 252   6                  time = set;
+ 253   6                }
+ 254   5                else
+ 255   5                {
+ 256   6                  timeclock =set;
+ 257   6                }         
+ 258   5                TFT_paintSetTime(tag);              
+ 259   5              }               
+ 260   4              else    //ÃëÖÓ
+ 261   4              {
+ 262   5                num = setTimeB(2, set.second, 0xffe0);
+ 263   5                if( num < 60 )         //ÅÐ¶Ï´Ë´ÎÐÞ¸ÄÊÇ·ñÓÐÐ§
+ 264   5                {
+ 265   6                  set.second = num;
+ 266   6                }
+ 267   5                if( tag == 1 )
+ 268   5                {
+ 269   6                  time = set;
+ 270   6                }
+ 271   5                else
+ 272   5                {
+ 273   6                  timeclock =set;
+ 274   6                }         
+ 275   5                TFT_paintSetTime(tag);          
+ 276   5              }
  277   4            }
- 278   3            else if((x>115)&&(y>175)&&(y<205)) //9
- 279   3            {
- 280   4              num = 9;
- 281   4              tag = 1;
- 282   4            }                                                             
- 283   3            else if((x<55)&&(y<24))  //×óÉÏ½Ç
- 284   3            {
- 285   4              clockTag = 0;             //¹Ø±ÕÄÖÖÓ
- 286   4              break;   //ÍË³öÑ­»·       
- 287   4            }
- 288   3            else if((x>100)&&(y<24))   //×óÉÏ½Ç
- 289   3            {
- 290   4              clockTag = 1;         //¿ªÆôÄÖÖÓ
- 291   4              break;   //ÍË³öÑ­»·       
- 292   4            }
- 293   3            if( tag == 1 )       //ÅÐ¶Ï°´¼üÊÇ·ñÓÐÐ§
- 294   3            {
- 295   4              tag = 0;
- 296   4             switch(i)
- 297   4              {
- 298   5                case 0:
- 299   5                   if( num < 3 )
- 300   5                   {
- 301   6                      timeclock.hour = timeclock.hour % 10 + num * 10;
- 302   6                     i++;
-C51 COMPILER V9.56.0.0   SETTIME                                                           07/25/2017 16:46:25 PAGE 6   
+ 278   3        
+ 279   3            
+ 280   3            //°´Êý×ÖÉÏ·½¼ÓÒ»      
+ 281   3            else if( y < 90  && y > 55   )
+ 282   3            {
+ 283   4              if( x < 30 )    //Ð¡Ê±Ê®Î»
+ 284   4              {
+ 285   5                if( set.hour > 13 && set.hour < 20 )
+ 286   5                {
+ 287   6                  set.hour %= 10;
+ 288   6                }
+ 289   5                else if( set.hour > 19 )
+ 290   5                {
+ 291   6                  set.hour = set.hour % 10;
+ 292   6                }
+ 293   5                else
+ 294   5                {
+ 295   6                  set.hour += 10;
+ 296   6                }
+ 297   5                 GUI_WriteASCII2Ch(9, 100, set.hour / 10 + '0', 0xF800, 0x0000);  
+ 298   5              }
+ 299   4              else if( x<60 )   //Ð¡Ê±¸öÎ»
+ 300   4              {
+ 301   5                if( set.hour == 23 )
+ 302   5                {
+C51 COMPILER V9.56.0.0   SETTIME                                                           07/26/2017 22:31:54 PAGE 6   
 
- 303   6                   }               
- 304   5                    break;
- 305   5                case 1: 
- 306   5                   if( num < 4 || timeclock.hour < 20) 
- 307   5                   {
- 308   6                      timeclock.hour =timeclock.hour - timeclock.hour % 10 + num;
- 309   6                     i++; 
- 310   6                   }              
- 311   5                    break;
- 312   5              case 2: 
- 313   5                   if( num < 6 )
- 314   5                   {
- 315   6                      timeclock.minute = timeclock.minute % 10 + num * 10;
- 316   6                     i++;
- 317   6                   }  
- 318   5                    break;
- 319   5              case 3:
- 320   5                   timeclock.minute =timeclock.minute - timeclock.minute % 10 + num;
- 321   5                  i++;
- 322   5                    break;
- 323   5              case 4: 
- 324   5                   if( num < 6 )
- 325   5                   {
- 326   6                      timeclock.second = timeclock.second % 10 + num * 10;
- 327   6                     i++;
- 328   6                   }           
- 329   5                    break;
- 330   5                case 5: 
- 331   5                    timeclock.second =timeclock.second - timeclock.second % 10 + num;
- 332   5                    i++;
- 333   5                    break;
- 334   5              }
- 335   4              TFT_paintTimeSet(timeclock);           //ÏÔÊ¾ÉèÖÃµÄÖµ
- 336   4            if(i==6)  //Èç¹ûÊ±·ÖÃë¶¼¸³ÖµÍê±ÏÔò¿ÉÒÔÖØÐÂ¸³Öµ
- 337   4            {
- 338   5              i=0;
- 339   5            }       
- 340   4            }     
- 341   3          } 
- 342   2        }
- 343   1      }
+ 303   6                  set.hour = 20;
+ 304   6                }
+ 305   5                else
+ 306   5                {
+ 307   6                  set.hour++;
+ 308   6                }
+ 309   5                GUI_WriteASCII2Ch(30, 100, set.hour % 10 + '0', 0xF800, 0x0000);          
+ 310   5              }     
+ 311   4              else if( x<85 )   //·ÖÖÓÊ®Î»
+ 312   4              {
+ 313   5                  if( set.minute > 49 )
+ 314   5                  {
+ 315   6                    set.minute %= 10;
+ 316   6                  }
+ 317   5                  else
+ 318   5                  {
+ 319   6                    set.minute += 10;
+ 320   6                  }
+ 321   5                  GUI_WriteASCII2Ch(69, 100, set.minute / 10 + '0', 0x07e0, 0x0000);        
+ 322   5              }   
+ 323   4              else if( x<115 )    //·ÖÖÓ¸öÎ»
+ 324   4              {
+ 325   5                if( set.minute % 10 == 9 )    //µ±·ÖÖÓ¸öÎ»Êý²»³¬¹ý9
+ 326   5                {
+ 327   6                  set.minute -= set.minute % 10;
+ 328   6                }
+ 329   5                else
+ 330   5                {
+ 331   6                  set.minute += 1;
+ 332   6                }
+ 333   5                GUI_WriteASCII2Ch(90, 100, set.minute % 10 + '0', 0x07e0, 0x0000);  
+ 334   5              }       
+ 335   4              else if( x<147 )    //ÃëÖÓÊ®Î»
+ 336   4              {
+ 337   5                  if( set.second > 49 )
+ 338   5                  {
+ 339   6                    set.second %= 10;
+ 340   6                  }
+ 341   5                  else
+ 342   5                  {
+ 343   6                    set.second += 10;
+ 344   6                  }
+ 345   5                GUI_WriteASCII2Ch(129, 100, set.second / 10 + '0', 0xffe0, 0x0000); 
+ 346   5              }       
+ 347   4              else    //ÃëÖÓ¸öÎ»
+ 348   4              {
+ 349   5                if( set.second % 10 == 9 )    //µ±·ÖÖÓ¸öÎ»Êý²»³¬¹ý9
+ 350   5                {
+ 351   6                  set.second -= set.second % 10;
+ 352   6                }
+ 353   5                else
+ 354   5                {
+ 355   6                  set.second += 1;
+ 356   6                }
+ 357   5                GUI_WriteASCII2Ch(150, 100, set.second % 10 + '0', 0xffe0, 0x0000);
+ 358   5              } 
+ 359   4            }
+ 360   3      
+ 361   3               // °´Êý×ÖÏÂ·½¼õÒ»
+ 362   3            else if( y < 185 && y >   155 )
+ 363   3            {
+ 364   4              if( x < 30 )    //Ð¡Ê±Ê®Î»
+C51 COMPILER V9.56.0.0   SETTIME                                                           07/26/2017 22:31:54 PAGE 7   
+
+ 365   4              {
+ 366   5                if( set.hour < 4)
+ 367   5                {           
+ 368   6                   set.hour = set.hour + 2 * 10;
+ 369   6                }
+ 370   5                else if( set.hour < 10 )
+ 371   5                {
+ 372   6                  set.hour = set.hour + 10;
+ 373   6                }
+ 374   5                else
+ 375   5                {
+ 376   6                  set.hour -= 10;
+ 377   6                }
+ 378   5                 GUI_WriteASCII2Ch(9, 100, set.hour / 10 + '0', 0xF800, 0x0000);
+ 379   5             }
+ 380   4              else if( x<60 )   //Ð¡Ê±¸öÎ»
+ 381   4              {
+ 382   5      
+ 383   5                if( set.hour  == 20 )    //µ±Ð¡Ê±Ê®Î»ÊýÎª¶þÊ±£¬¸öÎ»Êý²»ÄÜ³¬¹ýÈý
+ 384   5                {
+ 385   6                  set.hour = 23;
+ 386   6                }
+ 387   5                else if( set.hour % 10 == 0 )       //Ð¡Ê±¸öÎ»Êý´ÓÐÂ´Ó0¿ªÊ¼
+ 388   5                {
+ 389   6                      set.hour = (set.hour / 10) * 10 + 9 ;
+ 390   6                }
+ 391   5                else
+ 392   5                {
+ 393   6                  set.hour -= 1 ;   
+ 394   6                } 
+ 395   5                GUI_WriteASCII2Ch(30, 100, set.hour % 10 + '0', 0xF800, 0x0000);          
+ 396   5              }     
+ 397   4              else if( x<85 )   //·ÖÖÓÊ®Î»
+ 398   4              {
+ 399   5                if( set.minute < 10 )
+ 400   5                {
+ 401   6                  set.minute = set.minute % 10 + 5 * 10;
+ 402   6                }
+ 403   5                else
+ 404   5                {
+ 405   6                   set.minute -= 10;
+ 406   6                }           
+ 407   5                  GUI_WriteASCII2Ch(70, 100, set.minute / 10 + '0', 0x07e0, 0x0000);        
+ 408   5              }   
+ 409   4              else if( x<120 )    //·ÖÖÓ¸öÎ»
+ 410   4              {
+ 411   5      
+ 412   5                if( set.minute % 10 == 0 )    //µ±·ÖÖÓ¸öÎ»Êý²»³¬¹ý9
+ 413   5                {
+ 414   6                  set.minute = (set.minute / 10) * 10 +  9;
+ 415   6                }
+ 416   5                else
+ 417   5                {
+ 418   6                  set.minute -= 1;
+ 419   6                }
+ 420   5                GUI_WriteASCII2Ch(90, 100, set.minute % 10 + '0', 0x07e0, 0x0000);  
+ 421   5              }       
+ 422   4              else if( x<156 )    //ÃëÖÓÊ®Î»
+ 423   4              {
+ 424   5                if( set.second < 10 )
+ 425   5                {
+ 426   6                  set.second = set.second % 10 + 5 * 10;
+C51 COMPILER V9.56.0.0   SETTIME                                                           07/26/2017 22:31:54 PAGE 8   
+
+ 427   6                }
+ 428   5                else
+ 429   5                {
+ 430   6                   set.second -= 10;
+ 431   6                }     
+ 432   5                GUI_WriteASCII2Ch(130, 100, set.second / 10 + '0', 0xffe0, 0x0000); 
+ 433   5              }       
+ 434   4              else    //ÃëÖÓ¸öÎ»
+ 435   4              {
+ 436   5                if( set.second % 10 == 0 )    //µ±·ÖÖÓ¸öÎ»Êý²»³¬¹ý9
+ 437   5                {
+ 438   6                  set.second = (set.second / 10) * 10 +  9;
+ 439   6                }
+ 440   5                else
+ 441   5                {
+ 442   6                  set.second -= 1;
+ 443   6                }
+ 444   5                GUI_WriteASCII2Ch(150, 100, set.second % 10 + '0', 0xffe0, 0x0000);
+ 445   5              }       
+ 446   4            } 
+ 447   3            else if((x<55)&&(y<24))  //×óÉÏ½Ç
+ 448   3            {
+ 449   4              break;   //ÍË³öÑ­»·       
+ 450   4            }
+ 451   3            else if((x>115)&&(y<24)&& (tag == 0))  //×óÉÏ½Ç
+ 452   3            {
+ 453   4              clockTag = 1;      //¿ªÆôÄÖÖÓ
+ 454   4              break;   //ÍË³öÑ­»·       
+ 455   4            }
+ 456   3            Delay(20);
+ 457   3          } 
+ 458   2        }   
+ 459   1           TFT_ClearScreen(0x0000);   //ÇåÆÁ£¬Ïû³ýÆÁÄ»Ö®Ç°ÏÔÊ¾ÄÚÈÝµÄÓ°Ïì  
+ 460   1         return set;      
+ 461   1      }  
+ 462          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   2238    ----
-   CONSTANT SIZE    =   ----    ----
+   CODE SIZE        =   2609    ----
+   CONSTANT SIZE    =     19    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----       4
+   DATA SIZE        =   ----      13
    IDATA SIZE       =   ----    ----
-   BIT SIZE         =   ----    ----
+   BIT SIZE         =   ----       2
 END OF MODULE INFORMATION.
 
 

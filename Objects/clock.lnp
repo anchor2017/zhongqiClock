@@ -1,7 +1,7 @@
 ".\Objects\STARTUP.obj",
 ".\Objects\calTimeDisplay.obj",
-".\Objects\clock.obj",
 ".\Objects\DS18S120.obj",
+".\Objects\clock.obj",
 ".\Objects\gui.obj",
 ".\Objects\gy521.obj",
 ".\Objects\i2c.obj",

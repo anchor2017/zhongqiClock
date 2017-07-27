@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   CLOCK                                                             07/25/2017 16:46:24 PAGE 1   
+C51 COMPILER V9.56.0.0   CLOCK                                                             07/26/2017 22:31:52 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE CLOCK
@@ -60,127 +60,127 @@ line level    source
   50          clockTime time, timeclock;
   51          
   52          sbit PWM = P3^5;                           //震动信号输出
-  53          
-  54          uchar pwmCount, pwmPeriod ;          //占空比计数器，占空比标数
-C51 COMPILER V9.56.0.0   CLOCK                                                             07/25/2017 16:46:24 PAGE 2   
+  53          uchar pwmCount, pwmPeriod ;          //占空比计数器，占空比标数
+  54          uint num;
+C51 COMPILER V9.56.0.0   CLOCK                                                             07/26/2017 22:31:52 PAGE 2   
 
-  55          uint num;
-  56          /**************************************************************
-  57          * Function Define Section
-  58          **************************************************************/
-  59          
-  60          /**
-  61          *  @name: void timeFun() 
-  62          * @description: 中断服务特殊功能寄存器配置（定时器0初始化）
-  63           *  @param    :none
-  64           *  @return   : none
-  65           *  @notice : 12MHZ
-  66           */
-  67          void initTimer()
-  68          {
-  69   1        TMOD=0x01;      //模式1
-  70   1        TH0 = (65536 - 45874) / 256;
-  71   1        TL0 = (65536 - 45874) % 256;   //0.05s
-  72   1        ET0=1;     //开定时器
-  73   1        TR0=1;     //开定时器中断
-  74   1        EA=1;    //开总中断
-  75   1      }
-  76          
-  77          /**
-  78          *  @name: void timeFun() 
-  79          * @description: 时钟计时
-  80           *  @param    :none
-  81           *  @return   : none
-  82           *  @notice : 使用定时器0，程序运行期间始终运行
-  83           */
-  84          void timeFun() interrupt 1
-  85          {
-  86   1        TH0 = (65536 - 45870) / 256;
-  87   1        TL0 = (65536 - 45870) % 256;   //0.05s
-  88   1        if(sb >= 20 )             //20次为1s
-  89   1        {
-  90   2          sb = 0;
-  91   2          if( time.second < 59 )         //60秒
-  92   2          {
-  93   3            time.second++;
-  94   3          }
-  95   2          else
-  96   2          {
-  97   3            time.second = 0;                    
-  98   3            if( time.minute <59 )     //60分钟
-  99   3            {
- 100   4              time.minute++;
- 101   4            }
- 102   3            else
- 103   3            {
- 104   4              time.minute = 0;
- 105   4              if( time.hour <23 )           ///1小时
- 106   4              {
- 107   5                                                                                                                   
+  55          /**************************************************************
+  56          * Function Define Section
+  57          **************************************************************/
+  58          
+  59          /**
+  60          *  @name: void timeFun() 
+  61          * @description: 中断服务特殊功能寄存器配置（定时器0初始化）
+  62           *  @param    :none
+  63           *  @return   : none
+  64           *  @notice : 12MHZ
+  65           */
+  66          void initTimer()
+  67          {
+  68   1        TMOD=0x01;      //模式1
+  69   1        TH0 = (65536 - 45874) / 256;
+  70   1        TL0 = (65536 - 45874) % 256;   //0.05s
+  71   1        ET0=1;     //开定时器
+  72   1        TR0=1;     //开定时器中断
+  73   1        EA=1;    //开总中断
+  74   1      }
+  75          
+  76          /**
+  77          *  @name: void timeFun() 
+  78          * @description: 时钟计时
+  79           *  @param    :none
+  80           *  @return   : none
+  81           *  @notice : 使用定时器0，程序运行期间始终运行
+  82           */
+  83          void timeFun() interrupt 1
+  84          {
+  85   1        TH0 = (65536 - 45870) / 256;
+  86   1        TL0 = (65536 - 45870) % 256;   //0.05s
+  87   1        if(sb >= 20 )             //20次为1s
+  88   1        {
+  89   2          sb = 0;
+  90   2          if( time.second < 59 )         //60秒
+  91   2          {
+  92   3            time.second++;
+  93   3          }
+  94   2          else
+  95   2          {
+  96   3            time.second = 0;                    
+  97   3            if( time.minute <59 )     //60分钟
+  98   3            {
+  99   4              time.minute++;
+ 100   4            }
+ 101   3            else
+ 102   3            {
+ 103   4              time.minute = 0;
+ 104   4              if( time.hour <23 )           ///1小时
+ 105   4              {
+ 106   5                                                                                                                   
              -                                                                                                                        
              -                                                                                                                        
              -                                                                                                        time.hour++;
- 108   5              }
- 109   4              else
- 110   4              {
- 111   5                time.hour = 0;
- 112   5              }
- 113   4            }
-C51 COMPILER V9.56.0.0   CLOCK                                                             07/25/2017 16:46:24 PAGE 3   
+ 107   5              }
+ 108   4              else
+ 109   4              {
+ 110   5                time.hour = 0;
+ 111   5              }
+ 112   4            }
+ 113   3          }     
+C51 COMPILER V9.56.0.0   CLOCK                                                             07/26/2017 22:31:52 PAGE 3   
 
- 114   3          }     
- 115   2            if( clockTag == 1 )           //判断闹钟
- 116   2            {
- 117   3               if(time.hour == timeclock.hour && time.minute == timeclock.minute && time.second == timeclock.second)
- 118   3               {  
- 119   4                 clockTag = 2;     
- 120   4               }
- 121   3             }    
- 122   2        }
- 123   1        else
- 124   1        {
- 125   2         sb++;
- 126   2        }
- 127   1      }
- 128          
- 129          /**
- 130          *  @name:void pwmInit();
- 131          * @description: 初始化pwm，开启震动
- 132           *  @param    :none
- 133           *  @return   : none
- 134           *  @notice : 使用定时器1
- 135           */
- 136          void pwm() interrupt 3
- 137          {
- 138   1        TH1 = 0XCC;
- 139   1        TL1 = 0XCC;
- 140   1        pwmCount++;
- 141   1        num++;  
- 142   1        if( num > 60000 )
- 143   1        {  
- 144   2        num = 0;
- 145   2        }
- 146   1        if( num % 1000 == 0 )         //从新计数
- 147   1        {
- 148   2          pwmPeriod += 10;
- 149   2        }
- 150   1        if( pwmCount == 100 )
- 151   1        {
- 152   2          pwmCount = 0;
- 153   2        }
- 154   1        if( pwmPeriod > 100 )
- 155   1        {
- 156   2          pwmPeriod = PWM_MODE;
- 157   2        }
- 158   1        if( pwmCount < pwmPeriod )    //控制输出
- 159   1        {
- 160   2          PWM = 1;
- 161   2        }
- 162   1        else
- 163   1        {
- 164   2          PWM = 0;
- 165   2        }
- 166   1      }
+ 114   2            if( clockTag == 1 )           //判断闹钟
+ 115   2            {
+ 116   3               if(time.hour == timeclock.hour && time.minute == timeclock.minute && time.second == timeclock.second)
+ 117   3               {  
+ 118   4                 clockTag = 2;     
+ 119   4               }
+ 120   3             }    
+ 121   2        }
+ 122   1        else
+ 123   1        {
+ 124   2         sb++;
+ 125   2        }
+ 126   1      }
+ 127          
+ 128          /**
+ 129          *  @name:void pwmInit();
+ 130          * @description: 初始化pwm，开启震动
+ 131           *  @param    :none
+ 132           *  @return   : none
+ 133           *  @notice : 使用定时器1
+ 134           */
+ 135          void pwm() interrupt 3
+ 136          {
+ 137   1        TH1 = 0XCC;
+ 138   1        TL1 = 0XCC;
+ 139   1        pwmCount++;
+ 140   1        num++;  
+ 141   1        if( num > 60000 )
+ 142   1        {  
+ 143   2        num = 0;
+ 144   2        }
+ 145   1        if( num % 1000 == 0 )         //从新计数
+ 146   1        {
+ 147   2          pwmPeriod += 10;
+ 148   2        }
+ 149   1        if( pwmCount == 100 )
+ 150   1        {
+ 151   2          pwmCount = 0;
+ 152   2        }
+ 153   1        if( pwmPeriod > 100 )
+ 154   1        {
+ 155   2          pwmPeriod = PWM_MODE;
+ 156   2        }
+ 157   1        if( pwmCount < pwmPeriod )    //控制输出
+ 158   1        {
+ 159   2          PWM = 1;
+ 160   2        }
+ 161   1        else
+ 162   1        {
+ 163   2          PWM = 0;
+ 164   2        }
+ 165   1      }
+ 166          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
@@ -190,7 +190,7 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    PDATA SIZE       =   ----    ----
    DATA SIZE        =     12    ----
    IDATA SIZE       =   ----    ----
-C51 COMPILER V9.56.0.0   CLOCK                                                             07/25/2017 16:46:24 PAGE 4   
+C51 COMPILER V9.56.0.0   CLOCK                                                             07/26/2017 22:31:52 PAGE 4   
 
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

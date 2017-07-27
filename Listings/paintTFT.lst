@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   PAINTTFT                                                          07/25/2017 16:46:25 PAGE 1   
+C51 COMPILER V9.56.0.0   PAINTTFT                                                          07/26/2017 22:31:53 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE PAINTTFT
@@ -59,129 +59,261 @@ line level    source
   49          **************************************************************/
   50          
   51          
-  52          /**************************************************************
-  53          * File Static Variable Define Section
-  54          **************************************************************/
-C51 COMPILER V9.56.0.0   PAINTTFT                                                          07/25/2017 16:46:25 PAGE 2   
+  52          uchar code triangle[][48]=
+  53          {
+  54          /*--  ??x??=16x24  --*/
+C51 COMPILER V9.56.0.0   PAINTTFT                                                          07/26/2017 22:31:53 PAGE 2   
 
-  55          
-  56          /**************************************************************
-  57          * Function Define Section
-  58          **************************************************************/
-  59          
-  60          /**
-  61          *  @name:void paintTFT();
-  62          * @description: 在触摸屏上画图
-  63           *  @param    :none
-  64           *  @return   : none
-  65           *  @notice : none
-  66           *  @use : 在触摸屏显示调整时间的基本框架（设置界面）
-  67           */
-  68          void TFT_paintSetSur(uchar *s)    //设置界面的显示
-  69          {
-  70   1        TFT_ClearScreen(0x0000);
-  71   1        GUI_WriteASCII(47, 24, s, 0xFFE0, 0x0000);    //x, y  
-  72   1          //横线
-  73   1        GUI_Line(20, 50, 155, 50, 0xF800);  //x, y, x, y
-  74   1        GUI_Line(20, 90, 155, 90, 0xF800);  //x, y, x, y
-  75   1        GUI_Line(20, 130, 155, 130, 0xF800);  //x, y, x, y
-  76   1        GUI_Line(20, 170, 155, 170, 0xF800);  //x, y, x, y
-  77   1        GUI_Line(20, 210, 155, 210, 0xF800);  //x, y, x, y  
-  78   1        //竖线
-  79   1          GUI_Line(65, 90, 65, 210, 0xF800);  //x, y, x, y
-  80   1        GUI_Line(110, 50, 110, 210, 0xF800);  //x, y, x, y  
-  81   1        //数字  x, y    
-  82   1          GUI_WriteASCII(31, 94, "1", 0xF800, 0x0000);   //1
-  83   1        GUI_WriteASCII(81, 94, "2", 0xF800, 0x0000);   //2
-  84   1        GUI_WriteASCII(127, 94, "3", 0xF800, 0x0000);  //3
-  85   1        GUI_WriteASCII(31, 134, "4", 0xF800, 0x0000);  //4
-  86   1        GUI_WriteASCII(81, 134, "5", 0xF800, 0x0000);  //5
-  87   1        GUI_WriteASCII(127, 134, "6", 0xF800, 0x0000);   //6
-  88   1        GUI_WriteASCII(31, 174, "7", 0xF800, 0x0000);  //7
-  89   1        GUI_WriteASCII(81, 174, "8", 0xF800, 0x0000);  //8
-  90   1        GUI_WriteASCII(127, 174, "9", 0xF800, 0x0000);   //9
-  91   1          GUI_WriteASCII(127, 58, "0", 0xF800, 0x0000);  //0  
-  92   1        GUI_WriteASCII(0, 0, "BACK", 0x001F, 0x0000);   //返回   左上角
-  93   1      
-  94   1      }
-  95          
-  96          /**
-  97          *  @name:void TFT_paintTimeSet();
-  98          * @description: 主界面的时间显示
-  99           *  @param    : 时分秒
- 100           *  @return   : none
- 101           *  @notice : none
- 102           *  @use : 得到时分秒六位，并显示在触摸屏的中间
- 103           */
- 104          void TFT_paintMainClock()
- 105          {
- 106   1        uchar h1[]={0,'\0'}, h0[]={0,'\0'};
- 107   1        uchar m1[]={0,'\0'}, m0[]={0,'\0'};
- 108   1        uchar s1[]={0,'\0'}, s0[]={0,'\0'}; //存放时分秒
- 109   1        
- 110   1        /*设置界面的显示时间*/
- 111   1        h1[0]=time.hour/10+'0';
- 112   1        h0[0]=time.hour%10+'0';
- 113   1        m1[0]=time.minute/10+'0';
- 114   1        m0[0]=time.minute%10+'0';
- 115   1        s1[0]=time.second/10+'0';
- 116   1        s0[0]=time.second%10+'0';
-C51 COMPILER V9.56.0.0   PAINTTFT                                                          07/25/2017 16:46:25 PAGE 3   
+  55            //箭头
+  56          0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x80,0x01,0xC0,0x01,0xC0,
+  57          0x03,0xE0,0x07,0xF0,0x0F,0xF8,0x1F,0xFC,0x3F,0xFE,0x3F,0xFE,0x7F,0xFE,0x7F,0xFE,
+  58          0x7F,0xFE,0xFF,0xFF,0xFF,0xFF,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,  
+  59          /*--  ??x??=16x24  --*/
+  60            //反箭头
+  61          0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xFF,0xFF,0xFF,0xFF,0x7F,0xFE,
+  62          0x7F,0xFE,0x7F,0xFE,0x3F,0xFE,0x3F,0xFE,0x1F,0xFC,0x0F,0xF8,0x07,0xF0,0x03,0xE0,
+  63          0x01,0xC0,0x01,0xC0,0x00,0x80,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+  64          };
+  65          /**************************************************************
+  66          * File Static Variable Define Section
+  67          **************************************************************/
+  68          
+  69          
+  70          
+  71          
+  72          /**************************************************************
+  73          * Function Define Section
+  74          **************************************************************/
+  75          /**
+  76          *  @name:void TFT_paintSetTime(bit tag)
+  77          * @description: 设置时间界面
+  78           *  @param    :tag = 1时设置时间。=0时设置闹钟
+  79           *  @return   : none
+  80           *  @notice : none
+  81           *  @use : 在触摸屏显示调整时间的基本框架（设置界面）
+  82           */
+  83           void TFT_paintSetTime(bit tag)
+  84           {
+  85   1        uchar stime[][2] = {0, '\0',0, '\0',0, '\0',0, '\0',0, '\0',0, '\0'};
+  86   1        clockTime setTime;
+  87   1        if(  tag == 1 )
+  88   1        {
+  89   2          setTime = time;
+  90   2        GUI_WriteASCII(47, 24, "TIME", 0xFFE0, 0x0000);
+  91   2        }
+  92   1        else
+  93   1        {
+  94   2          setTime = timeclock;
+  95   2          GUI_WriteASCII(47, 24, "CLOCK", 0xFFE0, 0x0000);
+  96   2          GUI_WriteASCII(127, 0, "YES", 0x001F, 0x0000);    
+  97   2        }
+  98   1      
+  99   1        stime[0][0] = setTime.hour / 10 + '0';
+ 100   1        stime[1][0] = setTime.hour % 10 + '0';
+ 101   1        stime[2][0] = setTime.minute / 10 + '0';
+ 102   1        stime[3][0] = setTime.minute % 10 + '0';
+ 103   1        stime[4][0] = setTime.second / 10 + '0';
+ 104   1        stime[5][0] = setTime.second % 10 + '0';    
+ 105   1        /*将时间写在设置界面上*/  
+ 106   1        GUI_Writetable(9, 60, triangle[0], 0x7fff, 0x0000); 
+ 107   1        GUI_Writetable(29, 60, triangle[0], 0x7fff, 0x0000);  
+ 108   1        GUI_Writetable(69, 60, triangle[0], 0x7fff, 0x0000);  
+ 109   1        GUI_Writetable(89, 60, triangle[0], 0x7fff, 0x0000);  
+ 110   1        GUI_Writetable(129, 60, triangle[0], 0x7fff, 0x0000); 
+ 111   1        GUI_Writetable(149, 60, triangle[0], 0x7fff, 0x0000); 
+ 112   1        GUI_Writetable(9, 160, triangle[1], 0x7fff, 0x0000);  
+ 113   1        GUI_Writetable(29, 160, triangle[1], 0x7fff, 0x0000); 
+ 114   1        GUI_Writetable(69, 160, triangle[1], 0x7fff, 0x0000); 
+ 115   1        GUI_Writetable(89, 160, triangle[1], 0x7fff, 0x0000); 
+ 116   1        GUI_Writetable(129, 160, triangle[1], 0x7fff, 0x0000);  
+C51 COMPILER V9.56.0.0   PAINTTFT                                                          07/26/2017 22:31:53 PAGE 3   
 
- 117   1      
- 118   1        /*将时间显示在触摸屏上*/
- 119   1        GUI_WriteASCII2(10, 100, h1, 0xF800, 0x0000);  //h1       
- 120   1        GUI_WriteASCII2(30, 100, h0, 0xF800, 0x0000);  //h0                   
- 121   1        GUI_WriteASCII2(50, 94, ":", 0xF800, 0x0000);
- 122   1        GUI_WriteASCII2(70, 100, m1, 0xF800, 0x0000);  //m1       
- 123   1        GUI_WriteASCII2(90, 100, m0, 0xF800, 0x0000);  //m0
- 124   1        GUI_WriteASCII2(110, 94, ":", 0xF800, 0x0000);                    
- 125   1        GUI_WriteASCII2(130, 100, s1, 0xF800, 0x0000);   //s1       
- 126   1        GUI_WriteASCII2(150, 100, s0, 0xF800, 0x0000);   //s0             
- 127   1        GUI_WriteASCII(127, 0, "SET", 0x001F, 0x0000);   //设置   右上角
- 128   1      }
- 129          
- 130          /**
- 131          *  @name:void TFT_paintTimeSet(clockTime setime)
- 132          * @description: 重新设置时间的显示
- 133           *  @param    : 时分秒
- 134           *  @return   : none
- 135           *  @notice : none
- 136           *  @use : 得到时分秒六位，并显示在触摸屏的左上角
- 137           */
- 138          void TFT_paintTimeSet(clockTime setime)
- 139          {
- 140   1        uchar h1[]={0,'\0'}, h0[]={0,'\0'};
- 141   1        uchar m1[]={0,'\0'}, m0[]={0,'\0'};
- 142   1        uchar s1[]={0,'\0'}, s0[]={0,'\0'}; //存放时分秒
- 143   1      
- 144   1        /*得到设置界面的显示时间*/
- 145   1        h1[0]=setime.hour/10+'0';
- 146   1        h0[0]=setime.hour%10+'0';
- 147   1        m1[0]=setime.minute/10+'0';
- 148   1        m0[0]=setime.minute%10+'0';
- 149   1        s1[0]=setime.second/10+'0';
- 150   1        s0[0]=setime.second%10+'0';
- 151   1        /*将时间写在设置界面左偏上*/
- 152   1        GUI_WriteASCII(39, 56, ":", 0xF800, 0x0000);
- 153   1        GUI_WriteASCII(71, 56, ":", 0xF800, 0x0000);
- 154   1        GUI_WriteASCII(17, 58, h1, 0xF800, 0x0000);    //宽度12
- 155   1        GUI_WriteASCII(29, 58, h0, 0xF800, 0x0000);
- 156   1        GUI_WriteASCII(49, 58, m1, 0xF800, 0x0000);
- 157   1        GUI_WriteASCII(61, 58, m0, 0xF800, 0x0000);
- 158   1        GUI_WriteASCII(81, 58, s1, 0xF800, 0x0000);
- 159   1        GUI_WriteASCII(93, 58, s0, 0xF800, 0x0000);
- 160   1      }
+ 117   1        GUI_Writetable(149, 160, triangle[1], 0x7fff, 0x0000);  
+ 118   1        
+ 119   1        GUI_WriteASCII(0, 0, "BACK", 0x001F, 0x0000);   //返回   左上角 
+ 120   1        GUI_WriteASCII2(50, 94, ":", 0x7fff, 0x0000);
+ 121   1          GUI_WriteASCII2(106, 94, ":", 0x7fff, 0x0000);    
+ 122   1          GUI_WriteASCII2(10, 100, stime[0], 0xF800, 0x0000);  //h1        
+ 123   1          GUI_WriteASCII2(30, 100, stime[1], 0xF800, 0x0000);  //h0                   
+ 124   1          GUI_WriteASCII2(70, 100, stime[2], 0x07e0, 0x0000);  //m1          
+ 125   1          GUI_WriteASCII2(90, 100, stime[3], 0x07e0, 0x0000);  //m0                 
+ 126   1          GUI_WriteASCII2(130, 100,stime[4], 0xffe0, 0x0000);  //s1      
+ 127   1          GUI_WriteASCII2(150, 100, stime[5], 0xffe0, 0x0000);   //s0     
+ 128   1        
+ 129   1      }  
+ 130          
+ 131          
+ 132          
+ 133          /**
+ 134          *  @name:void paintTFT();
+ 135          * @description: 在触摸屏上画图
+ 136           *  @param    :none
+ 137           *  @return   : none
+ 138           *  @notice : none
+ 139           *  @use : 在触摸屏显示调整时间的基本框架（设置界面）
+ 140           */
+ 141          void TFT_paintSetSur(uchar *s)    //设置界面的显示
+ 142          {
+ 143   1        TFT_ClearScreen(0x0000);
+ 144   1        GUI_WriteASCII(47, 24, s, 0xFFE0, 0x0000);    //x, y  
+ 145   1          //横线
+ 146   1        GUI_Line(20, 50, 155, 50, 0xF800);  //x, y, x, y
+ 147   1        GUI_Line(20, 90, 155, 90, 0xF800);  //x, y, x, y
+ 148   1        GUI_Line(20, 130, 155, 130, 0xF800);  //x, y, x, y
+ 149   1        GUI_Line(20, 170, 155, 170, 0xF800);  //x, y, x, y
+ 150   1        GUI_Line(20, 210, 155, 210, 0xF800);  //x, y, x, y  
+ 151   1        //竖线
+ 152   1          GUI_Line(65, 90, 65, 210, 0xF800);  //x, y, x, y
+ 153   1        GUI_Line(110, 50, 110, 210, 0xF800);  //x, y, x, y  
+ 154   1        //数字  x, y    
+ 155   1          GUI_WriteASCII(31, 94, "1", 0xF800, 0x0000);   //1
+ 156   1        GUI_WriteASCII(81, 94, "2", 0xF800, 0x0000);   //2
+ 157   1        GUI_WriteASCII(127, 94, "3", 0xF800, 0x0000);  //3
+ 158   1        GUI_WriteASCII(31, 134, "4", 0xF800, 0x0000);  //4
+ 159   1        GUI_WriteASCII(81, 134, "5", 0xF800, 0x0000);  //5
+ 160   1        GUI_WriteASCII(127, 134, "6", 0xF800, 0x0000);   //6
+ 161   1        GUI_WriteASCII(31, 174, "7", 0xF800, 0x0000);  //7
+ 162   1        GUI_WriteASCII(81, 174, "8", 0xF800, 0x0000);  //8
+ 163   1        GUI_WriteASCII(127, 174, "9", 0xF800, 0x0000);   //9
+ 164   1          GUI_WriteASCII(127, 58, "0", 0xF800, 0x0000);  //0  
+ 165   1        GUI_WriteASCII(0, 0, "BACK", 0x001F, 0x0000);   //返回   左上角
+ 166   1      
+ 167   1      }
+ 168          
+ 169          /**
+ 170          *  @name:void TFT_paintTimeSet();
+ 171          * @description: 主界面的时间显示
+ 172           *  @param    : bit tag 是否需要全屏刷新显示，1为刷新显示
+ 173           *  @return   : none
+ 174           *  @notice : none
+ 175           *  @use : 得到时分秒六位，并显示在触摸屏的中间
+ 176           */
+ 177          void TFT_paintMainClock(bit tag)
+ 178          {
+C51 COMPILER V9.56.0.0   PAINTTFT                                                          07/26/2017 22:31:53 PAGE 4   
+
+ 179   1        static clockTime lastTime;
+ 180   1         uchar code table[] ={
+ 181   1      0x38,0x00,0x6C,0x00,0xC6,0x00,0x82,0x00,0xC6,0x00,0x6C,0x00,0x38,0xFE,0x01,0xFE,
+ 182   1      0x07,0x00,0x0E,0x00,0x0E,0x00,0x0E,0x00,0x0C,0x00,0x0C,0x00,0x0C,0x00,0x0C,0x00,
+ 183   1      0x0E,0x00,0x0E,0x00,0x06,0x00,0x03,0xFE,0x00,0xFE,0x00,0x00,0x00,0x00,0x00,0x00,
+ 184   1         };       //摄氏度  
+ 185   1        uchar color,k,j;   
+ 186   1        uchar h1[]={0,'\0'}, h0[]={0,'\0'};
+ 187   1        uchar m1[]={0,'\0'}, m0[]={0,'\0'};
+ 188   1        uchar s1[]={0,'\0'}, s0[]={0,'\0'}; //存放时分秒
+ 189   1        if( tag == 1)         //第一次进入时钟界面，刷新所有内容
+ 190   1        {                 
+ 191   2             GUI_WriteASCII(127, 0, "SET", 0x001F, 0x0000);  //设置   右上角  
+ 192   2             GUI_WriteASCII2(50, 94, ":", 0x7fff, 0x0000);
+ 193   2             GUI_WriteASCII2(106, 94, ":", 0x7fff, 0x0000); 
+ 194   2         //摄氏度符号
+ 195   2         TFT_SetWindow(105,170,120, 193);
+ 196   2          for (k=0; k<48; k++)
+ 197   2          {
+ 198   3            color = table[k];
+ 199   3            for (j=0; j<8; j++) 
+ 200   3            {
+ 201   4              if ((color&0x80) == 0x80)
+ 202   4              {
+ 203   5                TFT_WriteColor(0x7fff);
+ 204   5              }             
+ 205   4              else
+ 206   4              {
+ 207   5                TFT_WriteColor(0x000);
+ 208   5              }   
+ 209   4              color <<= 1;
+ 210   4            }
+ 211   3          }   
+ 212   2        }
+ 213   1        /*设置界面的显示时间*/
+ 214   1        h1[0]=time.hour/10+'0';
+ 215   1        h0[0]=time.hour%10+'0';
+ 216   1        m1[0]=time.minute/10+'0';
+ 217   1        m0[0]=time.minute%10+'0';
+ 218   1        s1[0]=time.second/10+'0';
+ 219   1        s0[0]=time.second%10+'0';
+ 220   1      
+ 221   1        /*将时间显示在触摸屏上*/
+ 222   1        if( lastTime.hour != time.hour || tag == 1 )
+ 223   1        {
+ 224   2          if( (lastTime.hour / 10 != time.hour / 10) || (tag == 1) )
+ 225   2          {
+ 226   3            GUI_WriteASCII2(10, 100, h1, 0xF800, 0x0000);  //h1 
+ 227   3          }
+ 228   2           if( (lastTime.hour % 10 != time.hour % 10 ) || (tag == 1) )
+ 229   2           {       
+ 230   3              GUI_WriteASCII2(30, 100, h0, 0xF800, 0x0000);  //h0                   
+ 231   3           }
+ 232   2         }
+ 233   1        if( (lastTime.minute != time.minute ) || (tag == 1) )
+ 234   1        {
+ 235   2          if( (lastTime.minute / 10 != time.minute / 10) || (tag == 1) )
+ 236   2          {
+ 237   3           GUI_WriteASCII2(70, 100, m1, 0x07e0, 0x0000);   //m1   
+ 238   3          }
+ 239   2           if( (lastTime.minute % 10 != time.minute % 10) || (tag == 1)  )
+ 240   2           {       
+C51 COMPILER V9.56.0.0   PAINTTFT                                                          07/26/2017 22:31:53 PAGE 5   
+
+ 241   3              GUI_WriteASCII2(90, 100, m0, 0x07e0, 0x0000);  //m0                 
+ 242   3           }
+ 243   2         }
+ 244   1        if( (lastTime.second != time.second) || (tag == 1)  )
+ 245   1        {
+ 246   2          if( (lastTime.second / 10 != time.second / 10) || (tag == 1)  )
+ 247   2          {
+ 248   3              GUI_WriteASCII2(130, 100, s1, 0xffe0, 0x0000);   //s1 
+ 249   3          }
+ 250   2           if( (lastTime.second % 10 != time.second % 10) || (tag == 1)  )
+ 251   2           {       
+ 252   3              GUI_WriteASCII2(150, 100, s0, 0xffe0, 0x0000);   //s0                       
+ 253   3           }     
+ 254   2         }  
+ 255   1            lastTime = time;          //记录当前时间用于下次对比
+ 256   1      }
+ 257          
+ 258          /**
+ 259          *  @name:void TFT_paintTimeSet(clockTime setime)
+ 260          * @description: 重新设置时间的显示
+ 261           *  @param    : 时分秒
+ 262           *  @return   : none
+ 263           *  @notice : none
+ 264           *  @use : 得到时分秒六位，并显示在触摸屏的左上角
+ 265           */
+ 266          void TFT_paintTimeSet(clockTime setime)
+ 267          {
+ 268   1        uchar h1[]={0,'\0'}, h0[]={0,'\0'};
+ 269   1        uchar m1[]={0,'\0'}, m0[]={0,'\0'};
+ 270   1        uchar s1[]={0,'\0'}, s0[]={0,'\0'}; //存放时分秒
+ 271   1      
+ 272   1        /*得到设置界面的显示时间*/
+ 273   1        h1[0]=setime.hour/10+'0';
+ 274   1        h0[0]=setime.hour%10+'0';
+ 275   1        m1[0]=setime.minute/10+'0';
+ 276   1        m0[0]=setime.minute%10+'0';
+ 277   1        s1[0]=setime.second/10+'0';
+ 278   1        s0[0]=setime.second%10+'0';
+ 279   1        /*将时间写在设置界面左偏上*/
+ 280   1        GUI_WriteASCII(39, 56, ":", 0xF800, 0x0000);
+ 281   1        GUI_WriteASCII(71, 56, ":", 0xF800, 0x0000);
+ 282   1        GUI_WriteASCII(17, 58, h1, 0xF800, 0x0000);    //宽度12
+ 283   1        GUI_WriteASCII(29, 58, h0, 0xF800, 0x0000);
+ 284   1        GUI_WriteASCII(49, 58, m1, 0xF800, 0x0000);
+ 285   1        GUI_WriteASCII(61, 58, m0, 0xF800, 0x0000);
+ 286   1        GUI_WriteASCII(81, 58, s1, 0xF800, 0x0000);
+ 287   1        GUI_WriteASCII(93, 58, s0, 0xF800, 0x0000);
+ 288   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   1298    ----
-   CONSTANT SIZE    =     55    ----
+   CODE SIZE        =   2283    ----
+   CONSTANT SIZE    =    226    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----      30
+   DATA SIZE        =      3      48
    IDATA SIZE       =   ----    ----
-   BIT SIZE         =   ----    ----
+   BIT SIZE         =   ----       2
 END OF MODULE INFORMATION.
 
 

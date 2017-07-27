@@ -52,33 +52,41 @@
 *	Global Variable Declare Section
 **************************************************************/
 
-
-/**************************************************************
-*	File Static Variable Define Section
-**************************************************************/
-
 /**************************************************************
 *	Function Define Section
 **************************************************************/
 
 /**
-*  @name: void setTime
+*  @name: void setTimeb
 *	@description:  µ÷ÕûÊ±¼ä
-*	@param		:none
- *	@return		: none
+*	@param		:n =0Ê±ÐÞ¸ÄÐ¡Ê±£¬=1Ê±ÐÞ¸Ã·ÖÖÓ£¬=2Ê±ÐÞ¸ÄÃëÖÓ£¬numÎªÐÞ¸ÄÇ°µÄÖµ£¬
+ *	@return		: ÐÞ¸ÄºóµÄÖµ
  *  @notice : none
  */
-void setTime()
+uchar  setTimeB(uchar n, uchar num, uint colo)
 {
-	uchar num, tag = 0;
-  ET0=0;		//¹Ø±Õ¶¨Ê±Æ÷£¬Í£Ö¹×ßÊ±
-			/*ÆÁÉÏÊý×Ö²¿·Ö¼ì²â£¨ÉèÖÃÒ³Ãæ£©*/	 //²»ÐèÒªÇåÆÁ					
-  i = 0;
+	char j = 0, m;
+	bit tag = 0;
+  TFT_ClearScreen(0x0000);		//ÇåÆÁ£¬Ïû³ýÆÁÄ»Ö®Ç°ÏÔÊ¾ÄÚÈÝµÄÓ°Ïì
+  if( n == 0 )           //X	ÐÞ¸ÄÐ¡Ê±
+	{
+  	TFT_paintSetSur("HOUR");     
+	}
+  if( n == 1 )           //X	ÐÞ¸Ä·ÖÖÓ
+	{
+  	TFT_paintSetSur("MINUTE");     
+	}	
+  if( n == 2 )           //X	ÐÞ¸ÄÃëÖÓ
+	{
+  	TFT_paintSetSur("SECOND");     
+	}		
+	GUI_WriteASCIICh(49, 58 , num / 10 +'0', colo, 0x0000);   //ÏÔÊ¾ÐèÒªÉèÖÃµÄÖµ1¡¤
+  GUI_WriteASCIICh(61, 58 , num % 10 +'0', colo, 0x0000);	
 	while(1) 
    {
 		if(TOUCH_XPT_ReadXY() == 1)		
 		{
-			/*×ª»¯*/
+			//×ª»¯
 			x=xpt_xy.x;
 			x=(x-304)*175/3422;
 			y=xpt_xy.y;
@@ -94,129 +102,112 @@ void setTime()
 		  //ÉèÖÃÊ±¼ä 
 			if((x>115)&&(y>45)&&(y<85))	  //0
 			{
-				num = 0;
+				m = 0;
 				tag = 1;
 			}
 			else if((x<60)&&(y>95)&&(y<135))	  //1
 			{
-				num = 1;
-				tag = 1;
+				m = 1;
+				tag = 1;				
 			}
 			else if((x>70)&&(x<105)&&(y>95)&&(y<135)) //2
 			{
-				num = 2;
-				tag = 1;
+				m = 2;
+				tag = 1;	
 			}
 			else if((x>115)&&(y>95)&&(y<135))  //3
 			{
-				num = 3;
-				tag = 1;
+				m = 3;
+				tag = 1;	
 			}
 			else if((x<60)&&(y>145)&&(y<165))	  //4
 			{
-				num = 4;
-				tag = 1;
+				m = 4;
+				tag = 1;	
 			}
 			else if((x>70)&&(x<105)&&(y>145)&&(y<165)) //5
 			{
-				num = 5;
-				tag = 1;
+				m = 5;
+				tag = 1;	
 			}
 			else if((x>115)&&(y>145)&&(y<165)) //6
 			{
-				num = 6;
-				tag = 1;
+				m = 6;
+				tag = 1;	
 			}
 			else if((x<60)&&(y>175)&(y<205))	  //7
 			{
-				num  = 7;
-				tag = 1;
+				m  = 7;
+				tag = 1;	
 			}
 			else if((x>70)&&(x<105)&&(y>175)&&(y<205)) //8
 			{
-				num = 8;
-				tag = 1;
+				m = 8;
+				tag = 1;	
 			}
 			else if((x>115)&&(y>175)&&(y<205)) //9
 			{
-				num = 9;
-				tag = 1;
+				m = 9;
+				tag = 1;	
 			}																															
 			else if((x<55)&&(y<24))	 //×óÉÏ½Ç
 			{
-				ET0=1;
         break;   //ÍË³öÑ­»·				
-			}
-			if( tag == 1 )       //ÅÐ¶Ï°´¼üÊÇ·ñÓÐÐ§
-			{
+			}	
+  		if( tag == 1 )      //ÅÐ¶ÏÊÇ·ñÐèÒª¸ü¸Ä
+			{	
 				tag = 0;
-       switch(i)
+				j++;
+        if( j == 1 )           //µÚÒ»´ÎÐÞ¸Ä
 				{
-					case 0:
-             if( num < 3 )
-						 {
-                time.hour = time.hour % 10 + num * 10;
-							 i++;
-						 }							 
-					    break;
-					case 1: 
-             if( num < 4 || time.hour < 20) 
-						 {
-                time.hour =time.hour - time.hour % 10 + num;
-							 i++; 
-						 }						  
-					    break;
-				case 2: 
-             if( num < 6 )
-						 {
-                time.minute = time.minute % 10 + num * 10;
-							 i++;
-						 }	
-					    break;
-				case 3:
- 					   time.minute =time.minute - time.minute % 10 + num;
-			     	i++;
-					    break;
-				case 4: 
-             if( num < 6 )
-						 {
-                time.second = time.second % 10 + num * 10;
-							 i++;
-						 }					 
-					    break;
-					case 5: 
-					    time.second =time.second - time.second % 10 + num;
-			      	i++;
-					    break;
+					num = m;
 				}
-			 TFT_paintTimeSet(time);           //ÏÔÊ¾ÉèÖÃµÄÖµ
-			if(i==6)	//Èç¹ûÊ±·ÖÃë¶¼¸³ÖµÍê±ÏÔò¿ÉÒÔÖØÐÂ¸³Öµ
-			{
-				i=0;
-			}				
-			}			
+				if( j== 2)            //µÚ¶þ´ÎÐÞ¸Ä
+				{
+					num = num * 10 + m;
+				}
+				if( j == 3)   // ÖØÐÂÐÞ¸Ä
+				{
+					j =1;
+					num = m;
+				}
+				if( n == 0 && num > 23 )
+				{
+					num = 23;          //Ð¡Ê±×î´ó²»³¬¹ý23
+				}
+				else if( num > 59 )
+				{
+					num = 59;      // ·ÖÖÓºÍÃëÖÓ×î´ó²»³¬¹ý53
+				}
+        GUI_WriteASCIICh(49, 58 , num / 10 +'0', colo, 0x0000);   //ÏÔÊ¾ÐèÒªÉèÖÃµÄÖµ1¡¤
+        GUI_WriteASCIICh(61, 58 , num % 10 +'0', colo, 0x0000);	
+        tag = 0;	
+				Delay(40);
+			}
 		}	
 	}
+	  TFT_ClearScreen(0x0000);		//ÇåÆÁ£ 
+	 return num;
 }
 
 
 /**
-*  @name: void setClockTime
-*	@description:  µ÷ÕûÄÖÖÓÊ±¼ä
-*	@param		:none
- *	@return		: none
+*  @name: clockTime setTime(bit tag,clock setTime)
+*	@description:  µ÷ÕûÊ±¼ä
+*	@param		:setime ÐèÒªÉèÖÃµÄÊ±¼ä
+ *	@return		: ÉèÖÃºóµÄÊ±¼ä
  *  @notice : none
  */
-void setClockTime()
+clockTime setTimeA(bit tag,clockTime setTime)
 {
-	uchar num, tag = 0;
-			/*ÆÁÉÏÊý×Ö²¿·Ö¼ì²â£¨ÉèÖÃÒ³Ãæ£©*/	 //²»ÐèÒªÇåÆÁ					
-  i = 0;
+	uchar num;
+  clockTime set;
+	set = setTime;
 	while(1) 
    {
 		if(TOUCH_XPT_ReadXY() == 1)		
 		{
-			/*×ª»¯*/
+			//×ª»¯
 			x=xpt_xy.x;
 			x=(x-304)*175/3422;
 			y=xpt_xy.y;
@@ -229,115 +220,243 @@ void setClockTime()
 			{
 					y=218;
 			}
-		  //ÉèÖÃÊ±¼ä 
-			if((x>115)&&(y>45)&&(y<85))	  //0
+		  //Ñ¡ÔñÉèÖÃÊ±¼ä 
+			if( (y > 100)&&( y < 140 ) )
 			{
-				num = 0;
-				tag = 1;
+        if( x<60 )	  //Ð¡Ê±
+				{
+					num = setTimeB(0, set.hour, 0xf800);
+					if( num < 24 )         //ÅÐ¶Ï´Ë´ÎÐÞ¸ÄÊÇ·ñÓÐÐ§
+					{
+						set.hour = num;
+					}
+					if( tag == 1 )
+					{
+						time = set;
+					}
+					else
+					{
+						timeclock =set;
+					}
+					TFT_paintSetTime(tag);					
+				}					
+				else if( x<115 )	  //·ÖÖÓ
+				{
+					num = setTimeB(1,set.minute, 0x7e0);			
+					if( num < 60 )         //ÅÐ¶Ï´Ë´ÎÐÞ¸ÄÊÇ·ñÓÐÐ§
+					{
+						set.minute = num;
+					}
+					if( tag == 1 )
+					{
+						time = set;
+					}
+					else
+					{
+						timeclock =set;
+					}					
+					TFT_paintSetTime(tag);							
+				}								
+				else	  //ÃëÖÓ
+				{
+					num = setTimeB(2, set.second, 0xffe0);
+					if( num < 60 )         //ÅÐ¶Ï´Ë´ÎÐÞ¸ÄÊÇ·ñÓÐÐ§
+					{
+						set.second = num;
+					}
+					if( tag == 1 )
+					{
+						time = set;
+					}
+					else
+					{
+						timeclock =set;
+					}					
+					TFT_paintSetTime(tag);					
+				}
 			}
-			else if((x<60)&&(y>95)&&(y<135))	  //1
+	
+			
+      //°´Êý×ÖÉÏ·½¼ÓÒ»			
+      else if( y < 90  && y > 55	 )
 			{
-				num = 1;
-				tag = 1;
+				if( x < 30 )	  //Ð¡Ê±Ê®Î»
+				{
+					if( set.hour > 13 && set.hour < 20 )
+					{
+						set.hour %= 10;
+					}
+					else if( set.hour > 19 )
+					{
+						set.hour = set.hour % 10;
+					}
+					else
+					{
+						set.hour += 10;
+					}
+					 GUI_WriteASCII2Ch(9, 100, set.hour / 10 + '0', 0xF800, 0x0000);	
+				}
+				else if( x<60 )	  //Ð¡Ê±¸öÎ»
+				{
+          if( set.hour == 23 )
+					{
+						set.hour = 20;
+					}
+					else
+					{
+						set.hour++;
+					}
+          GUI_WriteASCII2Ch(30, 100, set.hour % 10 + '0', 0xF800, 0x0000);					
+				}			
+				else if( x<85 )	  //·ÖÖÓÊ®Î»
+				{
+            if( set.minute > 49 )
+						{
+							set.minute %= 10;
+						}
+						else
+						{
+							set.minute += 10;
+						}
+          	GUI_WriteASCII2Ch(69, 100, set.minute / 10 + '0', 0x07e0, 0x0000);				
+				}		
+				else if( x<115 )	  //·ÖÖÓ¸öÎ»
+				{
+					if( set.minute % 10 == 9 )    //µ±·ÖÖÓ¸öÎ»Êý²»³¬¹ý9
+					{
+						set.minute -= set.minute % 10;
+					}
+					else
+					{
+						set.minute += 1;
+					}
+					GUI_WriteASCII2Ch(90, 100, set.minute % 10 + '0', 0x07e0, 0x0000);	
+				}				
+				else if( x<147 )	  //ÃëÖÓÊ®Î»
+				{
+            if( set.second > 49 )
+						{
+							set.second %= 10;
+						}
+						else
+						{
+							set.second += 10;
+						}
+					GUI_WriteASCII2Ch(129, 100, set.second / 10 + '0', 0xffe0, 0x0000);	
+				}				
+				else	  //ÃëÖÓ¸öÎ»
+				{
+					if( set.second % 10 == 9 )    //µ±·ÖÖÓ¸öÎ»Êý²»³¬¹ý9
+					{
+						set.second -= set.second % 10;
+					}
+					else
+					{
+						set.second += 1;
+					}
+					GUI_WriteASCII2Ch(150, 100, set.second % 10 + '0', 0xffe0, 0x0000);
+				}	
 			}
-			else if((x>70)&&(x<105)&&(y>95)&&(y<135)) //2
+
+         // °´Êý×ÖÏÂ·½¼õÒ»
+      else if( y < 185 && y > 	155 )
 			{
-				num = 2;
-				tag = 1;
-			}
-			else if((x>115)&&(y>95)&&(y<135))  //3
-			{
-				num = 3;
-				tag = 1;
-			}
-			else if((x<60)&&(y>145)&&(y<165))	  //4
-			{
-				num = 4;
-				tag = 1;
-			}
-			else if((x>70)&&(x<105)&&(y>145)&&(y<165)) //5
-			{
-				num = 5;
-				tag = 1;
-			}
-			else if((x>115)&&(y>145)&&(y<165)) //6
-			{
-				num = 6;
-				tag = 1;
-			}
-			else if((x<60)&&(y>175)&(y<205))	  //7
-			{
-				num  = 7;
-				tag = 1;
-			}
-			else if((x>70)&&(x<105)&&(y>175)&&(y<205)) //8
-			{
-				num = 8;
-				tag = 1;
-			}
-			else if((x>115)&&(y>175)&&(y<205)) //9
-			{
-				num = 9;
-				tag = 1;
-			}																															
+				if( x < 30 )	  //Ð¡Ê±Ê®Î»
+				{
+					if( set.hour < 4)
+					{						
+						 set.hour = set.hour + 2 * 10;
+					}
+					else if( set.hour < 10 )
+					{
+						set.hour = set.hour + 10;
+					}
+					else
+					{
+						set.hour -= 10;
+					}
+					 GUI_WriteASCII2Ch(9, 100, set.hour / 10 + '0', 0xF800, 0x0000);
+			 }
+				else if( x<60 )	  //Ð¡Ê±¸öÎ»
+				{
+
+					if( set.hour  == 20 )    //µ±Ð¡Ê±Ê®Î»ÊýÎª¶þÊ±£¬¸öÎ»Êý²»ÄÜ³¬¹ýÈý
+					{
+						set.hour = 23;
+					}
+					else if( set.hour % 10 == 0 )       //Ð¡Ê±¸öÎ»Êý´ÓÐÂ´Ó0¿ªÊ¼
+					{
+                set.hour = (set.hour / 10) * 10 + 9 ;
+					}
+					else
+					{
+						set.hour -= 1 ;		
+					}	
+          GUI_WriteASCII2Ch(30, 100, set.hour % 10 + '0', 0xF800, 0x0000);					
+				}			
+				else if( x<85 )	  //·ÖÖÓÊ®Î»
+				{
+					if( set.minute < 10 )
+					{
+						set.minute = set.minute % 10 + 5 * 10;
+					}
+          else
+					{
+             set.minute -= 10;
+					}						
+          	GUI_WriteASCII2Ch(70, 100, set.minute / 10 + '0', 0x07e0, 0x0000);				
+				}		
+				else if( x<120 )	  //·ÖÖÓ¸öÎ»
+				{
+
+					if( set.minute % 10 == 0 )    //µ±·ÖÖÓ¸öÎ»Êý²»³¬¹ý9
+					{
+						set.minute = (set.minute / 10) * 10 +  9;
+					}
+					else
+					{
+						set.minute -= 1;
+					}
+					GUI_WriteASCII2Ch(90, 100, set.minute % 10 + '0', 0x07e0, 0x0000);	
+				}				
+				else if( x<156 )	  //ÃëÖÓÊ®Î»
+				{
+					if( set.second < 10 )
+					{
+						set.second = set.second % 10 + 5 * 10;
+					}
+          else
+					{
+             set.second -= 10;
+					}			
+					GUI_WriteASCII2Ch(130, 100, set.second / 10 + '0', 0xffe0, 0x0000);	
+				}				
+				else	  //ÃëÖÓ¸öÎ»
+				{
+					if( set.second % 10 == 0 )    //µ±·ÖÖÓ¸öÎ»Êý²»³¬¹ý9
+					{
+						set.second = (set.second / 10) * 10 +  9;
+					}
+					else
+					{
+						set.second -= 1;
+					}
+					GUI_WriteASCII2Ch(150, 100, set.second % 10 + '0', 0xffe0, 0x0000);
+				}				
+			}	
 			else if((x<55)&&(y<24))	 //×óÉÏ½Ç
 			{
-				clockTag = 0;             //¹Ø±ÕÄÖÖÓ
         break;   //ÍË³öÑ­»·				
 			}
-			else if((x>100)&&(y<24))	 //×óÉÏ½Ç
+			else if((x>115)&&(y<24)&& (tag == 0))	 //×óÉÏ½Ç
 			{
-				clockTag = 1;         //¿ªÆôÄÖÖÓ
+				clockTag = 1;      //¿ªÆôÄÖÖÓ
         break;   //ÍË³öÑ­»·				
 			}
-			if( tag == 1 )       //ÅÐ¶Ï°´¼üÊÇ·ñÓÐÐ§
-			{
-				tag = 0;
-       switch(i)
-				{
-					case 0:
-             if( num < 3 )
-						 {
-                timeclock.hour = timeclock.hour % 10 + num * 10;
-							 i++;
-						 }							 
-					    break;
-					case 1: 
-             if( num < 4 || timeclock.hour < 20) 
-						 {
-                timeclock.hour =timeclock.hour - timeclock.hour % 10 + num;
-							 i++; 
-						 }						  
-					    break;
-				case 2: 
-             if( num < 6 )
-						 {
-                timeclock.minute = timeclock.minute % 10 + num * 10;
-							 i++;
-						 }	
-					    break;
-				case 3:
- 					   timeclock.minute =timeclock.minute - timeclock.minute % 10 + num;
-			     	i++;
-					    break;
-				case 4: 
-             if( num < 6 )
-						 {
-                timeclock.second = timeclock.second % 10 + num * 10;
-							 i++;
-						 }					 
-					    break;
-					case 5: 
-					    timeclock.second =timeclock.second - timeclock.second % 10 + num;
-			      	i++;
-					    break;
-				}
-				TFT_paintTimeSet(timeclock);           //ÏÔÊ¾ÉèÖÃµÄÖµ
-			if(i==6)	//Èç¹ûÊ±·ÖÃë¶¼¸³ÖµÍê±ÏÔò¿ÉÒÔÖØÐÂ¸³Öµ
-			{
-				i=0;
-			}				
-			}			
+			Delay(20);
 		}	
-	}
-}
+	}		
+     TFT_ClearScreen(0x0000);		//ÇåÆÁ£¬Ïû³ýÆÁÄ»Ö®Ç°ÏÔÊ¾ÄÚÈÝµÄÓ°Ïì	
+   return set;			
+}	 
+

@@ -86,19 +86,12 @@ extern uchar clockTag;
 void initTimer();
 
 /**
-*  @name: void setTime
+*  @name: clockTime setTime(bit tag,clock setTime)
 *	@description:  调整时间
-*	@param		:none
- *	@return		: none
+*	@param		:setime 需要设置的时间
+ *	@return		: 设置后的时间
  *  @notice : none
  */
-void setTime();
-/**
-*  @name: void setClockTime
-*	@description:  调整闹钟时间
-*	@param		:none
- *	@return		: none
- *  @notice : none
- */
-void setClockTime();
+clockTime setTimeA(bit tag,clockTime setTime);
+
 #endif

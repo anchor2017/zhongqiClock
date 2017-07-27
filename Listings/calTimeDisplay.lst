@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/25/2017 16:46:23 PAGE 1   
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/26/2017 22:31:52 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE CALTIMEDISPLAY
@@ -58,11 +58,11 @@ line level    source
   48          * Prototype Declare Section
   49          **************************************************************/
   50          sbit PWM = P3^5; 
-  51          
+  51          sbit deep = P3^6;            //蜂鸣器
   52          /**************************************************************
   53          * Global Variable Declare Section
   54          **************************************************************/
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/25/2017 16:46:23 PAGE 2   
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/26/2017 22:31:52 PAGE 2   
 
   55          
   56          
@@ -75,214 +75,219 @@ line level    source
   63          **************************************************************/
   64          
   65          
-  66          /**
-  67          *  @name:void displayPageSet()
-  68          * @description: 显示设置时间界面
-  69           *  @param    :none
-  70           *  @return   : none
-  71           *  @notice : none
-  72           */
-  73          void displayPageSetTime()
-  74          {
-  75   1          /*线条及数字的基本框图*/    
-  76   1          TFT_paintSetSur("TIME");
-  77   1          /*将时间写在设置界面左偏上*/   
-  78   1          TFT_paintTimeSet(time);          
-  79   1          setTime();        //设置时间
-  80   1      }
-  81          
-  82          /**
-  83          *  @name:void displayPageSetClock()
-  84          * @description: 显示设置闹钟界面
-  85           *  @param    :none
-  86           *  @return   : none
-  87           *  @notice : none
-  88           */
-  89          void displayPageSetClock()
-  90          {
-  91   1          /*线条及数字的基本框图*/    
-  92   1          TFT_paintSetSur("CLOCK");
-  93   1        GUI_WriteASCII(99,0, "YES", 0x07E0, 0x0000);  
-  94   1          /*将时间写在设置界面左偏上*/   
-  95   1          TFT_paintTimeSet(timeclock);            
-  96   1          setClockTime();
-  97   1      }
-  98          
-  99          
- 100          
- 101          /**
- 102          *  @name: displayPageSetting
- 103          * @description: 显示设置界面
- 104           *  @param    :none
- 105           *  @return   : none
- 106           *  @notice : none
- 107           */
- 108          void displayPageSetting()
- 109          {
- 110   1        TFT_ClearScreen(0x0000);    //清屏  
- 111   1        GUI_WriteASCII(0,0, "BACK", 0x001F, 0x0000);  
- 112   1        GUI_WriteASCII(50,24, "SET", 0xFFE0, 0x0000);
- 113   1        GUI_WriteASCII(50, 94, "TIME", 0x7ff, 0x0000);  
- 114   1        GUI_WriteASCII(50, 134, "CLOCK", 0x7fff, 0x0000); 
- 115   1        GUI_Line(20, 50, 155, 50, 0xF800);     //画横线
- 116   1        GUI_Line(20, 130, 155, 130, 0xF800);  //x, y, x, y
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/25/2017 16:46:23 PAGE 3   
+  66            
+  67          /**
+  68          *  @name:void displayPageSet()
+  69          * @description: 显示设置时间界面
+  70           *  @param    :none
+  71           *  @return   : none
+  72           *  @notice : none
+  73           */
+  74          void displayPageSetTime()
+  75          {
+  76   1          /*线条及数字的基本框图*/    
+  77   1          //TFT_paintSetSur("TIME");
+  78   1          TFT_paintSetTime(1);
+  79   1         
+  80   1          /*将时间写在设置界面上*/   
+  81   1        //  TFT_paintTimeSet(time);                   
+  82   1        
+  83   1          time = setTimeA(1, time);        //设置时间
+  84   1      }
+  85          
+  86          /**
+  87          *  @name:void displayPageSetClock()
+  88          * @description: 显示设置闹钟界面
+  89           *  @param    :none
+  90           *  @return   : none
+  91           *  @notice : none
+  92           */
+  93          void displayPageSetClock()
+  94          {
+  95   1          /*线条及数字的基本框图*/    
+  96   1          //TFT_paintSetSur("CLOCK");
+  97   1        //GUI_WriteASCII(99,0, "YES", 0x07E0, 0x0000);  
+  98   1          /*将时间写在设置界面左偏上*/   
+  99   1          //TFT_paintTimeSet(timeclock);            
+ 100   1          //setClockTime();
+ 101   1            /*线条及数字的基本框图*/    
+ 102   1          //TFT_paintSetSur("TIME");
+ 103   1          TFT_paintSetTime(0);
+ 104   1         
+ 105   1          /*将时间写在设置界面上*/   
+ 106   1        //  TFT_paintTimeSet(time);                   
+ 107   1        
+ 108   1          timeclock = setTimeA(0, timeclock);        //设置时间
+ 109   1      }
+ 110          
+ 111          
+ 112          
+ 113          /**
+ 114          *  @name: displayPageSetting
+ 115          * @description: 显示设置界面
+ 116           *  @param    :none
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/26/2017 22:31:52 PAGE 3   
 
- 117   1        GUI_Line(20, 170, 155, 170, 0xF800);  //x, y, x, y
- 118   1        while(1) 
- 119   1         {
- 120   2          if(TOUCH_XPT_ReadXY() == 1)   
- 121   2          {
- 122   3            /*转化*/
- 123   3            x=xpt_xy.x;
- 124   3            x=(x-304)*175/3422;
- 125   3            y=xpt_xy.y;
- 126   3            y=(y-256)*219/3440;     
- 127   3            if(x>174)
- 128   3            {
- 129   4              x=174;
- 130   4            }
- 131   3            if(y>218)
- 132   3            {
- 133   4                y=218;
- 134   4            }
- 135   3            if( y < 135 && y > 95)       //选择设置时间
- 136   3            {
- 137   4              displayPageSetTime();
- 138   4              TFT_ClearScreen(0x0000);    //清屏
- 139   4              break;   //退出循环 
- 140   4            }
- 141   3            else if( y > 135 && y < 165)   // 选择设置闹钟
- 142   3            {
- 143   4              displayPageSetClock();
- 144   4            TFT_ClearScreen(0x0000);    //清屏
- 145   4              break;   //退出循环 
+ 117           *  @return   : none
+ 118           *  @notice : none
+ 119           */
+ 120          void displayPageSetting()
+ 121          {
+ 122   1        TFT_ClearScreen(0x0000);    //清屏    
+ 123   1        GUI_WriteASCII(0,0, "BACK", 0x001F, 0x0000);  
+ 124   1        GUI_WriteASCII(50,24, "SET", 0xFFE0, 0x0000);
+ 125   1        GUI_WriteASCII(50, 94, "TIME", 0x7ff, 0x0000);  
+ 126   1        GUI_WriteASCII(50, 134, "CLOCK", 0x7fff, 0x0000); 
+ 127   1        GUI_Line(20, 50, 155, 50, 0xF800);     //画横线
+ 128   1        GUI_Line(20, 130, 155, 130, 0xF800);  //x, y, x, y
+ 129   1        GUI_Line(20, 170, 155, 170, 0xF800);  //x, y, x, y
+ 130   1        while(1) 
+ 131   1         {
+ 132   2          if(TOUCH_XPT_ReadXY() == 1)   
+ 133   2          {
+ 134   3            /*转化*/
+ 135   3            x=xpt_xy.x;
+ 136   3            x=(x-304)*175/3422;
+ 137   3            y=xpt_xy.y;
+ 138   3            y=(y-256)*219/3440;     
+ 139   3            if(x>174)
+ 140   3            {
+ 141   4              x=174;
+ 142   4            }
+ 143   3            if(y>218)
+ 144   3            {
+ 145   4                y=218;
  146   4            }
- 147   3            else if((x<55)&&(y<24))  //左上角
+ 147   3            if( y < 135 && y > 95)       //选择设置时间
  148   3            {
- 149   4            TFT_ClearScreen(0x0000);    //清屏
- 150   4              break;   //退出循环       
- 151   4            }
- 152   3          }
- 153   2        }   
- 154   1      }
- 155          
- 156          /**
- 157          *  @name:void displayTemp(int temp)  
- 158          * @description: 显示温度
- 159           *  @param    :temp = 温度 x 10
- 160           *  @return   : none
- 161           *  @notice : none
- 162           */
- 163          void displayTemp(int temp)   
- 164          {
- 165   1         uchar code table[] ={
- 166   1      0x38,0x00,0x6C,0x00,0xC6,0x00,0x82,0x00,0xC6,0x00,0x6C,0x00,0x38,0xFE,0x01,0xFE,
- 167   1      0x07,0x00,0x0E,0x00,0x0E,0x00,0x0E,0x00,0x0C,0x00,0x0C,0x00,0x0C,0x00,0x0C,0x00,
- 168   1      0x0E,0x00,0x0E,0x00,0x06,0x00,0x03,0xFE,0x00,0xFE,0x00,0x00,0x00,0x00,0x00,0x00,
- 169   1         };       //摄氏度     
- 170   1         uchar color,k,j,stemp[][2]= { 0, '\0', 0, '\0', '.', '\0', 0,  '\0'};
- 171   1         stemp[0][0] = temp / 100 + '0';     
- 172   1         stemp[1][0] = (temp % 100) / 10 + '0';
- 173   1         stemp[3][0] = temp % 10 + '0';
- 174   1         GUI_WriteASCII(60, 170, stemp[0], 0x7fff, 0x0000); 
- 175   1         GUI_WriteASCII(70, 170, stemp[1], 0x7fff, 0x0000);  
- 176   1         GUI_WriteASCII(80, 170, stemp[2], 0x7fff, 0x0000);
- 177   1         GUI_WriteASCII(90, 170, stemp[3], 0x7fff, 0x0000); 
- 178   1         //摄氏度符号
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/25/2017 16:46:23 PAGE 4   
+ 149   4              TFT_ClearScreen(0x0000);    //清屏      
+ 150   4              displayPageSetTime();
+ 151   4              TFT_ClearScreen(0x0000);    //清屏
+ 152   4              break;   //退出循环 
+ 153   4            }
+ 154   3            else if( y > 135 && y < 165)   // 选择设置闹钟
+ 155   3            {
+ 156   4                TFT_ClearScreen(0x0000);    //清屏    
+ 157   4              displayPageSetClock();
+ 158   4            TFT_ClearScreen(0x0000);    //清屏
+ 159   4              break;   //退出循环 
+ 160   4            }
+ 161   3            else if((x<55)&&(y<24))  //左上角
+ 162   3            {
+ 163   4            TFT_ClearScreen(0x0000);    //清屏
+ 164   4              break;   //退出循环       
+ 165   4            }
+ 166   3          }
+ 167   2        }   
+ 168   1      }
+ 169          
+ 170          /**
+ 171          *  @name:void displayTemp(int temp)  
+ 172          * @description: 显示温度
+ 173           *  @param    :temp = 温度 x 10
+ 174           *  @return   : none
+ 175           *  @notice : none
+ 176           */
+ 177          void displayTemp(int temp)   
+ 178          {
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/26/2017 22:31:52 PAGE 4   
 
- 179   1         TFT_SetWindow(105,170,120, 193);
- 180   1          for (k=0; k<48; k++)
- 181   1          {
- 182   2            color = table[k];
- 183   2            for (j=0; j<8; j++) 
- 184   2            {
- 185   3              if ((color&0x80) == 0x80)
- 186   3              {
- 187   4                TFT_WriteColor(0x7fff);
- 188   4              }             
- 189   3              else
- 190   3              {
- 191   4                TFT_WriteColor(0x000);
- 192   4              }   
- 193   3              color <<= 1;
- 194   3            }
- 195   2          }  
- 196   1       } 
- 197          
- 198           
- 199          /**
- 200          *  @name: displayPageSetting
- 201          * @description: 显示闹钟响起时的界面
- 202           *  @param    :none
- 203           *  @return   : none
- 204           *  @notice : none
- 205           */
- 206          void displayPageClock()
- 207          {
- 208   1                 //开启闹钟
- 209   1                  TMOD = 0x10 | 0x01; // 开定时器1模式1
- 210   1                  TL1 = 0xcc; // 
- 211   1                  TH1 = 0xcc;
- 212   1                  ET1 = 1;
- 213   1                  TR1 = 1;
- 214   1                  pwmCount = 0;
- 215   1                  pwmPeriod = PWM_MODE;  
- 216   1              TFT_ClearScreen(0x0000);    //清屏  
- 217   1            GUI_WriteASCII(65, 100, "STOP", 0xffe0, 0x0000);   //显示关闭按钮 
- 218   1          while( 1 )
- 219   1          {
- 220   2            TFT_paintTimeSet(time);          //右上角显示时间按
- 221   2      
- 222   2            if(TOUCH_XPT_ReadXY() == 1 )    
- 223   2            {
- 224   3            /*转化*/
- 225   3              x=xpt_xy.x;
- 226   3              x=(x-304)*175/3422;
- 227   3              y=xpt_xy.y;
- 228   3              y=(y-256)*219/3440;     
- 229   3              if(x>174)
- 230   3              {
- 231   4                x=174;
- 232   4              }
- 233   3              if(y>218)
+ 179   1         static int lastTemp = 0;
+ 180   1         uchar stemp[][2]= { 0, '\0', 0, '\0',  0,  '\0'};
+ 181   1         stemp[0][0] = temp / 100 + '0';     
+ 182   1         stemp[1][0] = (temp % 100) / 10 + '0';
+ 183   1         stemp[2][0] = temp % 10 + '0';
+ 184   1         if( lastTemp / 100 != temp / 100 )
+ 185   1         {
+ 186   2           GUI_WriteASCII(60, 170, stemp[0], 0x7fff, 0x0000); 
+ 187   2         }
+ 188   1         if( (lastTemp / 10) % 10 != (temp / 10) % 10 )
+ 189   1         {
+ 190   2           GUI_WriteASCII(70, 170, stemp[1], 0x7fff, 0x0000);  
+ 191   2         GUI_WriteASCII(80, 170, ".", 0x7fff, 0x0000);           
+ 192   2         }
+ 193   1         if(lastTemp != temp )
+ 194   1         {
+ 195   2           
+ 196   2         GUI_WriteASCII(90, 170, stemp[2], 0x7fff, 0x0000);   
+ 197   2      
+ 198   2         }
+ 199   1         lastTemp = temp;            //记录当前温度用于下次比较
+ 200   1       }   
+ 201          
+ 202           
+ 203          /**
+ 204          *  @name: displayPageSetting
+ 205          * @description: 显示闹钟响起时的界面
+ 206           *  @param    :none
+ 207           *  @return   : none
+ 208           *  @notice : none
+ 209           */
+ 210          void displayPageClock()
+ 211          {
+ 212   1                 //开启闹钟
+ 213   1                  TMOD = 0x10 | 0x01; // 开定时器1模式1
+ 214   1                  TL1 = 0xcc; // 
+ 215   1                  TH1 = 0xcc;
+ 216   1                  ET1 = 1;
+ 217   1                  TR1 = 1;
+ 218   1                  pwmCount = 0;
+ 219   1                  pwmPeriod = PWM_MODE;
+ 220   1              TFT_ClearScreen(0x0000);    //清屏  
+ 221   1            GUI_WriteASCII(65, 100, "STOP", 0xffe0, 0x0000);   //显示关闭按钮 
+ 222   1          while( 1 )
+ 223   1          {
+ 224   2            TFT_paintTimeSet(time);          //右上角显示时间按
+ 225   2             deep = ~deep;
+ 226   2            if(TOUCH_XPT_ReadXY() == 1 )    
+ 227   2            {
+ 228   3            /*转化*/
+ 229   3              x=xpt_xy.x;
+ 230   3              x=(x-304)*175/3422;
+ 231   3              y=xpt_xy.y;
+ 232   3              y=(y-256)*219/3440;     
+ 233   3              if(x>174)
  234   3              {
- 235   4                  y=218;
- 236   4              } 
- 237   3            if((x>65)&&(x<130)&&(y>97)&&(y<125))    //点击关闭
- 238   3            {
- 239   4              clockTag = 0;
- 240   4              TR1 = 0;
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/25/2017 16:46:23 PAGE 5   
+ 235   4                x=174;
+ 236   4              }
+ 237   3              if(y>218)
+ 238   3              {
+ 239   4                  y=218;
+ 240   4              } 
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/26/2017 22:31:52 PAGE 5   
 
- 241   4              ET1 = 0;
- 242   4              PWM = 0;
- 243   4              TFT_ClearScreen(0x0000);    //清屏
- 244   4              break;
- 245   4            }
- 246   3          }
- 247   2            else if( judge() == 1)            //晃动关闭
- 248   2            {
- 249   3              clockTag = 0;
- 250   3              TR1 = 0;
- 251   3              ET1 = 0;
- 252   3              PWM = 0;
- 253   3              TFT_ClearScreen(0x0000);    //清屏
- 254   3              break;
- 255   3            }     
- 256   2        }
- 257   1      }
- 258          
- 259           
+ 241   3            if((x>65)&&(x<130)&&(y>97)&&(y<125))    //点击关闭
+ 242   3            {
+ 243   4              clockTag = 0;
+ 244   4              TR1 = 0;
+ 245   4              ET1 = 0;
+ 246   4              PWM = 0;
+ 247   4              TFT_ClearScreen(0x0000);    //清屏
+ 248   4              break;
+ 249   4            }
+ 250   3          }
+ 251   2           else if( judge() == 1)            //晃动关闭
+ 252   2            {
+ 253   3              deep = 0;
+ 254   3              clockTag = 0;
+ 255   3              TR1 = 0;
+ 256   3              ET1 = 0;
+ 257   3              PWM = 0;
+ 258   3              TFT_ClearScreen(0x0000);    //清屏
+ 259   3              break;
+ 260   3        } 
+ 261   2        }
+ 262   1      }
+ 263          
+ 264           
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   1211    ----
-   CONSTANT SIZE    =     85    ----
+   CODE SIZE        =   1242    ----
+   CONSTANT SIZE    =     33    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----      13
+   DATA SIZE        =      2       8
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

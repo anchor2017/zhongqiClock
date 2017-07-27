@@ -374,14 +374,14 @@
               <FilePath>.\calTimeDisplay.c</FilePath>
             </File>
             <File>
-              <FileName>clock.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\clock.c</FilePath>
-            </File>
-            <File>
               <FileName>DS18S120.C</FileName>
               <FileType>1</FileType>
               <FilePath>.\DS18S120.C</FilePath>
+            </File>
+            <File>
+              <FileName>clock.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\clock.c</FilePath>
             </File>
             <File>
               <FileName>gui.c</FileName>

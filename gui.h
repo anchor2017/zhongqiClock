@@ -45,6 +45,7 @@ void GUI_Write32CnChar(uint x, uint y, uchar *cn, uint wordColor, uint backColor
 void GUI_WriteASCII(uint x, uint y, uchar *p, uint wordColor, uint backColor);
 
 void GUI_WriteASCII2(uint x, uint y, uchar *p, uint wordColor, uint backColor);
-
-
+void GUI_WriteASCII2Ch(uint x, uint y, uchar c, uint wordColor, uint backColor);
+void GUI_WriteASCIICh(uint x, uint y, uchar c, uint wordColor, uint backColor);
+void GUI_Writetable(uint x, uint y, uchar *c, uint wordColor, uint backColor);
 #endif

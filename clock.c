@@ -50,7 +50,6 @@ uchar clockTag = 0;                //0为关闭，1为开启，2为正在向
 clockTime time, timeclock;
 
 sbit PWM = P3^5;                           //震动信号输出
-
 uchar pwmCount, pwmPeriod ;          //占空比计数器，占空比标数
 uint num;
 /**************************************************************
@@ -164,3 +163,4 @@ void pwm() interrupt 3
 		PWM = 0;
 	}
 }
+

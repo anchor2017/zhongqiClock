@@ -21,23 +21,28 @@ long x=0, y=0;
 
 void main()
 {
-	//uchar h1, h0, m1, m0, s1, s0;	 //±äÁ¿¶¨Ò
+	bit backTag = 1;           //´ÓÆäËû½çÃæ·µ»ØÖ÷½çÃæ±êÖ¾
+	uchar cou = 50;
   P3 = 0x00;
   initMPU();
 	TFT_Init();				//³õÊ¼»¯´¥ÃşÆÁÏÔÊ¾
   TFT_ClearScreen(0x0000);		//ÇåÆÁ£¬Ïû³ıÆÁÄ»Ö®Ç°ÏÔÊ¾ÄÚÈİµÄÓ°Ïì
 	initTimer();		 //³õÊ¼»¯¶¨Ê±Æ÷0£¨Ê±ÖÓ£	
 	tempchange();   //³õÊ¼»¯ÎÂ¶È   
-	//while(1);
 	while(1)
 	{
 	   if( clockTag == 2 )       //ÄÖÖÓÏìÆğ
 		 {
 			 displayPageClock();
 		 }
-     TFT_paintMainClock();           // ÏÔÊ¾Ê±¼ä
+    TFT_paintMainClock(backTag);           // ÏÔÊ¾Ê±¼ä
+		 backTag = 0;
+		 if( cou == 50 )
+		 {
+			 cou = 0;
 			tempchange();   
 			displayTemp(getTemp());           // ÏÔÊ¾ÎÂ¶È			
+		 }
 	    if(TOUCH_XPT_ReadXY() == 1)	
 			{
 				x=xpt_xy.x;
@@ -56,8 +61,10 @@ void main()
 				{					
     				 displayPageSetting();    //½øÈëÉèÖÃ½çÃæ
 					   TFT_ClearScreen(0x0000);		//ÇåÆÁ	
+					   backTag = 1;
 				}
 			}
+			cou++;
 	}
 
 }
