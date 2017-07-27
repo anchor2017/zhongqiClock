@@ -1,0 +1,13 @@
+"main.obj",
+"lcd_driver.obj",
+"gui.obj",
+"touch.obj",
+"calTimeDisplay.obj",
+"paintTFT.obj",
+"clock.obj",
+"i2c.obj",
+"gy521.obj",
+"DS18S120.obj",
+"settime.obj" 
+TO "pro" 
+RAMSIZE(256) 

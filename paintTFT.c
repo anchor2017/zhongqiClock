@@ -186,6 +186,9 @@ void TFT_paintMainClock(bit tag)
 	uchar h1[]={0,'\0'}, h0[]={0,'\0'};
 	uchar m1[]={0,'\0'}, m0[]={0,'\0'};
 	uchar s1[]={0,'\0'}, s0[]={0,'\0'};	//存放时分秒
+
+	GUI_ShowPicture(10, 10, 100, 77);
+
 	if( tag == 1)         //第一次进入时钟界面，刷新所有内容
 	{								 	
 	     GUI_WriteASCII(127, 0, "SET", 0x001F, 0x0000);	 //设置   右上角	

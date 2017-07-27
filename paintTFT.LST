@@ -1,0 +1,322 @@
+C51 COMPILER V8.08   PAINTTFT                                                              07/27/2017 13:10:52 PAGE 1   
+
+
+C51 COMPILER V8.08, COMPILATION OF MODULE PAINTTFT
+OBJECT MODULE PLACED IN paintTFT.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE paintTFT.c OPTIMIZE(9,SIZE) BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1           /***************************************************************************************
+   2           *      FileName                                        :       paintTFT.c
+   3           *      CopyRight                                       : 
+   4           *      ModuleName                                      :        
+   5           *
+   6           *      CPU                                                     :
+   7           *      RTOS                                            :
+   8           *
+   9           *      Create Data                                     :       
+  10           *      Author/Corportation                     :        caiyinmao
+  11           *
+  12           *      Abstract Description            :
+  13           *
+  14           *--------------------------------Revision History--------------------------------------
+  15           *      No      version         Data                    Revised By                      Item                    Description
+  16           *      
+  17           *
+  18           ***************************************************************************************/
+  19          
+  20          /**************************************************************
+  21          *       Debug switch Section
+  22          **************************************************************/
+  23          
+  24          
+  25          /**************************************************************
+  26          *       Include File Section
+  27          **************************************************************/
+  28          #include <reg52.h>
+  29          #include "paintTFT.h"
+  30          #include "GUI.h"
+  31          #include "clock.h"
+  32          
+  33          /**************************************************************
+  34          *       Macro Define Section
+  35          **************************************************************/
+  36          
+  37          /**************************************************************
+  38          *       Struct Define Section
+  39          **************************************************************/
+  40          
+  41          
+  42          /**************************************************************
+  43          *       Prototype Declare Section
+  44          **************************************************************/
+  45          
+  46          
+  47          /**************************************************************
+  48          *       Global Variable Declare Section
+  49          **************************************************************/
+  50          
+  51          
+  52          uchar code triangle[][48]=
+  53          {
+  54          /*--  ??x??=16x24  --*/
+  55                  //箭头
+C51 COMPILER V8.08   PAINTTFT                                                              07/27/2017 13:10:52 PAGE 2   
+
+  56          0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x80,0x01,0xC0,0x01,0xC0,
+  57          0x03,0xE0,0x07,0xF0,0x0F,0xF8,0x1F,0xFC,0x3F,0xFE,0x3F,0xFE,0x7F,0xFE,0x7F,0xFE,
+  58          0x7F,0xFE,0xFF,0xFF,0xFF,0xFF,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,        
+  59          /*--  ??x??=16x24  --*/
+  60                  //反箭头
+  61          0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xFF,0xFF,0xFF,0xFF,0x7F,0xFE,
+  62          0x7F,0xFE,0x7F,0xFE,0x3F,0xFE,0x3F,0xFE,0x1F,0xFC,0x0F,0xF8,0x07,0xF0,0x03,0xE0,
+  63          0x01,0xC0,0x01,0xC0,0x00,0x80,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+  64          };
+  65          /**************************************************************
+  66          *       File Static Variable Define Section
+  67          **************************************************************/
+  68          
+  69          
+  70          
+  71          
+  72          /**************************************************************
+  73          *       Function Define Section
+  74          **************************************************************/
+  75          /**
+  76          *  @name:void TFT_paintSetTime(bit tag)
+  77          *       @description: 设置时间界面
+  78           *      @param          :tag = 1时设置时间。=0时设置闹钟
+  79           *      @return         : none
+  80           *  @notice : none
+  81           *  @use : 在触摸屏显示调整时间的基本框架（设置界面）
+  82           */
+  83           void TFT_paintSetTime(bit tag)
+  84           {
+  85   1              uchar stime[][2] = {0, '\0',0, '\0',0, '\0',0, '\0',0, '\0',0, '\0'};
+  86   1              clockTime setTime;
+  87   1              if(  tag == 1 )
+  88   1              {
+  89   2                      setTime = time;
+  90   2              GUI_WriteASCII(47, 24, "TIME", 0xFFE0, 0x0000);
+  91   2              }
+  92   1              else
+  93   1              {
+  94   2                      setTime = timeclock;
+  95   2                GUI_WriteASCII(47, 24, "CLOCK", 0xFFE0, 0x0000);
+  96   2                      GUI_WriteASCII(127, 0, "YES", 0x001F, 0x0000);          
+  97   2              }
+  98   1      
+  99   1              stime[0][0] = setTime.hour / 10 + '0';
+ 100   1              stime[1][0] = setTime.hour % 10 + '0';
+ 101   1              stime[2][0] = setTime.minute / 10 + '0';
+ 102   1              stime[3][0] = setTime.minute % 10 + '0';
+ 103   1              stime[4][0] = setTime.second / 10 + '0';
+ 104   1              stime[5][0] = setTime.second % 10 + '0';                
+ 105   1              /*将时间写在设置界面上*/        
+ 106   1        GUI_Writetable(9, 60, triangle[0], 0x7fff, 0x0000);   
+ 107   1        GUI_Writetable(29, 60, triangle[0], 0x7fff, 0x0000);  
+ 108   1        GUI_Writetable(69, 60, triangle[0], 0x7fff, 0x0000);  
+ 109   1        GUI_Writetable(89, 60, triangle[0], 0x7fff, 0x0000);  
+ 110   1        GUI_Writetable(129, 60, triangle[0], 0x7fff, 0x0000); 
+ 111   1        GUI_Writetable(149, 60, triangle[0], 0x7fff, 0x0000); 
+ 112   1        GUI_Writetable(9, 160, triangle[1], 0x7fff, 0x0000);  
+ 113   1        GUI_Writetable(29, 160, triangle[1], 0x7fff, 0x0000); 
+ 114   1        GUI_Writetable(69, 160, triangle[1], 0x7fff, 0x0000); 
+ 115   1        GUI_Writetable(89, 160, triangle[1], 0x7fff, 0x0000); 
+ 116   1        GUI_Writetable(129, 160, triangle[1], 0x7fff, 0x0000);        
+ 117   1        GUI_Writetable(149, 160, triangle[1], 0x7fff, 0x0000);        
+C51 COMPILER V8.08   PAINTTFT                                                              07/27/2017 13:10:52 PAGE 3   
+
+ 118   1              
+ 119   1              GUI_WriteASCII(0, 0, "BACK", 0x001F, 0x0000);     //返回   左上角       
+ 120   1        GUI_WriteASCII2(50, 94, ":", 0x7fff, 0x0000);
+ 121   1                      GUI_WriteASCII2(106, 94, ":", 0x7fff, 0x0000);          
+ 122   1                GUI_WriteASCII2(10, 100, stime[0], 0xF800, 0x0000);    //h1                            
+ 123   1          GUI_WriteASCII2(30, 100, stime[1], 0xF800, 0x0000);  //h0                                                                           
+ 124   1                      GUI_WriteASCII2(70, 100, stime[2], 0x07e0, 0x0000);      //m1                                    
+ 125   1          GUI_WriteASCII2(90, 100, stime[3], 0x07e0, 0x0000);  //m0                                                                   
+ 126   1                      GUI_WriteASCII2(130, 100,stime[4], 0xffe0, 0x0000);      //s1                    
+ 127   1          GUI_WriteASCII2(150, 100, stime[5], 0xffe0, 0x0000);         //s0                   
+ 128   1              
+ 129   1      }        
+ 130          
+ 131          
+ 132          
+ 133          /**
+ 134          *  @name:void paintTFT();
+ 135          *       @description: 在触摸屏上画图
+ 136           *      @param          :none
+ 137           *      @return         : none
+ 138           *  @notice : none
+ 139           *  @use : 在触摸屏显示调整时间的基本框架（设置界面）
+ 140           */
+ 141          void TFT_paintSetSur(uchar *s)          //设置界面的显示
+ 142          {
+ 143   1              TFT_ClearScreen(0x0000);
+ 144   1              GUI_WriteASCII(47, 24, s, 0xFFE0, 0x0000);        //x, y        
+ 145   1              //横线
+ 146   1              GUI_Line(20, 50, 155, 50, 0xF800);  //x, y, x, y
+ 147   1              GUI_Line(20, 90, 155, 90, 0xF800);  //x, y, x, y
+ 148   1              GUI_Line(20, 130, 155, 130, 0xF800);  //x, y, x, y
+ 149   1              GUI_Line(20, 170, 155, 170, 0xF800);  //x, y, x, y
+ 150   1              GUI_Line(20, 210, 155, 210, 0xF800);  //x, y, x, y      
+ 151   1              //竖线
+ 152   1              GUI_Line(65, 90, 65, 210, 0xF800);  //x, y, x, y
+ 153   1              GUI_Line(110, 50, 110, 210, 0xF800);  //x, y, x, y      
+ 154   1              //数字  x, y            
+ 155   1              GUI_WriteASCII(31, 94, "1", 0xF800, 0x0000);     //1
+ 156   1              GUI_WriteASCII(81, 94, "2", 0xF800, 0x0000);     //2
+ 157   1              GUI_WriteASCII(127, 94, "3", 0xF800, 0x0000);    //3
+ 158   1              GUI_WriteASCII(31, 134, "4", 0xF800, 0x0000);    //4
+ 159   1              GUI_WriteASCII(81, 134, "5", 0xF800, 0x0000);    //5
+ 160   1              GUI_WriteASCII(127, 134, "6", 0xF800, 0x0000);   //6
+ 161   1              GUI_WriteASCII(31, 174, "7", 0xF800, 0x0000);    //7
+ 162   1              GUI_WriteASCII(81, 174, "8", 0xF800, 0x0000);    //8
+ 163   1              GUI_WriteASCII(127, 174, "9", 0xF800, 0x0000);   //9
+ 164   1          GUI_WriteASCII(127, 58, "0", 0xF800, 0x0000);        //0    
+ 165   1              GUI_WriteASCII(0, 0, "BACK", 0x001F, 0x0000);     //返回   左上角
+ 166   1      
+ 167   1      }
+ 168          
+ 169          /**
+ 170          *  @name:void TFT_paintTimeSet();
+ 171          *       @description: 主界面的时间显示
+ 172           *      @param          : bit tag 是否需要全屏刷新显示，1为刷新显示
+ 173           *      @return         : none
+ 174           *  @notice : none
+ 175           *  @use : 得到时分秒六位，并显示在触摸屏的中间
+ 176           */
+ 177          void TFT_paintMainClock(bit tag)
+ 178          {
+ 179   1              static clockTime lastTime;
+C51 COMPILER V8.08   PAINTTFT                                                              07/27/2017 13:10:52 PAGE 4   
+
+ 180   1               uchar code table[] ={
+ 181   1      0x38,0x00,0x6C,0x00,0xC6,0x00,0x82,0x00,0xC6,0x00,0x6C,0x00,0x38,0xFE,0x01,0xFE,
+ 182   1      0x07,0x00,0x0E,0x00,0x0E,0x00,0x0E,0x00,0x0C,0x00,0x0C,0x00,0x0C,0x00,0x0C,0x00,
+ 183   1      0x0E,0x00,0x0E,0x00,0x06,0x00,0x03,0xFE,0x00,0xFE,0x00,0x00,0x00,0x00,0x00,0x00,
+ 184   1               };       //摄氏度      
+ 185   1        uchar color,k,j;       
+ 186   1              uchar h1[]={0,'\0'}, h0[]={0,'\0'};
+ 187   1              uchar m1[]={0,'\0'}, m0[]={0,'\0'};
+ 188   1              uchar s1[]={0,'\0'}, s0[]={0,'\0'};     //存放时分秒
+ 189   1      
+ 190   1              GUI_ShowPicture(10, 10, 100, 77);
+ 191   1      
+ 192   1              if( tag == 1)         //第一次进入时钟界面，刷新所有内容
+ 193   1              {                                                                       
+ 194   2                   GUI_WriteASCII(127, 0, "SET", 0x001F, 0x0000);      //设置   右上角        
+ 195   2                               GUI_WriteASCII2(50, 94, ":", 0x7fff, 0x0000);
+ 196   2               GUI_WriteASCII2(106, 94, ":", 0x7fff, 0x0000); 
+ 197   2               //摄氏度符号
+ 198   2               TFT_SetWindow(105,170,120, 193);
+ 199   2                for (k=0; k<48; k++)
+ 200   2                      {
+ 201   3                              color = table[k];
+ 202   3                              for (j=0; j<8; j++) 
+ 203   3                              {
+ 204   4                                      if ((color&0x80) == 0x80)
+ 205   4                                      {
+ 206   5                                              TFT_WriteColor(0x7fff);
+ 207   5                                      }                                               
+ 208   4                                      else
+ 209   4                                      {
+ 210   5                                              TFT_WriteColor(0x000);
+ 211   5                                      }       
+ 212   4                                      color <<= 1;
+ 213   4                              }
+ 214   3                      }               
+ 215   2              }
+ 216   1              /*设置界面的显示时间*/
+ 217   1              h1[0]=time.hour/10+'0';
+ 218   1              h0[0]=time.hour%10+'0';
+ 219   1              m1[0]=time.minute/10+'0';
+ 220   1              m0[0]=time.minute%10+'0';
+ 221   1              s1[0]=time.second/10+'0';
+ 222   1              s0[0]=time.second%10+'0';
+ 223   1      
+ 224   1              /*将时间显示在触摸屏上*/
+ 225   1              if( lastTime.hour != time.hour || tag == 1 )
+ 226   1              {
+ 227   2                      if( (lastTime.hour / 10 != time.hour / 10) || (tag == 1) )
+ 228   2                      {
+ 229   3                        GUI_WriteASCII2(10, 100, h1, 0xF800, 0x0000);  //h1   
+ 230   3                      }
+ 231   2           if( (lastTime.hour % 10 != time.hour % 10 ) || (tag == 1) )
+ 232   2                       {                       
+ 233   3                      GUI_WriteASCII2(30, 100, h0, 0xF800, 0x0000);    //h0                                                                           
+ 234   3                       }
+ 235   2               }
+ 236   1              if( (lastTime.minute != time.minute ) || (tag == 1) )
+ 237   1              {
+ 238   2                      if( (lastTime.minute / 10 != time.minute / 10) || (tag == 1) )
+ 239   2                      {
+ 240   3                       GUI_WriteASCII2(70, 100, m1, 0x07e0, 0x0000);   //m1           
+ 241   3                      }
+C51 COMPILER V8.08   PAINTTFT                                                              07/27/2017 13:10:52 PAGE 5   
+
+ 242   2           if( (lastTime.minute % 10 != time.minute % 10) || (tag == 1)  )
+ 243   2                       {                       
+ 244   3                      GUI_WriteASCII2(90, 100, m0, 0x07e0, 0x0000);    //m0                                                                   
+ 245   3                       }
+ 246   2               }
+ 247   1              if( (lastTime.second != time.second) || (tag == 1)  )
+ 248   1              {
+ 249   2                      if( (lastTime.second / 10 != time.second / 10) || (tag == 1)  )
+ 250   2                      {
+ 251   3                              GUI_WriteASCII2(130, 100, s1, 0xffe0, 0x0000);   //s1   
+ 252   3                      }
+ 253   2           if( (lastTime.second % 10 != time.second % 10) || (tag == 1)  )
+ 254   2                       {                       
+ 255   3                      GUI_WriteASCII2(150, 100, s0, 0xffe0, 0x0000);   //s0                                                                                           
+ 256   3                       }               
+ 257   2               }      
+ 258   1                  lastTime = time;          //记录当前时间用于下次对比
+ 259   1      }
+ 260          
+ 261          /**
+ 262          *  @name:void TFT_paintTimeSet(clockTime setime)
+ 263          *       @description: 重新设置时间的显示
+ 264           *      @param          : 时分秒
+ 265           *      @return         : none
+ 266           *  @notice : none
+ 267           *  @use : 得到时分秒六位，并显示在触摸屏的左上角
+ 268           */
+ 269          void TFT_paintTimeSet(clockTime setime)
+ 270          {
+ 271   1              uchar h1[]={0,'\0'}, h0[]={0,'\0'};
+ 272   1              uchar m1[]={0,'\0'}, m0[]={0,'\0'};
+ 273   1              uchar s1[]={0,'\0'}, s0[]={0,'\0'};     //存放时分秒
+ 274   1      
+ 275   1              /*得到设置界面的显示时间*/
+ 276   1              h1[0]=setime.hour/10+'0';
+ 277   1              h0[0]=setime.hour%10+'0';
+ 278   1              m1[0]=setime.minute/10+'0';
+ 279   1              m0[0]=setime.minute%10+'0';
+ 280   1              s1[0]=setime.second/10+'0';
+ 281   1              s0[0]=setime.second%10+'0';
+ 282   1              /*将时间写在设置界面左偏上*/
+ 283   1              GUI_WriteASCII(39, 56, ":", 0xF800, 0x0000);
+ 284   1              GUI_WriteASCII(71, 56, ":", 0xF800, 0x0000);
+ 285   1              GUI_WriteASCII(17, 58, h1, 0xF800, 0x0000);        //宽度12
+ 286   1              GUI_WriteASCII(29, 58, h0, 0xF800, 0x0000);
+ 287   1              GUI_WriteASCII(49, 58, m1, 0xF800, 0x0000);
+ 288   1              GUI_WriteASCII(61, 58, m0, 0xF800, 0x0000);
+ 289   1              GUI_WriteASCII(81, 58, s1, 0xF800, 0x0000);
+ 290   1              GUI_WriteASCII(93, 58, s0, 0xF800, 0x0000);
+ 291   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1725    ----
+   CONSTANT SIZE    =    226    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      3      48
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       2
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -15,7 +15,7 @@
 #endif
 
 //---ÏÔÊ¾Í¼Æ¬---//
-//#define PICTURE_SHOW
+#define PICTURE_SHOW
 
 //---ÏÔÊ¾32*29µÄºº×Ö---//
 #define CHAR32_SHOW
@@ -48,4 +48,6 @@ void GUI_WriteASCII2(uint x, uint y, uchar *p, uint wordColor, uint backColor);
 void GUI_WriteASCII2Ch(uint x, uint y, uchar c, uint wordColor, uint backColor);
 void GUI_WriteASCIICh(uint x, uint y, uchar c, uint wordColor, uint backColor);
 void GUI_Writetable(uint x, uint y, uchar *c, uint wordColor, uint backColor);
+
+void GUI_ShowPicture(uint x, uint y, uchar wide, uint high);
 #endif
