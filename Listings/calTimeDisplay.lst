@@ -1,4 +1,4 @@
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/26/2017 22:31:52 PAGE 1   
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/27/2017 10:57:43 PAGE 1   
 
 
 C51 COMPILER V9.56.0.0, COMPILATION OF MODULE CALTIMEDISPLAY
@@ -62,7 +62,7 @@ line level    source
   52          /**************************************************************
   53          * Global Variable Declare Section
   54          **************************************************************/
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/26/2017 22:31:52 PAGE 2   
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/27/2017 10:57:43 PAGE 2   
 
   55          
   56          
@@ -126,7 +126,7 @@ line level    source
  114          *  @name: displayPageSetting
  115          * @description: 显示设置界面
  116           *  @param    :none
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/26/2017 22:31:52 PAGE 3   
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/27/2017 10:57:43 PAGE 3   
 
  117           *  @return   : none
  118           *  @notice : none
@@ -182,31 +182,31 @@ line level    source
  168   1      }
  169          
  170          /**
- 171          *  @name:void displayTemp(int temp)  
+ 171          *  @name:void displayTemp(int temp,bit tag)  
  172          * @description: 显示温度
- 173           *  @param    :temp = 温度 x 10
+ 173           *  @param    :temp = 温度 x 10, tag=1重新显示所有内容
  174           *  @return   : none
  175           *  @notice : none
  176           */
- 177          void displayTemp(int temp)   
+ 177          void displayTemp(int temp ,bit tag)  
  178          {
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/26/2017 22:31:52 PAGE 4   
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/27/2017 10:57:43 PAGE 4   
 
  179   1         static int lastTemp = 0;
  180   1         uchar stemp[][2]= { 0, '\0', 0, '\0',  0,  '\0'};
  181   1         stemp[0][0] = temp / 100 + '0';     
  182   1         stemp[1][0] = (temp % 100) / 10 + '0';
  183   1         stemp[2][0] = temp % 10 + '0';
- 184   1         if( lastTemp / 100 != temp / 100 )
+ 184   1         if( (lastTemp / 100 != temp / 100) || (tag == 1) )
  185   1         {
  186   2           GUI_WriteASCII(60, 170, stemp[0], 0x7fff, 0x0000); 
  187   2         }
- 188   1         if( (lastTemp / 10) % 10 != (temp / 10) % 10 )
+ 188   1         if( ((lastTemp / 10) % 10 != (temp / 10) % 10) || (tag == 1) )
  189   1         {
  190   2           GUI_WriteASCII(70, 170, stemp[1], 0x7fff, 0x0000);  
  191   2         GUI_WriteASCII(80, 170, ".", 0x7fff, 0x0000);           
  192   2         }
- 193   1         if(lastTemp != temp )
+ 193   1         if((lastTemp != temp) || (tag == 1) )
  194   1         {
  195   2           
  196   2         GUI_WriteASCII(90, 170, stemp[2], 0x7fff, 0x0000);   
@@ -254,7 +254,7 @@ line level    source
  238   3              {
  239   4                  y=218;
  240   4              } 
-C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/26/2017 22:31:52 PAGE 5   
+C51 COMPILER V9.56.0.0   CALTIMEDISPLAY                                                    07/27/2017 10:57:43 PAGE 5   
 
  241   3            if((x>65)&&(x<130)&&(y>97)&&(y<125))    //点击关闭
  242   3            {
@@ -283,13 +283,13 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   1242    ----
+   CODE SIZE        =   1249    ----
    CONSTANT SIZE    =     33    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =      2       8
    IDATA SIZE       =   ----    ----
-   BIT SIZE         =   ----    ----
+   BIT SIZE         =   ----       1
 END OF MODULE INFORMATION.
 
 

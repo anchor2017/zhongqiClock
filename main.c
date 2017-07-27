@@ -22,7 +22,6 @@ long x=0, y=0;
 void main()
 {
 	bit backTag = 1;           //从其他界面返回主界面标志
-	uchar cou = 50;
   P3 = 0x00;
   initMPU();
 	TFT_Init();				//初始化触摸屏显示
@@ -34,15 +33,14 @@ void main()
 	   if( clockTag == 2 )       //闹钟响起
 		 {
 			 displayPageClock();
+			 backTag = 1;
 		 }
     TFT_paintMainClock(backTag);           // 显示时间
-		 backTag = 0;
-		 if( cou == 50 )
-		 {
-			 cou = 0;
 			tempchange();   
-			displayTemp(getTemp());           // 显示温度			
-		 }
+			displayTemp(getTemp(),backTag);           // 显示温度	
+				 backTag = 0;			 
+
+ 
 	    if(TOUCH_XPT_ReadXY() == 1)	
 			{
 				x=xpt_xy.x;
@@ -64,7 +62,6 @@ void main()
 					   backTag = 1;
 				}
 			}
-			cou++;
 	}
 
 }

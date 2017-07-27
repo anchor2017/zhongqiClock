@@ -79,13 +79,13 @@ extern uchar pwmCount, pwmPeriod ;          //占空比计数器，占空比标数
 void displayPageSetting();
 
 /**
-*  @name:void displayTemp(int temp)	 
+*  @name:void displayTemp(int temp,bit tag)	 
 *	@description: 显示温度
- *	@param		:temp = 温度 x 10
+ *	@param		:temp = 温度 x 10, tag=1重新显示所有内容
  *	@return		: none
  *  @notice : none
  */
-void displayTemp(int temp);
+void displayTemp(int temp ,bit tag)	 ;
 /**
 *  @name: displayPageSetting
 *	@description: 显示闹钟响起时的界面

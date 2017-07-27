@@ -168,29 +168,29 @@ void displayPageSetting()
 }
 
 /**
-*  @name:void displayTemp(int temp)	 
+*  @name:void displayTemp(int temp,bit tag)	 
 *	@description: 显示温度
- *	@param		:temp = 温度 x 10
+ *	@param		:temp = 温度 x 10, tag=1重新显示所有内容
  *	@return		: none
  *  @notice : none
  */
-void displayTemp(int temp)	 
+void displayTemp(int temp ,bit tag)	 
 {
    static int lastTemp = 0;
 	 uchar stemp[][2]= { 0, '\0', 0, '\0',  0,  '\0'};
 	 stemp[0][0] = temp / 100 + '0';     
 	 stemp[1][0] = (temp % 100) / 10 + '0';
 	 stemp[2][0] = temp % 10 + '0';
-	 if( lastTemp / 100 != temp / 100 )
+	 if( (lastTemp / 100 != temp / 100) || (tag == 1) )
 	 {
      GUI_WriteASCII(60, 170, stemp[0], 0x7fff, 0x0000);	
 	 }
-	 if( (lastTemp / 10) % 10 != (temp / 10) % 10 )
+	 if( ((lastTemp / 10) % 10 != (temp / 10) % 10) || (tag == 1) )
 	 {
 		 GUI_WriteASCII(70, 170, stemp[1], 0x7fff, 0x0000);	 
 	 GUI_WriteASCII(80, 170, ".", 0x7fff, 0x0000);	 		 		 
    }
-	 if(lastTemp != temp )
+	 if((lastTemp != temp) || (tag == 1) )
 	 {
 		 
    GUI_WriteASCII(90, 170, stemp[2], 0x7fff, 0x0000);		
